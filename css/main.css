@@ -54,3 +54,9 @@ pre.highlight code,
   border: 3px solid #fff;
   border-radius:100%;
 }
+
+.center-image
+{
+    margin: 0 auto;
+    display: block;
+}
