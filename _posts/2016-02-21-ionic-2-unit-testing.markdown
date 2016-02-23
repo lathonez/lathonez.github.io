@@ -5,7 +5,7 @@ categories: [dev]
 tags: [ionic2, angular2, testing]
 ---
 
-**TL;DR** - I have an Ionic 2 project on github set up with unit testing, [dive in ][clicker-repo], or read on.
+**TL;DR** - I have an Ionic 2 project on github set up with unit testing, [dive in][clicker-repo], or read on.
 
 Ionic 2 looks very promising, allowing us to use the power of Angular 2 to create beautiful native mobile apps. As of yet, there isn't much guidance on how to set up unit testing for your Ionic 2 project, making one of the core benefits of Angular 2 redundant to early adopters.
 
