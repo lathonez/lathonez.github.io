@@ -1,8 +1,8 @@
 # Site settings
 title: Lathonez
 description: ''
-url: 'http://lathonez.com/lathonez/'
-baseurl: '/lathonez/'
+url: 'http://lathonez.github.io'
+baseurl: ''
 # google_analytics: 'UA-XXXXXX-X'
 # disqus_shortname: 'your-disqus-name'
 
