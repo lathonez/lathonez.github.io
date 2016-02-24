@@ -25,59 +25,52 @@ The app is very simple, each [clicker][analog-clicker-img] is a counter that le
 Directory Structure
 --------------------
 
-There is a lot of discussion around where to keep unit tests. Should they live with the source code or in a separate directory? I decided to keep the two separate. My source lives in app/ and my test lives in test/.
+There is some debate around where to keep unit tests. I started off with the unit tests in a separate `test/` directory, but have recently combined with the source code as per the [Angular 2 Style Guide][angular2-sg-dir]
 
 
 ```
 app/
 ├── app.html
+├── app.spec.ts
 ├── app.ts
 ├── components
 │   ├── clickerButton
 │   │   ├── clickerButton.html
+│   │   ├── clickerButton.spec.ts
 │   │   └── clickerButton.ts
 │   └── clickerForm
 │       ├── clickerForm.html
+│       ├── clickerForm.spec.ts
 │       └── clickerForm.ts
 ├── models
+│   ├── clicker.spec.ts
 │   ├── clicker.ts
+│   ├── click.spec.ts
 │   └── click.ts
 ├── pages
 │   ├── clickerList
 │   │   ├── clickerList.html
 │   │   ├── clickerList.scss
+│   │   ├── clickerList.spec.ts
 │   │   └── clickerList.ts
 │   └── page2
 │       ├── page2.html
 │       ├── page2.scss
 │       └── page2.ts
 └── services
+    ├── clickers.spec.ts
     ├── clickers.ts
+    ├── utils.spec.ts
     └── utils.ts
 
 test/
-├── app.spec.ts
 ├── app.stub.ts
-├── components
-│   ├── clickerButton
-│   │   └── clickerButton.spec.ts
-│   └── clickerForm
-│       └── clcikerForm.spec.ts
 ├── karma.config.js
-├── models
-│   ├── clicker.spec.ts
-│   └── click.spec.ts
-├── pages
-│   └── clickerList
-│       └── clickerList.spec.ts
-├── services
-│   ├── clickers.spec.ts
-│   └── utils.spec.ts
 ├── test-main.js
 └── testUtils.ts
 ```
 
-This may not be the correct decision for your project / team. If you decide to keep the source and tests in the same folder, you should still be able to follow this post with a couple of configuration changes.
+This may not be the correct decision for your project / team. If you decide to keep the source and tests separately, you should still be able to follow this post with minimal config changes.
 
 A simple unit test on app.ts
 ----------------------------
@@ -182,6 +175,7 @@ Coming soon!
 
 [analog-clicker-img]: http://thumbs.dreamstime.com/thumblarge_304/1219960995H0ZkZw.jpg
 [angular2-seed-repo]: https://github.com/mgechev/angular2-seed
+[angular2-sg-dir]:    https://github.com/mgechev/angular2-style-guide#directory-structure
 [app.spec.ts]:        https://github.com/lathonez/clicker/blob/master/test/app.spec.ts
 [clicker-repo]:       http://github.com/lathonez/clicker
 [gulp-home]:          http://gulpjs.com/
