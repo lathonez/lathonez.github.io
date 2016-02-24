@@ -77,7 +77,7 @@ A simple unit test on app.ts
 
 We probably haven't got much logic in app.ts worthy of unit testing. However, app.ts is the root source file, if we include it in our test suite, all other spec that we write will be included too.
 
-`cp clicker/test/app.spec.ts myApp/test/app.spec.ts`
+`cp clicker/app/app.spec.ts myApp/app/app.spec.ts`
 
 Modify the test cases in [app.spec.ts][app.spec.ts] to suit your application, or use the simple example below:
 
@@ -119,11 +119,10 @@ Enter [gulp][gulp-home]. Gulp will compile all of our source code and unit tes
 
 Copy the following files into your project:
 
-`cp clicker/gulpfile.js clicker/ionic.config.js clicker/tslint.json myApp/`
+`cp clicker/gulpfile.js clicker/ionic.config.js myApp/`
 
 * [gulpfile.js][gulpfile.js]: gulp’s config file
 * [ionic.config.js][ionic.config.js]: ionic config - you should have one of these in your project already. We’re just adding the test paths to it.
-* [tslint.json][tslint.json]: config file for static code analysis tool [tslint][tslint-home]
 
 This gulpfile defines several tasks which gulp will carry out for us during the test cycle:
 
@@ -135,9 +134,10 @@ This gulpfile defines several tasks which gulp will carry out for us during the 
 
 **Install deps:**
 
-* Gulp and [tsd][tsd-home] are global: `npm install -g gulp tsd`
-* Dev dependencies: `npm install --save-dev del gulp-typescript gulp-tslint karma tslint tsd`
-* Typings for Jasmine: `tsd install jasmine --save`
+* Gulp and [typings][typings-home] are global: `npm install -g gulp typings`
+* Dev dependencies: `npm install --save-dev del gulp-typescript gulp-tslint karma tslint typings`
+* Typings for Jasmine: `typings install jasmine --ambient --save`
+* Typings for ES6: `typings install es6-shim --ambient --save`
 
 You're now ready to compile the tests with `gulp test.compile`, you should see the following output
 
@@ -171,18 +171,104 @@ www/build/test/
 Running the tests
 ------------------
 
-Coming soon!
+To get [Karma][karma-home] up and runnning, we need more boilerplate config and more dev dependencies.
+
+Copy the following files into your project:
+
+`mkdir -p myApp/test && cp clicker/test/app.stub.ts clicker/test/karma.config.js clicker/test/test-main.js myApp/test`
+
+* [app.stub.ts][app.stub.ts]: A stub for Ionic's @App decorator.
+* [karma.config.js][karma.config.js]: Karma's config
+* [test-main.js][test-main.js]: Main entry point for unit test excution. Taken pretty much verbatim from [Angular 2 Seed][angular2-seed-tm]
+* [ionic.config.js][ionic.config.js]: ionic config - you should have one of these in your project already. We’re just adding the test paths to it.
+
+**Install deps:**
+
+`npm install --save-dev es6-module-loader jasmine-core karma-coverage karma-jasmine karma-mocha-reporter karma-phantomjs-launcher phantomjs-prebuilt systemjs traceur`
+
+Now we're ready to test:
+
+`gulp test`
+
+If all goes well you'll see the following:
+
+```
+[23:33:22] Using gulpfile ~/code/myApp/gulpfile.js
+[23:33:22] Starting 'test.lint'...
+[23:33:23] Finished 'test.lint' after 8.38 ms
+[23:33:23] Starting 'test.clean'...
+[23:33:23] Finished 'test.clean' after 58 ms
+[23:33:23] Starting 'test.compile'...
+[23:33:23] Starting 'test.copyHTML'...
+[23:33:23] Finished 'test.copyHTML' after 687 μs
+[23:33:25] TypeScript: emit succeeded
+[23:33:25] Finished 'test.compile' after 2.19 s
+[23:33:25] Starting 'test'...
+
+START:
+[23:33:26] Finished 'test' after 800 ms
+24 02 2016 23:33:26.416:INFO [karma]: Karma v0.13.21 server started at http://localhost:9876/
+24 02 2016 23:33:26.422:INFO [launcher]: Starting browser PhantomJS
+24 02 2016 23:33:26.647:INFO [PhantomJS 2.1.1 (Linux 0.0.0)]: Connected on socket /#uuQjIqLkOQKcVuk2AAAA with id 99323503
+  MyApp
+    ✔ initialises with two possible pages
+
+Finished in 0.028 secs / 0.015 secs
+
+SUMMARY:
+✔ 1 test completed
+-------------------|----------|----------|----------|----------|----------------|
+File               |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
+-------------------|----------|----------|----------|----------|----------------|
+ test/             |       85 |    48.28 |       80 |    93.75 |                |
+  app.js           |       85 |    48.28 |       80 |    93.75 |              4 |
+ test/pages/page1/ |    82.35 |    48.28 |       75 |    92.31 |                |
+  page1.js         |    82.35 |    48.28 |       75 |    92.31 |              4 |
+ test/pages/page2/ |    82.35 |    48.28 |       75 |    92.31 |                |
+  page2.js         |    82.35 |    48.28 |       75 |    92.31 |              4 |
+ test/pages/page3/ |    82.35 |    48.28 |       75 |    92.31 |                |
+  page3.js         |    82.35 |    48.28 |       75 |    92.31 |              4 |
+ test/pages/tabs/  |    73.91 |    48.28 |       75 |    78.95 |                |
+  tabs.js          |    73.91 |    48.28 |       75 |    78.95 |     4,18,19,20 |
+-------------------|----------|----------|----------|----------|----------------|
+All files          |    80.85 |    48.28 |    76.19 |    89.19 |                |
+-------------------|----------|----------|----------|----------|----------------|
+
+karma exited with 0
+```
+Add the following lines to your package.json so we can get everything working nicely with npm instead of calling gulp:
+
+```javascript
+  "scripts": {
+    "postinstall": "./node_modules/typings/dist/bin/typings.js install",
+    "start": "ionic serve",
+    "test": "gulp test"
+  },
+```
+
+Now you can do `npm test`. Incidentally this will also install the typings for you on `npm install` which I've found useful.
+
+Coverage
+--------
+
+
+
 
 [analog-clicker-img]: http://thumbs.dreamstime.com/thumblarge_304/1219960995H0ZkZw.jpg
 [angular2-seed-repo]: https://github.com/mgechev/angular2-seed
+[angular2-seed-tm]:   https://github.com/mgechev/angular2-seed/blob/master/test-main.js
 [angular2-sg-dir]:    https://github.com/mgechev/angular2-style-guide#directory-structure
 [app.spec.ts]:        https://github.com/lathonez/clicker/blob/master/test/app.spec.ts
+[app.stub.ts]:        https://github.com/lathonez/clicker/blob/master/test/app.stub.ts
 [clicker-repo]:       http://github.com/lathonez/clicker
 [gulp-home]:          http://gulpjs.com/
 [gulpfile.js]:        https://github.com/lathonez/clicker/blob/master/gulpfile.js
 [ionic.config.js]:    https://github.com/lathonez/clicker/blob/master/ionic.config.js
 [karma-home]:         https://karma-runner.github.io/0.13/index.html
+[karma.config.js]:    https://github.com/lathonez/clicker/blob/master/test/karma.config.js
 [sbtp-docs]:          https://angular.io/docs/js/latest/api/testing/setBaseTestProviders-function.html
-[tsd-home]:           https://www.npmjs.com/package/tsd
+[strict-typing]:      https://github.com/lathonez/clicker/blob/master/tslint.json#L80-L97
+[test-main.js]:       https://github.com/lathonez/clicker/blob/master/test/test-main.js
+[typings-home]:       https://www.npmjs.com/package/typings
 [tslint-home]:        https://www.npmjs.com/package/tslint
 [tslint.json]:        https://github.com/lathonez/clicker/blob/master/tslint.json
