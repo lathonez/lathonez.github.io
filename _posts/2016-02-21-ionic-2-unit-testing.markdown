@@ -127,7 +127,7 @@ Copy the following files into your project:
 This gulpfile defines several tasks which gulp will carry out for us during the test cycle:
 
 1. **test.clean**: nuke anything that exists already in www/build/test
-2. **test.lint**: perform static analysis on our code using tslint. If you don’t want to use linting, just remove the references the gulpfile and delete tslint.json.
+2. **test.lint**: perform static analysis on source code using tslint, if enabled (not by default if following this post)
 3. **test.copyHTML**: we’ll want to have a copy of our html available to our unit tests, but our test build is wholly separate from Ionic’s webpack build. Thus we need to copy the html over into our test build directory
 4. **test.compile**: compile all our Typescript (both source and test), into Javascript.
 5. **test**: spin up [Karma][karma-home] and run the test (more on this later)
@@ -248,11 +248,57 @@ Add the following lines to your package.json so we can get everything working ni
 
 Now you can do `npm test`. Incidentally this will also install the typings for you on `npm install` which I've found useful.
 
-Coverage
---------
+Test Coverage
+--------------
 
+At the end of the `npm test` output you'll see a coverage report table (as above). This gives a good overview, but if you're trying to figure out why your code isn't covered you'll need more.
 
+Our Karma set up outputs [lcov][lcov-home] coverage to `./coverage` in the root folder of your app. If you browse to `/path/to/myApp/coverage/lcov-report/` in a web browser, you'll get [an overview][lcov-index-ss] of all your tested files. [Drill into one][lcov-app-ss] and you get line by line info as to what's covered.
 
+You can also use external tools like [coveralls][clicker-coveralls] or [codecov][clicker-codecov], more on this in an upcoming post **Using [Travis][clicker-travis] with Ionic 2**.
+
+Linting
+-------
+
+This set up fully supports linting with [tslint][tslint-home]. Linting is done before compilation; if linting fails, your code does not compile or test.
+
+If you want to use linting, just add a [tslint.json][tslint.json] into your project. Each time your run `npm test`, your code will be fully linted.
+
+I get the following output if I turn linting on for the Ionic Starter App:
+
+```
+[00:02:00] Using gulpfile ~/code/myApp/gulpfile.js
+[00:02:00] Starting 'test.lint'...
+[00:02:00] Finished 'test.lint' after 8.41 ms
+[00:02:00] Starting 'test.clean'...
+[00:02:00] [gulp-tslint] error (no-unused-variable) app.spec.ts[3, 10]: unused variable: 'IonicApp'
+[00:02:00] [gulp-tslint] error (typedef) app.spec.ts[9, 10]: expected variable-declaration: 'myApp' to have a typedef
+[00:02:00] [gulp-tslint] error (typedef) app.spec.ts[11, 22]: expected call-signature: 'main' to have a typedef
+[00:02:00] [gulp-tslint] error (typedef) app.spec.ts[15, 25]: expected call-signature to have a typedef
+[00:02:00] [gulp-tslint] error (typedef) app.spec.ts[16, 19]: expected variable-declaration: 'platform' to have a typedef
+[00:02:00] [gulp-tslint] error (use-strict) app.spec.ts[11, 1]: missing 'use strict'
+[00:02:00] [gulp-tslint] error (member-access) app.ts[13, 3]: default access modifier on member/method not allowed
+[00:02:00] [gulp-tslint] error (no-consecutive-blank-lines) app.ts[7, 1]: consecutive blank lines are disallowed
+[00:02:00] [gulp-tslint] error (trailing-comma) app.ts[10, 12]: missing trailing comma
+[00:02:00] Finished 'test.clean' after 273 ms
+[00:02:00] Starting 'test.compile'...
+[00:02:00] Starting 'test.copyHTML'...
+[00:02:00] Finished 'test.copyHTML' after 705 μs
+[00:02:00] [gulp-tslint] error (no-consecutive-blank-lines) pages/page1/page1.ts[3, 1]: consecutive blank lines are disallowed
+[00:02:00] [gulp-tslint] error (no-consecutive-blank-lines) pages/page2/page2.ts[3, 1]: consecutive blank lines are disallowed
+[00:02:00] [gulp-tslint] error (no-consecutive-blank-lines) pages/page3/page3.ts[3, 1]: consecutive blank lines are disallowed
+[00:02:00] [gulp-tslint] error (trailing-comma) pages/page3/page3.ts[5, 45]: missing trailing comma
+[00:02:00] [gulp-tslint] error (member-access) pages/tabs/tabs.ts[13, 3]: default access modifier on member/method not allowed
+[00:02:00] [gulp-tslint] error (member-access) pages/tabs/tabs.ts[14, 3]: default access modifier on member/method not allowed
+[00:02:00] [gulp-tslint] error (member-access) pages/tabs/tabs.ts[15, 3]: default access modifier on member/method not allowed
+[00:02:00] [gulp-tslint] error (no-consecutive-blank-lines) pages/tabs/tabs.ts[6, 1]: consecutive blank lines are disallowed
+[00:02:00] [gulp-tslint] error (trailing-comma) pages/tabs/tabs.ts[8, 43]: missing trailing comma
+```
+
+Help!
+-----
+
+If you can't get any of this working in your own project, [raise an issue][clicker-issue] and I'll do my best to help out.
 
 [analog-clicker-img]: http://thumbs.dreamstime.com/thumblarge_304/1219960995H0ZkZw.jpg
 [angular2-seed-repo]: https://github.com/mgechev/angular2-seed
@@ -260,15 +306,22 @@ Coverage
 [angular2-sg-dir]:    https://github.com/mgechev/angular2-style-guide#directory-structure
 [app.spec.ts]:        https://github.com/lathonez/clicker/blob/master/test/app.spec.ts
 [app.stub.ts]:        https://github.com/lathonez/clicker/blob/master/test/app.stub.ts
+[clicker-codecov]:    https://codecov.io/github/lathonez/clicker?branch=master
+[clicker-coveralls]:  https://coveralls.io/github/lathonez/clicker?branch=master
+[clicker-issue]:      https://github.com/lathonez/clicker/issues/new
 [clicker-repo]:       http://github.com/lathonez/clicker
+[clicker-travis]:     https://travis-ci.org/lathonez/clicker
 [gulp-home]:          http://gulpjs.com/
 [gulpfile.js]:        https://github.com/lathonez/clicker/blob/master/gulpfile.js
 [ionic.config.js]:    https://github.com/lathonez/clicker/blob/master/ionic.config.js
 [karma-home]:         https://karma-runner.github.io/0.13/index.html
 [karma.config.js]:    https://github.com/lathonez/clicker/blob/master/test/karma.config.js
+[lcov-app-ss]:     /images/ionic2_unit_testing/lcov-app-screenshot.png
+[lcov-home]:          http://ltp.sourceforge.net/coverage/lcov.php
+[lcov-index-ss]:      /images/ionic2_unit_testing/lcov-index-screenshot.png
 [sbtp-docs]:          https://angular.io/docs/js/latest/api/testing/setBaseTestProviders-function.html
 [strict-typing]:      https://github.com/lathonez/clicker/blob/master/tslint.json#L80-L97
 [test-main.js]:       https://github.com/lathonez/clicker/blob/master/test/test-main.js
-[typings-home]:       https://www.npmjs.com/package/typings
 [tslint-home]:        https://www.npmjs.com/package/tslint
 [tslint.json]:        https://github.com/lathonez/clicker/blob/master/tslint.json
+[typings-home]:       https://www.npmjs.com/package/typings
