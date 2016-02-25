@@ -134,12 +134,11 @@ This gulpfile defines several tasks which gulp will carry out for us during the 
 
 **Install deps:**
 
-* Gulp and [typings][typings-home] are global: `npm install -g gulp typings`
-* Dev dependencies: `npm install --save-dev del gulp-typescript gulp-tslint karma tslint typings`
-* Typings for Jasmine: `typings install jasmine --ambient --save`
-* Typings for ES6: `typings install es6-shim --ambient --save`
+* Dev dependencies: `npm install --save-dev del gulp gulp-typescript gulp-tslint karma tslint typings`
+* Typings for Jasmine: `node_modules/typings/dist/bin/typings.js install jasmine --ambient --save`
+* Typings for ES6: `node_modules/typings/dist/bin/typings.js install es6-shim --ambient --save`
 
-You're now ready to compile the tests with `gulp test.compile`, you should see the following output
+You're now ready to compile the tests with `node_modules/gulp/bin/gulp.js test.compile test.compile`, you should see the following output
 
 ```
 [23:40:08] Using gulpfile ~/code/myApp/gulpfile.js
