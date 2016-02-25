@@ -298,7 +298,13 @@ I get the following output if I turn linting on for the Ionic Starter App:
 Help!
 -----
 
-If you can't get any of this working in your own project, [raise an issue][clicker-issue] and I'll do my best to help out.
+If you can't get any of this working in your own project, [raise an issue][clicker-issue-new] and I'll do my best to help out.
+
+FAQ
+---
+
+* [How to debug PhantomJS stack trace][clicker-issue-6]
+* [How to test external node modules][clicker-issue-20]
 
 [analog-clicker-img]: http://thumbs.dreamstime.com/thumblarge_304/1219960995H0ZkZw.jpg
 [angular2-seed-repo]: https://github.com/mgechev/angular2-seed
@@ -308,7 +314,9 @@ If you can't get any of this working in your own project, [raise an issue][click
 [app.stub.ts]:        https://github.com/lathonez/clicker/blob/master/test/app.stub.ts
 [clicker-codecov]:    https://codecov.io/github/lathonez/clicker?branch=master
 [clicker-coveralls]:  https://coveralls.io/github/lathonez/clicker?branch=master
-[clicker-issue]:      https://github.com/lathonez/clicker/issues/new
+[clicker-issue-new]:  https://github.com/lathonez/clicker/issues/new
+[clicker-issue-6]:    https://github.com/lathonez/clicker/issues/6
+[clicker-issue-20]:   https://github.com/lathonez/clicker/issues/20
 [clicker-repo]:       http://github.com/lathonez/clicker
 [clicker-travis]:     https://travis-ci.org/lathonez/clicker
 [gulp-home]:          http://gulpjs.com/
