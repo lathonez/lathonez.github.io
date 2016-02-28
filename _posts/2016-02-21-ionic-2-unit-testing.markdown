@@ -178,7 +178,7 @@ Copy the following files into your project:
 
 * [app.stub.ts][app.stub.ts]: A stub for Ionic's @App decorator.
 * [karma.config.js][karma.config.js]: Karma's config
-* [test-main.js][test-main.js]: Main entry point for unit test excution. Taken pretty much verbatim from [Angular 2 Seed][angular2-seed-tm]
+* [test-main.js][test-main.js]: Main entry point for [unit test excution using RequireJS][karma-tm-docs].
 * [ionic.config.js][ionic.config.js]: ionic config - you should have one of these in your project already. We’re just adding the test paths to it.
 
 **Install deps:**
@@ -304,10 +304,10 @@ FAQ
 
 * [How to debug PhantomJS stack trace][clicker-issue-6]
 * [How to test external node modules][clicker-issue-20]
+* [External node modules again][clicker-issue-22]
 
 [analog-clicker-img]: http://thumbs.dreamstime.com/thumblarge_304/1219960995H0ZkZw.jpg
 [angular2-seed-repo]: https://github.com/mgechev/angular2-seed
-[angular2-seed-tm]:   https://github.com/mgechev/angular2-seed/blob/master/test-main.js
 [angular2-sg-dir]:    https://github.com/mgechev/angular2-style-guide#directory-structure
 [app.spec.ts]:        https://github.com/lathonez/clicker/blob/master/test/app.spec.ts
 [app.stub.ts]:        https://github.com/lathonez/clicker/blob/master/test/app.stub.ts
@@ -316,6 +316,7 @@ FAQ
 [clicker-issue-new]:  https://github.com/lathonez/clicker/issues/new
 [clicker-issue-6]:    https://github.com/lathonez/clicker/issues/6
 [clicker-issue-20]:   https://github.com/lathonez/clicker/issues/20
+[clicker-issue-22]:   https://github.com/lathonez/clicker/issues/22
 [clicker-repo]:       http://github.com/lathonez/clicker
 [clicker-travis]:     https://travis-ci.org/lathonez/clicker
 [gulp-home]:          http://gulpjs.com/
@@ -323,7 +324,8 @@ FAQ
 [ionic.config.js]:    https://github.com/lathonez/clicker/blob/master/ionic.config.js
 [karma-home]:         https://karma-runner.github.io/0.13/index.html
 [karma.config.js]:    https://github.com/lathonez/clicker/blob/master/test/karma.config.js
-[lcov-app-ss]:     /images/ionic2_unit_testing/lcov-app-screenshot.png
+[karma-tm-docs]:      https://karma-runner.github.io/0.8/plus/RequireJS.html
+[lcov-app-ss]:        /images/ionic2_unit_testing/lcov-app-screenshot.png
 [lcov-home]:          http://ltp.sourceforge.net/coverage/lcov.php
 [lcov-index-ss]:      /images/ionic2_unit_testing/lcov-index-screenshot.png
 [sbtp-docs]:          https://angular.io/docs/js/latest/api/testing/setBaseTestProviders-function.html
