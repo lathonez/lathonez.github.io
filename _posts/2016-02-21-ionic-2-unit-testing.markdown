@@ -294,6 +294,13 @@ I get the following output if I turn linting on for the Ionic Starter App:
 [00:02:00] [gulp-tslint] error (trailing-comma) pages/tabs/tabs.ts[8, 43]: missing trailing comma
 ```
 
+Removing tests from the .apk
+-----------------------------
+
+In the current setup, the test build residing in `www/build/test` will be compiled into the `.apk` when `ionic build` is run.
+
+See [here][cordova-prune-post] for a short post on how to prevent this from happening.
+
 Help!
 -----
 
@@ -319,6 +326,7 @@ FAQ
 [clicker-issue-22]:   https://github.com/lathonez/clicker/issues/22
 [clicker-repo]:       http://github.com/lathonez/clicker
 [clicker-travis]:     https://travis-ci.org/lathonez/clicker
+[cordova-prune-post]: http://lathonez.github.io/2016/cordova-remove-assets/
 [gulp-home]:          http://gulpjs.com/
 [gulpfile.js]:        https://github.com/lathonez/clicker/blob/master/gulpfile.js
 [ionic.config.js]:    https://github.com/lathonez/clicker/blob/master/ionic.config.js
