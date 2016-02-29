@@ -12,69 +12,71 @@ See the [original issue on github][clicker-issue-15].
 Why would I need to do this?
 -----------------------------
 
-Your project lifecycle creates artifacts in your `www/build` folder that you do not want going into your `.apk`.
+Your project lifecycle creates artifacts in `www/build` that you do not want going into the `.apk`.
 
-We needed to delete the output of our test build phase (from `www/build/test`). I came across others doing the same, whilst some had `.git` artefacts to prune.
+In our case we needed to delete the output of our test build phase from `www/build/test`.
 
-Which builder am I using?
+Don't touch the builder
 ------------------------
 
-You should see a build exec line when running `cordova build` or `ionic build`. Below is ours, using [gradle][gradle-home].
+Originally it seemed the correct approach would be to [override the builder configuration][so-ant-props]. However that brings with it a few problems:
 
-```
-Running command: /home/lathonez/code/clicker/platforms/android/cordova/build
-...
-Running: /home/lathonez/code/clicker/platforms/android/gradlew cdvBuildDebug -b /home/lathonez/code/clicker/platforms/android/build.gradle -Dorg.gradle.daemon=true
-```
+* The builders are platform specific (e.g. if you build Android and iOS you'll need two changes)
+* There are different builders for Android - `ant` or `gradle` - depending on which version of Cordova you're running
+* Currently the [override does not work][so-no-gradle] in `gradle`
 
-Ant
----
-
-If your Cordova build is using ant you should be able to override it by creating an `ant.properties` file in `platforms/android/`, as per [this SO answer][so-ant-props].
-
-```
-aapt.ignore.assets=!*.map:!thumbs.db:!.git:.*:*~
-```
-
-With this line, any file or directory that matches one of these patterns will not be included in the .apk file:
-
-* `*.map`
-* `thumbs.db`
-* `.git`
-* `.*`
-* `*~`
-
-The `!` before the pattern is to prevent ant from spitting a warning out for each file. See the [original article][ant-original] for more info.
-
-Gradle
+Use the Cordova build hooks
 ------
 
-We experimented for some time with [build-extras.gradle][cordova-beg], before stumbling on [this SO answer][so-no-gradle], which explains why it won't work.
+We went for an `after_prepare` [Cordova hook][cordova-hooks]. `cordova build` is shorthand for `cordova prepare` then `cordova compile`. `cordova prepare` copies your assets over in prepraration for compilation.
 
-As the next best alterntive we went for a `before_compile` [Cordova hook][cordova-hooks]. `cordova build` is shorthand for `cordova prepare` then `cordova compile`. The `cordova prepare` is copying your assets over in prepraration for compilation.
+We can therefore make use of the `after_prepare` hook to remove these assets from `platform/**/assets` so they don't make their way into the `.apk`, whilst leaving the output in `www/build` intact.
 
-We can therefore make use of the `before_compile` hook to remove these assets from `platform/android/assets` so they don't make their way into the `.apk`, whilst leaving the output in `www/build` intact.
+If you add your hook into `./hooks/after_prepare`, no changes to `config.xml` are required - [more info][cordova-hooks].
 
-The hook is a one liner into config.xml:
-
-```xml
-<hook type="before_compile" src="cordovaHooks/beforeCompile.js" />
-```
-
-Node is recommended for the hook scripts to keep your project cross-plaform. Ours looked like this:
+Node is recommended for the hooks to keep your project cross-plaform. Here's what we came up with, inspired by an existing hook in Ionic's [app base][ionic-ab-hook]
 
 ```javascript
-module.exports = function(ctx) {
+#!/usr/bin/env node
 
-    var del    = require('del');
-    var config = require('../ionic.config');
-    var path   = 'platforms/**/assets' + '/' + [config.paths.test.dest];
+var del  = require('del');
+var fs   = require('fs');
+var path = require('path');
 
-    console.log('Removing test build from assets before compilation: del(' + path + ')');
-    return del(path);
-};
+var rootdir = process.argv[2];
+
+if (rootdir) {
+
+  // go through each of the platform directories that have been prepared
+  var platforms = (process.env.CORDOVA_PLATFORMS ? process.env.CORDOVA_PLATFORMS.split(',') : []);
+
+  for(var x=0; x<platforms.length; x++) {
+    // open up the index.html file at the www root
+    try {
+      var platform = platforms[x].trim().toLowerCase();
+      var testBuildPath;
+
+      if(platform == 'android') {
+        testBuildPath = path.join('platforms', platform, 'assets', 'www', 'build', 'test');
+      } else {
+        testBuildPath = path.join('platforms', platform, 'www', 'build', 'test');
+      }
+
+      if(fs.existsSync(testBuildPath)) {
+        console.log('Removing test build from assets after prepare: ' + testBuildPath);
+        del.sync(testBuildPath);
+      } else {
+        console.log('Test build @ ' + testBuildPath + ' does not exist for removal');
+      }
+
+    } catch(e) {
+      process.stdout.write(e);
+    }
+  }
+}
+
 ```
-When running `cordova build` or `ionic build`, Cordova will invoke your hook script just before it compiles your code, removing those pesky files.
+When running `cordova build` or `ionic build`, Cordova will invoke your hook after it has prepared your code for compilation, removing those pesky files.
 
 Help!
 -----
@@ -89,3 +91,4 @@ If you can't get any of this working in your own project, [raise an issue][click
 [gradle-home]:         http://gradle.org/
 [so-ant-props]:        http://stackoverflow.com/questions/21142848/cordova-build-ignore-files
 [so-no-gradle]:        http://stackoverflow.com/a/25927034/5083721
+[ionic-ab-hook]:      https://github.com/driftyco/ionic2-app-base/blob/master/hooks/after_prepare/010_add_platform_class.js
