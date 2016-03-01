@@ -119,10 +119,10 @@ Enter [gulp][gulp-home]. Gulp will compile all of our source code and unit tes
 
 Copy the following files into your project:
 
-`cp clicker/gulpfile.js clicker/ionic.config.js myApp/`
+`cp clicker/gulpfile.ts clicker/config.ts myApp/`
 
-* [gulpfile.js][gulpfile.js]: gulp’s config file
-* [ionic.config.js][ionic.config.js]: ionic config - you should have one of these in your project already. We’re just adding the test paths to it.
+* [gulpfile.ts][gulpfile.ts]: gulp’s config file
+* [config.ts][config.ts]: small config file for this setup, containing only paths at the moment. Can be [heavily expanded] down the line.
 
 This gulpfile defines several tasks which gulp will carry out for us during the test cycle:
 
@@ -132,16 +132,30 @@ This gulpfile defines several tasks which gulp will carry out for us during the 
 4. **test.compile**: compile all our Typescript (both source and test), into Javascript.
 5. **test**: spin up [Karma][karma-home] and run the test (more on this later)
 
-**Install deps:**
+**Install Dependencies and Typings:**
 
-* Dev dependencies: `npm install --save-dev del gulp gulp-typescript gulp-tslint karma tslint typings`
-* Typings for Jasmine: `node_modules/typings/dist/bin/typings.js install jasmine --ambient --save`
-* Typings for ES6: `node_modules/typings/dist/bin/typings.js install es6-shim --ambient --save`
+<div class="highlighter-rouge">
+<pre class="lowlight">
+<code>npm install --save-dev chalk del gulp gulp-load-plugins gulp-tslint gulp-typescript karma run-sequence tslint ts-node typings</code>
+</pre>
+</div>
 
-You're now ready to compile the tests with `node_modules/gulp/bin/gulp.js test.compile test.compile`, you should see the following output
+<div class="highlighter-rouge">
+<pre class="lowlight">
+<code>for typing in \
+bluebird chalk del es6-shim express glob gulp gulp-load-plugins gulp-typescript \
+gulp-util jasmine karma log4js mime minimatch node orchestrator q \
+run-sequence serve-static through2 vinyl
+do
+./node_modules/typings/dist/bin/typings.js install $typing --save-dev --ambient --no-insight
+done</code>
+</pre>
+</div>
+
+You're now ready to compile the tests: `node_modules/gulp/bin/gulp.js test.compile test.compile`
 
 ```
-[23:40:08] Using gulpfile ~/code/myApp/gulpfile.js
+[23:40:08] Using gulpfile ~/code/myApp/gulpfile.ts
 [23:40:09] Starting 'test.clean'...
 [23:40:09] Finished 'test.clean' after 13 ms
 [23:40:09] Starting 'test.compile'...
@@ -149,7 +163,7 @@ You're now ready to compile the tests with `node_modules/gulp/bin/gulp.js test.c
 [23:40:11] Finished 'test.compile' after 2.4 s
 ```
 
-To verify that the compilation has succeed as planned, inspect www/build/test. You should see that app.spec.ts test has been compiled into Javascript, along with all the source code:
+To verify that the compilation has succeed as planned, inspect `www/build/test`. You should see that `app.spec.ts` has been compiled into Javascript, along with all the source code:
 
 
 ```
@@ -174,35 +188,43 @@ To get [Karma][karma-home] up and runnning, we need more boilerplate config and 
 
 Copy the following files into your project:
 
-`mkdir -p myApp/test && cp clicker/test/app.stub.ts clicker/test/karma.config.js clicker/test/test-main.js myApp/test`
+<div class="highlighter-rouge">
+<pre class="lowlight">
+<code>mkdir -p myApp/test
+cp clicker/test/app.stub.ts clicker/test/karma.config.js clicker/test/test-main.js myApp/test</code>
+</pre>
+</div>
 
 * [app.stub.ts][app.stub.ts]: A stub for Ionic's @App decorator.
 * [karma.config.js][karma.config.js]: Karma's config
 * [test-main.js][test-main.js]: Main entry point for [unit test excution using RequireJS][karma-tm-docs].
-* [ionic.config.js][ionic.config.js]: ionic config - you should have one of these in your project already. We’re just adding the test paths to it.
+* [config.ts][config.ts]: ionic config - you should have one of these in your project already. We’re just adding the test paths to it.
 
 **Install deps:**
 
-`npm install --save-dev es6-module-loader jasmine-core karma-coverage karma-jasmine karma-mocha-reporter karma-phantomjs-launcher phantomjs-prebuilt systemjs traceur`
+<div class="highlighter-rouge">
+<pre class="lowlight">
+<code>npm install --save-dev es6-module-loader jasmine-core karma-coverage karma-jasmine karma-mocha-reporter karma-phantomjs-launcher phantomjs-prebuilt systemjs traceur</code>
+</pre>
+</div>
 
-Now we're ready to test:
-
-`gulp test`
-
-If all goes well you'll see the following:
+Now we're ready to test: `gulp test`
 
 ```
-[23:33:22] Using gulpfile ~/code/myApp/gulpfile.js
-[23:33:22] Starting 'test.lint'...
-[23:33:23] Finished 'test.lint' after 8.38 ms
-[23:33:23] Starting 'test.clean'...
-[23:33:23] Finished 'test.clean' after 58 ms
-[23:33:23] Starting 'test.compile'...
-[23:33:23] Starting 'test.copyHTML'...
-[23:33:23] Finished 'test.copyHTML' after 687 μs
-[23:33:25] TypeScript: emit succeeded
-[23:33:25] Finished 'test.compile' after 2.19 s
-[23:33:25] Starting 'test'...
+[22:53:59] Requiring external module ts-node/register
+[22:54:01] Using gulpfile ~/code/clicker/gulpfile.ts
+[22:54:01] Starting 'test'...
+[22:54:01] Starting 'test.clean'...
+[22:54:01] Starting 'test.lint'...
+[22:54:01] Deleted /home/lathonez/code/clicker/www/build/test
+[22:54:01] Finished 'test.clean' after 452 ms
+[22:54:02] Finished 'test.lint' after 1.16 s
+[22:54:02] Starting 'test.copyHTML'...
+[22:54:02] Finished 'test.copyHTML' after 12 ms
+[22:54:02] Starting 'test.build'...
+[22:54:04] TypeScript: emit succeeded
+[22:54:04] Finished 'test.build' after 1.88 s
+[22:54:04] Starting 'startKarma'...
 
 START:
 [23:33:26] Finished 'test' after 800 ms
@@ -235,17 +257,17 @@ All files          |    80.85 |    48.28 |    76.19 |    89.19 |                
 
 karma exited with 0
 ```
-Add the following lines to your package.json so we can get everything working nicely with npm instead of calling gulp:
+Add the following lines to your `package.json` so we can get everything working nicely with `npm` instead of calling `gulp`:
 
-```javascript
+```yaml
   "scripts": {
-    "postinstall": "./node_modules/typings/dist/bin/typings.js install",
+    "postinstall": "typings install",
     "start": "ionic serve",
     "test": "gulp test"
-  },
+  }
 ```
 
-Now you can do `npm test`. Incidentally this will also install the typings for you on `npm install` which I've found useful.
+Now you can do `npm test`. This will also install the typings for you on `npm install` which I've found useful.
 
 Test Coverage
 --------------
@@ -266,7 +288,7 @@ If you want to use linting, just add a [tslint.json][tslint.json] into your proj
 I get the following output if I turn linting on for the Ionic Starter App:
 
 ```
-[00:02:00] Using gulpfile ~/code/myApp/gulpfile.js
+[00:02:00] Using gulpfile ~/code/myApp/gulpfile.ts
 [00:02:00] Starting 'test.lint'...
 [00:02:00] Finished 'test.lint' after 8.41 ms
 [00:02:00] Starting 'test.clean'...
@@ -314,6 +336,7 @@ FAQ
 * [External node modules again][clicker-issue-22]
 
 [analog-clicker-img]: http://thumbs.dreamstime.com/thumblarge_304/1219960995H0ZkZw.jpg
+[angular2-seed-cfg]:  https://github.com/mgechev/angular2-seed/blob/master/tools/config.ts
 [angular2-seed-repo]: https://github.com/mgechev/angular2-seed
 [angular2-sg-dir]:    https://github.com/mgechev/angular2-style-guide#directory-structure
 [app.spec.ts]:        https://github.com/lathonez/clicker/blob/master/test/app.spec.ts
@@ -328,8 +351,8 @@ FAQ
 [clicker-travis]:     https://travis-ci.org/lathonez/clicker
 [cordova-prune-post]: http://lathonez.github.io/2016/cordova-remove-assets/
 [gulp-home]:          http://gulpjs.com/
-[gulpfile.js]:        https://github.com/lathonez/clicker/blob/master/gulpfile.js
-[ionic.config.js]:    https://github.com/lathonez/clicker/blob/master/ionic.config.js
+[gulpfile.ts]:        https://github.com/lathonez/clicker/blob/master/gulpfile.ts
+[config.ts]:    https://github.com/lathonez/clicker/blob/master/config.ts
 [karma-home]:         https://karma-runner.github.io/0.13/index.html
 [karma.config.js]:    https://github.com/lathonez/clicker/blob/master/test/karma.config.js
 [karma-tm-docs]:      https://karma-runner.github.io/0.8/plus/RequireJS.html

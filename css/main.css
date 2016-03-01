@@ -13,7 +13,16 @@ pre.highlight code,
   white-space: pre-wrap;
 }
 
-.btn, 
+pre.lowlight,
+.lowlight pre {
+  padding: 10px;
+}
+
+pre.lowlight code,
+.lowlight pre code {
+  white-space: pre-wrap;
+}
+.btn,
 .navigation__item a {
   margin: 5px 0;
   white-space: nowrap;
