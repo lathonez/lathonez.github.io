@@ -65,6 +65,7 @@ app/
 
 test/
 ├── app.stub.ts
+├── config.ts
 ├── karma.config.js
 ├── test-main.js
 └── testUtils.ts
@@ -119,7 +120,13 @@ Enter [gulp][gulp-home]. Gulp will compile all of our source code and unit tes
 
 Copy the following files into your project:
 
-`cp clicker/gulpfile.ts clicker/config.ts myApp/`
+<div class="highlighter-rouge">
+<pre class="lowlight">
+<code>cp clicker/gulpfile.ts myApp/
+mkdir -p myApp/test
+cp clicker/config.ts myApp/test</code>
+</pre>
+</div>
 
 * [gulpfile.ts][gulpfile.ts]: gulp’s config file
 * [config.ts][config.ts]: small config file for this setup, containing only paths at the moment. Can be [heavily expanded] down the line.
@@ -190,7 +197,7 @@ Copy the following files into your project:
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>mkdir -p myApp/test
+<code>
 cp clicker/test/app.stub.ts clicker/test/karma.config.js clicker/test/test-main.js myApp/test</code>
 </pre>
 </div>
@@ -198,7 +205,6 @@ cp clicker/test/app.stub.ts clicker/test/karma.config.js clicker/test/test-main.
 * [app.stub.ts][app.stub.ts]: A stub for Ionic's @App decorator.
 * [karma.config.js][karma.config.js]: Karma's config
 * [test-main.js][test-main.js]: Main entry point for [unit test excution using RequireJS][karma-tm-docs].
-* [config.ts][config.ts]: ionic config - you should have one of these in your project already. We’re just adding the test paths to it.
 
 **Install deps:**
 
@@ -352,7 +358,7 @@ FAQ
 [cordova-prune-post]: http://lathonez.github.io/2016/cordova-remove-assets/
 [gulp-home]:          http://gulpjs.com/
 [gulpfile.ts]:        https://github.com/lathonez/clicker/blob/master/gulpfile.ts
-[config.ts]:    https://github.com/lathonez/clicker/blob/master/config.ts
+[config.ts]:          https://github.com/lathonez/clicker/blob/master/test/config.ts
 [karma-home]:         https://karma-runner.github.io/0.13/index.html
 [karma.config.js]:    https://github.com/lathonez/clicker/blob/master/test/karma.config.js
 [karma-tm-docs]:      https://karma-runner.github.io/0.8/plus/RequireJS.html
