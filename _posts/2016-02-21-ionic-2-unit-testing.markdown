@@ -118,18 +118,20 @@ Our tests are written in Typescript, the same as our Ionic 2 source code. When 
 
 Enter [gulp][gulp-home]. Gulp will compile all of our source code and unit tests into individual files within www/build/test.
 
-Copy the following files into your project:
+Make the following changes to your project:
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
 <code>cp clicker/gulpfile.ts myApp/
 mkdir -p myApp/test
-cp clicker/config.ts myApp/test</code>
+cp clicker/config.ts myApp/test
+ln -s app myApp/build</code>
 </pre>
 </div>
 
 * [gulpfile.ts][gulpfile.ts]: gulp’s config file
 * [config.ts][config.ts]: small config file for this setup, containing only paths at the moment. Can be [heavily expanded] down the line.
+* [build symlink][build.sym]: this seems to be the cleanest way to use Ionic's build structure with [gulp-inline-ng2-template][gulp-inline-ng2]
 
 This gulpfile defines several tasks which gulp will carry out for us during the test cycle:
 
@@ -143,7 +145,7 @@ This gulpfile defines several tasks which gulp will carry out for us during the 
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>npm install --save-dev chalk del gulp gulp-load-plugins gulp-tslint gulp-typescript karma run-sequence tslint ts-node typings</code>
+<code>npm install --save-dev chalk del gulp gulp-load-plugins gulp-inline-ng2-template gulp-tslint gulp-typescript karma run-sequence tslint ts-node typings</code>
 </pre>
 </div>
 
@@ -197,8 +199,7 @@ Copy the following files into your project:
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>
-cp clicker/test/app.stub.ts clicker/test/karma.config.js clicker/test/test-main.js myApp/test</code>
+<code>cp clicker/test/app.stub.ts clicker/test/karma.config.js clicker/test/test-main.js myApp/test</code>
 </pre>
 </div>
 
@@ -340,6 +341,7 @@ FAQ
 * [How to debug PhantomJS stack trace][clicker-issue-6]
 * [How to test external node modules][clicker-issue-20]
 * [External node modules again][clicker-issue-22]
+* ['ionic serve' isn't working][clicker-issue-29]
 
 [analog-clicker-img]: http://thumbs.dreamstime.com/thumblarge_304/1219960995H0ZkZw.jpg
 [angular2-seed-cfg]:  https://github.com/mgechev/angular2-seed/blob/master/tools/config.ts
@@ -347,16 +349,19 @@ FAQ
 [angular2-sg-dir]:    https://github.com/mgechev/angular2-style-guide#directory-structure
 [app.spec.ts]:        https://github.com/lathonez/clicker/blob/master/test/app.spec.ts
 [app.stub.ts]:        https://github.com/lathonez/clicker/blob/master/test/app.stub.ts
+[build.sym]:          https://github.com/lathonez/clicker/blob/master/build
 [clicker-codecov]:    https://codecov.io/github/lathonez/clicker?branch=master
 [clicker-coveralls]:  https://coveralls.io/github/lathonez/clicker?branch=master
 [clicker-issue-new]:  https://github.com/lathonez/clicker/issues/new
 [clicker-issue-6]:    https://github.com/lathonez/clicker/issues/6
 [clicker-issue-20]:   https://github.com/lathonez/clicker/issues/20
 [clicker-issue-22]:   https://github.com/lathonez/clicker/issues/22
+[clicker-issue-29]:   https://github.com/lathonez/clicker/issues/29
 [clicker-repo]:       http://github.com/lathonez/clicker
 [clicker-travis]:     https://travis-ci.org/lathonez/clicker
 [cordova-prune-post]: http://lathonez.github.io/2016/cordova-remove-assets/
 [gulp-home]:          http://gulpjs.com/
+[gulp-inline-ng2]:    https://github.com/ludohenin/gulp-inline-ng2-template
 [gulpfile.ts]:        https://github.com/lathonez/clicker/blob/master/gulpfile.ts
 [config.ts]:          https://github.com/lathonez/clicker/blob/master/test/config.ts
 [karma-home]:         https://karma-runner.github.io/0.13/index.html
