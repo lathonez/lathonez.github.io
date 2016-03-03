@@ -341,7 +341,7 @@ FAQ
 * [How to debug PhantomJS stack trace][clicker-issue-6]
 * [How to test external node modules][clicker-issue-20]
 * [External node modules again][clicker-issue-22]
-* ['ionic serve' isn't working][clicker-issue-29]
+* [404 on app.bundle.js][clicker-issue-29]
 
 [analog-clicker-img]: http://thumbs.dreamstime.com/thumblarge_304/1219960995H0ZkZw.jpg
 [angular2-seed-cfg]:  https://github.com/mgechev/angular2-seed/blob/master/tools/config.ts
