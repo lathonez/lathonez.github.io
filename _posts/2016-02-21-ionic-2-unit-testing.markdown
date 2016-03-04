@@ -66,6 +66,7 @@ app/
 test
 ├── app.stub.ts
 ├── config.ts
+├── gulpfile.ts
 ├── ionic-angular.js
 ├── karma.config.js
 ├── test-main.js
@@ -77,7 +78,7 @@ This may not be the correct decision for your project / team. If you decide to�
 A simple unit test on app.ts
 ----------------------------
 
-We probably haven't got much logic in app.ts worthy of unit testing. However, app.ts is the root source file, if we include it in our test suite, all other spec that we write will be included too.
+We probably haven't got much logic in `app.ts` worthy of unit testing. However, `app.ts` is the root source file, if we include it in our test suite, all other spec that we write will be included too.
 
 `cp clicker/app/app.spec.ts myApp/app/app.spec.ts`
 
@@ -86,8 +87,8 @@ Modify the test cases in [app.spec.ts][app.spec.ts] to suit your application, o
 ```javascript
 import { TEST_BROWSER_PLATFORM_PROVIDERS, TEST_BROWSER_APPLICATION_PROVIDERS} from 'angular2/platform/testing/browser';
 import { setBaseTestProviders } from 'angular2/testing';
-import { IonicApp, Platform }   from 'ionic-angular/index';
-import { MyApp }           from '../app/app';
+import { IonicApp, Platform }   from 'ionic-angular';
+import { MyApp }           from './app';
 
 // this needs doing _once_ for the entire test suite, hence it's here
 setBaseTestProviders(TEST_BROWSER_PLATFORM_PROVIDERS, TEST_BROWSER_APPLICATION_PROVIDERS);
@@ -123,9 +124,9 @@ Make the following changes to your project:
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>cp clicker/gulpfile.ts myApp/
-mkdir -p myApp/test
-cp clicker/config.ts myApp/test</code>
+<code>mkdir -p myApp/test
+cp clicker/gulpfile.ts myApp/test
+cp clicker/test/config.ts myApp/test</code>
 </pre>
 </div>
 
@@ -171,54 +172,55 @@ You're now ready to build the tests:
 <code>for task in \
 test.clean test.lint test.build.fonts test.build.html test.build.sass test.build.locker test.build.typescript
 do
-node_modules/gulp/bin/gulp.js $task
+node_modules/gulp/bin/gulp.js --gulpfile test/gulpfile.ts --cwd ./ $task
 done</code>
 </pre>
 </div>
 
 ```
-[13:35:35] Requiring external module ts-node/register
-[13:35:39] Using gulpfile ~/code/clicker/gulpfile.ts
-[13:35:39] Starting 'test.clean'...
-[13:35:39] Deleted /home/lathonez/code/clicker/www/build/components, /home/lathonez/code/clicker/www/build/pages
-[13:35:39] Finished 'test.clean' after 13 ms
-[13:35:39] Requiring external module ts-node/register
-[13:35:42] Using gulpfile ~/code/clicker/gulpfile.ts
-[13:35:42] Starting 'test.lint'...
-[13:35:43] Finished 'test.lint' after 1.25 s
-[13:35:44] Requiring external module ts-node/register
-[13:35:47] Using gulpfile ~/code/clicker/gulpfile.ts
-[13:35:47] Starting 'test.build.fonts'...
+[16:49:26] Requiring external module ts-node/register
+[16:49:29] Using gulpfile ~/code/myApp/test/gulpfile.ts
+[16:49:29] Starting 'test.clean'...
+[16:49:29] Deleted /home/lathonez/code/myApp/www/build/css, /home/lathonez/code/myApp/www/build/fonts, /home/lathonez/code/myApp/www/build/pages
+[16:49:29] Finished 'test.clean' after 16 ms
+[16:49:29] Requiring external module ts-node/register
+[16:49:33] Using gulpfile ~/code/myApp/test/gulpfile.ts
+[16:49:33] Starting 'test.lint'...
+[16:49:33] Finished 'test.lint' after 122 ms
+[16:49:33] Requiring external module ts-node/register
+[16:49:36] Using gulpfile ~/code/myApp/test/gulpfile.ts
+[16:49:36] Starting 'test.build.fonts'...
 
 ∆ Copying fonts
 √ Matching patterns: node_modules/ionic-angular/fonts/**/*.+(ttf|woff|woff2)
-[13:35:47] Finished 'test.build.fonts' after 12 ms
+[16:49:36] Finished 'test.build.fonts' after 12 ms
 √ Fonts copied to www/build/fonts
-[13:35:47] Requiring external module ts-node/register
-[13:35:50] Using gulpfile ~/code/clicker/gulpfile.ts
-[13:35:50] Starting 'test.build.html'...
+[16:49:37] Requiring external module ts-node/register
+[16:49:40] Using gulpfile ~/code/myApp/test/gulpfile.ts
+[16:49:40] Starting 'test.build.html'...
 
 ∆ Copying HTML
 √ Matching patterns: app/**/*.html
-[13:35:50] Finished 'test.build.html' after 13 ms
+[16:49:40] Finished 'test.build.html' after 13 ms
 √ HTML copied to www/build
-[13:35:51] Requiring external module ts-node/register
-[13:35:54] Using gulpfile ~/code/clicker/gulpfile.ts
-[13:35:54] Starting 'test.build.sass'...
+[16:49:40] Requiring external module ts-node/register
+[16:49:43] Using gulpfile ~/code/myApp/test/gulpfile.ts
+[16:49:43] Starting 'test.build.sass'...
 
 ∆ Compiling Sass to CSS
 √ Matching patterns: app/theme/app.+(ios|md).scss
-[13:35:54] Finished 'test.build.sass' after 14 ms
+[16:49:43] Finished 'test.build.sass' after 15 ms
 √ Sass compilation complete
-[13:35:55] Requiring external module ts-node/register
-[13:35:59] Using gulpfile ~/code/clicker/gulpfile.ts
-[13:35:59] Starting 'test.build.locker'...
-[13:35:59] buildLocker: unlocked
-[13:35:59] Finished 'test.build.locker' after 444 μs
-[13:35:59] Requiring external module ts-node/register
-[13:36:02] Using gulpfile ~/code/clicker/gulpfile.ts
-[13:36:02] Starting 'test.build.typescript'...
-[13:36:05] Finished 'test.build.typescript' after 2.88 s
+[16:49:45] Requiring external module ts-node/register
+[16:49:48] Using gulpfile ~/code/myApp/test/gulpfile.ts
+[16:49:48] Starting 'test.build.locker'...
+[16:49:48] buildLocker: unlocked
+[16:49:48] Finished 'test.build.locker' after 476 μs
+[16:49:48] Requiring external module ts-node/register
+[16:49:51] Using gulpfile ~/code/myApp/test/gulpfile.ts
+[16:49:51] Starting 'test.build.typescript'...
+[16:49:54] Finished 'test.build.typescript' after 2.71 s
+
 ```
 
 To verify that the compilation has succeed as planned, inspect `www/build`. You should see the following files (each indicating that their part of the build succeeded):
@@ -244,7 +246,7 @@ Copy the following files into your project:
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>cp clicker/test/app.stub.ts clicker/test/ionic-angular.js clicker/test/clicker/test/karma.config.js clicker/test/test-main.js myApp/test</code>
+<code>cp clicker/test/app.stub.ts clicker/test/ionic-angular.js clicker/test/karma.config.js clicker/test/test-main.js myApp/test</code>
 </pre>
 </div>
 
@@ -261,113 +263,74 @@ Copy the following files into your project:
 </pre>
 </div>
 
-Now we're ready to test: `node_modules/gulp/bin/gulp.js test`
+Now we're ready to test: `node_modules/gulp/bin/gulp.js --gulpfile test/gulpfile.ts --cwd ./ test`
 
 ```
-[13:47:03] Requiring external module ts-node/register
-[13:47:06] Using gulpfile ~/code/clicker/gulpfile.ts
-[13:47:06] Starting 'test'...
-[13:47:06] Starting 'test.clean'...
-[13:47:06] Starting 'test.lint'...
-[13:47:07] Deleted /home/lathonez/code/clicker/www/build/app.html, /home/lathonez/code/clicker/www/build/components, /home/lathonez/code/clicker/www/build/css, /home/lathonez/code/clicker/www/build/fonts, /home/lathonez/code/clicker/www/build/pages
-[13:47:07] Finished 'test.clean' after 491 ms
-[13:47:08] Finished 'test.lint' after 1.25 s
-[13:47:08] Starting 'test.build.html'...
+[16:58:32] Requiring external module ts-node/register
+[16:58:35] Using gulpfile ~/code/myApp/test/gulpfile.ts
+[16:58:35] Starting 'test'...
+[16:58:35] Starting 'test.clean'...
+[16:58:35] Starting 'test.lint'...
+[16:58:35] Deleted /home/lathonez/code/myApp/www/build/css, /home/lathonez/code/myApp/www/build/fonts, /home/lathonez/code/myApp/www/build/pages
+[16:58:35] Finished 'test.clean' after 111 ms
+[16:58:35] Finished 'test.lint' after 137 ms
+[16:58:35] Starting 'test.build.html'...
 
 ∆ Copying HTML
 √ Matching patterns: app/**/*.html
-[13:47:08] Finished 'test.build.html' after 11 ms
-[13:47:08] Starting 'test.build.fonts'...
+[16:58:35] Finished 'test.build.html' after 11 ms
+[16:58:35] Starting 'test.build.fonts'...
 
 ∆ Copying fonts
 √ Matching patterns: node_modules/ionic-angular/fonts/**/*.+(ttf|woff|woff2)
-[13:47:08] Finished 'test.build.fonts' after 2.07 ms
-[13:47:08] Starting 'test.build.sass'...
+[16:58:35] Finished 'test.build.fonts' after 2.23 ms
+[16:58:35] Starting 'test.build.sass'...
 
 ∆ Compiling Sass to CSS
 √ Matching patterns: app/theme/app.+(ios|md).scss
-[13:47:08] Finished 'test.build.sass' after 3.83 ms
-[13:47:08] Starting 'test.build.locker'...
-[13:47:08] buildLocker: waiting for fonts build to complete
+[16:58:35] Finished 'test.build.sass' after 4.58 ms
+[16:58:35] Starting 'test.build.locker'...
+[16:58:35] buildLocker: waiting for fonts build to complete
 √ HTML copied to www/build
 √ Fonts copied to www/build/fonts
-[13:47:08] buildLocker: waiting for css build to complete
-[13:47:08] buildLocker: waiting for css build to complete
-[13:47:08] buildLocker: waiting for css build to complete
-[13:47:09] buildLocker: waiting for css build to complete
+[16:58:35] buildLocker: waiting for css build to complete
+[16:58:36] buildLocker: waiting for css build to complete
+[16:58:36] buildLocker: waiting for css build to complete
 √ Sass compilation complete
-[13:47:09] buildLocker: unlocked
-[13:47:09] Finished 'test.build.locker' after 968 ms
-[13:47:09] Starting 'test.build.typescript'...
-[13:47:12] Finished 'test.build.typescript' after 2.79 s
-[13:47:12] Starting 'test.karma'...
+[16:58:36] buildLocker: unlocked
+[16:58:36] Finished 'test.build.locker' after 1.04 s
+[16:58:36] Starting 'test.build.typescript'...
+[16:58:39] Finished 'test.build.typescript' after 2.59 s
+[16:58:39] Starting 'test.karma'...
 
 START:
-04 03 2016 13:47:13.357:INFO [karma]: Karma v0.13.21 server started at http://localhost:9876/
-04 03 2016 13:47:13.365:INFO [launcher]: Starting browser PhantomJS
-04 03 2016 13:47:13.637:INFO [PhantomJS 2.1.1 (Linux 0.0.0)]: Connected on socket /#cEaU3-8LQtWDI375AAAA with id 2734143
-  Click
-    ✔ initialises with defaults
-    ✔ initialises with overrides
-  Clicker
-    ✔ initialises with the correct name
-  ClickerApp
+04 03 2016 16:58:40.522:INFO [karma]: Karma v0.13.21 server started at http://localhost:9876/
+04 03 2016 16:58:40.528:INFO [launcher]: Starting browser PhantomJS
+04 03 2016 16:58:40.800:INFO [PhantomJS 2.1.1 (Linux 0.0.0)]: Connected on socket /#T1KfJka_A-62AUmEAAAA with id 60102028
+PhantomJS 2.1.1 (Linux 0.0.0) WARN: 'DEPRECATION WARNING: 'enqueueTask' is no longer supported and will be removed in next major release. Use addTask/addRepeatingTask/addMicroTask'
+  MyApp
     ✔ initialises with two possible pages
-    ✔ initialises with a root page
-    ✔ initialises with an app
-    ✔ opens a page
-  ClickerButton
-    ✔ initialises
-    ✔ displays the clicker name and count
-    ✔ does a click
-  ClickerForm
-    ✔ initialises
-    ✔ passes new clicker through to service
-    ✔ doesn't try to add a clicker with no name
-  Clickers
-    ✔ initialises with empty clickers
-    ✔ creates an instance of SqlStorage
-    ✔ has empty ids with no storage
-    ✔ has empty clickers with no storage
-    ✔ can initialise a clicker from string
-    ✔ returns undefined for a bad id
-    ✔ adds a new clicker with the correct name
-    ✔ removes a clicker by id
-    ✔ does a click
-    ✔ loads IDs from storage
-    ✔ loads clickers from storage
-  ClickerList
-    ✔ initialises
-  Utils
-    ✔ resets a control
 
-Finished in 0.413 secs / 0.356 secs
+Finished in 0.015 secs / 0.002 secs
 
 SUMMARY:
-✔ 26 tests completed
---------------------------------|----------|----------|----------|----------|----------------|
-File                            |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
---------------------------------|----------|----------|----------|----------|----------------|
- test/                          |    89.74 |    48.39 |       80 |    94.29 |                |
-  app.js                        |    89.66 |    48.28 |    85.71 |       96 |              5 |
-  testUtils.js                  |       90 |       50 |    66.67 |       90 |              8 |
- test/components/clickerButton/ |       85 |    48.28 |      100 |    93.75 |                |
-  clickerButton.js              |       85 |    48.28 |      100 |    93.75 |              5 |
- test/components/clickerForm/   |    90.32 |    51.61 |      100 |     96.3 |                |
-  clickerForm.js                |    90.32 |    51.61 |      100 |     96.3 |              5 |
- test/models/                   |      100 |      100 |      100 |      100 |                |
-  click.js                      |      100 |      100 |      100 |      100 |                |
-  clicker.js                    |      100 |      100 |      100 |      100 |                |
- test/pages/clickerList/        |    86.96 |    48.28 |      100 |    94.74 |                |
-  clickerList.js                |    86.96 |    48.28 |      100 |    94.74 |              5 |
- test/pages/page2/              |    82.35 |    48.28 |       75 |    92.31 |                |
-  page2.js                      |    82.35 |    48.28 |       75 |    92.31 |              5 |
- test/services/                 |    92.55 |    48.39 |    86.67 |    95.35 |                |
-  clickers.js                   |    94.94 |    48.39 |       96 |    97.22 |           5,67 |
-  utils.js                      |       80 |      100 |       40 |    85.71 |            6,8 |
---------------------------------|----------|----------|----------|----------|----------------|
-All files                       |    90.87 |       50 |    89.71 |    95.54 |                |
---------------------------------|----------|----------|----------|----------|----------------|
+✔ 1 test completed
+-------------------|----------|----------|----------|----------|----------------|
+File               |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
+-------------------|----------|----------|----------|----------|----------------|
+ test/             |       85 |    48.28 |       80 |    93.75 |                |
+  app.js           |       85 |    48.28 |       80 |    93.75 |              4 |
+ test/pages/page1/ |    82.35 |    48.28 |       75 |    92.31 |                |
+  page1.js         |    82.35 |    48.28 |       75 |    92.31 |              4 |
+ test/pages/page2/ |    82.35 |    48.28 |       75 |    92.31 |                |
+  page2.js         |    82.35 |    48.28 |       75 |    92.31 |              4 |
+ test/pages/page3/ |    82.35 |    48.28 |       75 |    92.31 |                |
+  page3.js         |    82.35 |    48.28 |       75 |    92.31 |              4 |
+ test/pages/tabs/  |    73.91 |    48.28 |       75 |    78.95 |                |
+  tabs.js          |    73.91 |    48.28 |       75 |    78.95 |     4,18,19,20 |
+-------------------|----------|----------|----------|----------|----------------|
+All files          |    80.85 |    48.28 |    76.19 |    89.19 |                |
+-------------------|----------|----------|----------|----------|----------------|
 ```
 Add the following lines to your `package.json` so we can get everything working nicely with `npm` instead of calling `gulp`:
 
@@ -375,7 +338,7 @@ Add the following lines to your `package.json` so we can get everything working 
   "scripts": {
     "postinstall": "typings install",
     "start": "ionic serve",
-    "test": "gulp test"
+    "test": "gulp --gulpfile test/gulpfile.ts --cwd ./ test"
   }
 ```
 
@@ -467,7 +430,7 @@ FAQ
 [cordova-prune-post]: http://lathonez.github.io/2016/cordova-remove-assets/
 [gulp-home]:          http://gulpjs.com/
 [gulp-inline-ng2]:    https://github.com/ludohenin/gulp-inline-ng2-template
-[gulpfile.ts]:        https://github.com/lathonez/clicker/blob/master/gulpfile.ts
+[gulpfile.ts]:        https://github.com/lathonez/clicker/blob/master/test/gulpfile.ts
 [ionic-angular.js]:   https://github.com/lathonez/clicker/blob/master/test/ionic-angular.js
 [ionic-index.ts]:     https://github.com/driftyco/ionic/blob/2.0/ionic/index.ts
 [karma-home]:         https://karma-runner.github.io/0.13/index.html
