@@ -25,7 +25,7 @@ The app is very simple, each [clicker][analog-clicker-img] is a counter that le
 Directory Structure
 --------------------
 
-There is some debate around where to keep unit tests. I started off with the unit tests in a separate `test/` directory, but have recently combined with the source code as per the [Angular 2 Style Guide][angular2-sg-dir]
+There is some debate around where to keep unit tests. I started off with the unit tests in a separate `test/` directory, but have recently combined with the source code as per the [Angular 2 Style Guide][angular2-sg-dir]. Now I use `test/` for configs, etc purely pertaining to the test setup.
 
 
 ```
@@ -63,9 +63,10 @@ app/
     ├── utils.spec.ts
     └── utils.ts
 
-test/
+test
 ├── app.stub.ts
 ├── config.ts
+├── ionic-angular.js
 ├── karma.config.js
 ├── test-main.js
 └── testUtils.ts
@@ -124,34 +125,36 @@ Make the following changes to your project:
 <pre class="lowlight">
 <code>cp clicker/gulpfile.ts myApp/
 mkdir -p myApp/test
-cp clicker/config.ts myApp/test
-ln -s app myApp/build</code>
+cp clicker/config.ts myApp/test</code>
 </pre>
 </div>
 
 * [gulpfile.ts][gulpfile.ts]: gulp’s config file
-* [config.ts][config.ts]: small config file for this setup, containing only paths at the moment. Can be [heavily expanded] down the line.
-* [build symlink][build.sym]: this seems to be the cleanest way to use Ionic's build structure with [gulp-inline-ng2-template][gulp-inline-ng2]
+* [config.ts][config.ts]: config file for this setup, containing only paths at the moment. Can be [expanded][angular2-seed-cfg] down the line.
 
 This gulpfile defines several tasks which gulp will carry out for us during the test cycle:
 
-1. **test.clean**: nuke anything that exists already in www/build/test
-2. **test.lint**: perform static analysis on source code using tslint, if enabled (not by default if following this post)
-3. **test.copyHTML**: we’ll want to have a copy of our html available to our unit tests, but our test build is wholly separate from Ionic’s webpack build. Thus we need to copy the html over into our test build directory
-4. **test.compile**: compile all our Typescript (both source and test), into Javascript.
-5. **test**: spin up [Karma][karma-home] and run the test (more on this later)
+1. **test.clean**: remove content from `www/build`, except `www/build/js`, which isn't used for testing
+2. **test.lint**: perform static analysis on source code using `tslint` if enabled
+3. **test.build.[fonts,html,sass]**: use `ionic-app-lib` to build fonts, html or sass
+4. **test.build.locker**: prevent any progress until Ionic builds are completed
+5. **test.build.typescript**: compile all our Typescript (both source and test), into individual Javascript files. This is done differently from Ionic which bundles everything into `app.bundle.js`
+6. **test.karma**: spin up [Karma][karma-home] (more on this later)
+7. **test**: combine all of the above to run the tests (more on this later)
 
 **Install Dependencies and Typings:**
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>npm install --save-dev chalk del gulp gulp-load-plugins gulp-inline-ng2-template gulp-tslint gulp-typescript karma run-sequence tslint ts-node typings</code>
+<code>npm install -g ionic-app-lib
+npm install --save-dev chalk del gulp gulp-load-plugins gulp-inline-ng2-template gulp-tslint gulp-typescript karma run-sequence tslint ts-node typings</code>
 </pre>
 </div>
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>for typing in \
+<code>typings install --ambient --save github:lathonez/typings/ionic-app-lib.d.ts
+for typing in \
 bluebird chalk del es6-shim express glob gulp gulp-load-plugins gulp-typescript \
 gulp-util jasmine karma log4js mime minimatch node orchestrator q \
 run-sequence serve-static through2 vinyl
@@ -161,33 +164,75 @@ done</code>
 </pre>
 </div>
 
-You're now ready to compile the tests: `node_modules/gulp/bin/gulp.js test.compile test.compile`
+You're now ready to build the tests:
+
+<div class="highlighter-rouge">
+<pre class="lowlight">
+<code>for task in \
+test.clean test.lint test.build.fonts test.build.html test.build.sass test.build.locker test.build.typescript
+do
+node_modules/gulp/bin/gulp.js $task
+done</code>
+</pre>
+</div>
 
 ```
-[23:40:08] Using gulpfile ~/code/myApp/gulpfile.ts
-[23:40:09] Starting 'test.clean'...
-[23:40:09] Finished 'test.clean' after 13 ms
-[23:40:09] Starting 'test.compile'...
-[23:40:11] TypeScript: emit succeeded
-[23:40:11] Finished 'test.compile' after 2.4 s
+[13:35:35] Requiring external module ts-node/register
+[13:35:39] Using gulpfile ~/code/clicker/gulpfile.ts
+[13:35:39] Starting 'test.clean'...
+[13:35:39] Deleted /home/lathonez/code/clicker/www/build/components, /home/lathonez/code/clicker/www/build/pages
+[13:35:39] Finished 'test.clean' after 13 ms
+[13:35:39] Requiring external module ts-node/register
+[13:35:42] Using gulpfile ~/code/clicker/gulpfile.ts
+[13:35:42] Starting 'test.lint'...
+[13:35:43] Finished 'test.lint' after 1.25 s
+[13:35:44] Requiring external module ts-node/register
+[13:35:47] Using gulpfile ~/code/clicker/gulpfile.ts
+[13:35:47] Starting 'test.build.fonts'...
+
+∆ Copying fonts
+√ Matching patterns: node_modules/ionic-angular/fonts/**/*.+(ttf|woff|woff2)
+[13:35:47] Finished 'test.build.fonts' after 12 ms
+√ Fonts copied to www/build/fonts
+[13:35:47] Requiring external module ts-node/register
+[13:35:50] Using gulpfile ~/code/clicker/gulpfile.ts
+[13:35:50] Starting 'test.build.html'...
+
+∆ Copying HTML
+√ Matching patterns: app/**/*.html
+[13:35:50] Finished 'test.build.html' after 13 ms
+√ HTML copied to www/build
+[13:35:51] Requiring external module ts-node/register
+[13:35:54] Using gulpfile ~/code/clicker/gulpfile.ts
+[13:35:54] Starting 'test.build.sass'...
+
+∆ Compiling Sass to CSS
+√ Matching patterns: app/theme/app.+(ios|md).scss
+[13:35:54] Finished 'test.build.sass' after 14 ms
+√ Sass compilation complete
+[13:35:55] Requiring external module ts-node/register
+[13:35:59] Using gulpfile ~/code/clicker/gulpfile.ts
+[13:35:59] Starting 'test.build.locker'...
+[13:35:59] buildLocker: unlocked
+[13:35:59] Finished 'test.build.locker' after 444 μs
+[13:35:59] Requiring external module ts-node/register
+[13:36:02] Using gulpfile ~/code/clicker/gulpfile.ts
+[13:36:02] Starting 'test.build.typescript'...
+[13:36:05] Finished 'test.build.typescript' after 2.88 s
 ```
 
-To verify that the compilation has succeed as planned, inspect `www/build/test`. You should see that `app.spec.ts` has been compiled into Javascript, along with all the source code:
-
+To verify that the compilation has succeed as planned, inspect `www/build`. You should see the following files (each indicating that the their part of the build succeeded):
 
 ```
-www/build/test/
-├── app.js
-├── app.spec.js
-└── pages
-    ├── page1
-    │   └── page1.js
-    ├── page2
-    │   └── page2.js
-    ├── page3
-    │   └── page3.js
-    └── tabs
-        └── tabs.js
+www/build/
+├── app.html
+├── css
+│   ├── app.md.css
+├── fonts
+│   ├── ionicons.ttf
+└── test
+    ├── app.js
+    └── app.spec.js
 ```
 
 Running the tests
@@ -199,11 +244,12 @@ Copy the following files into your project:
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>cp clicker/test/app.stub.ts clicker/test/karma.config.js clicker/test/test-main.js myApp/test</code>
+<code>cp clicker/test/app.stub.ts clicker/test/ionic-angular.js clicker/test/clicker/test/karma.config.js clicker/test/test-main.js myApp/test</code>
 </pre>
 </div>
 
 * [app.stub.ts][app.stub.ts]: A stub for Ionic's @App decorator.
+* [ionic-angular.js][ionic-angular.js]: A stub for Ionic's [index.ts][ionic-index.ts] so we don't have to proxy their modules in Karma.
 * [karma.config.js][karma.config.js]: Karma's config
 * [test-main.js][test-main.js]: Main entry point for [unit test excution using RequireJS][karma-tm-docs].
 
@@ -215,54 +261,113 @@ Copy the following files into your project:
 </pre>
 </div>
 
-Now we're ready to test: `gulp test`
+Now we're ready to test: `node_modules/gulp/bin/gulp.js test`
 
 ```
-[22:53:59] Requiring external module ts-node/register
-[22:54:01] Using gulpfile ~/code/clicker/gulpfile.ts
-[22:54:01] Starting 'test'...
-[22:54:01] Starting 'test.clean'...
-[22:54:01] Starting 'test.lint'...
-[22:54:01] Deleted /home/lathonez/code/clicker/www/build/test
-[22:54:01] Finished 'test.clean' after 452 ms
-[22:54:02] Finished 'test.lint' after 1.16 s
-[22:54:02] Starting 'test.copyHTML'...
-[22:54:02] Finished 'test.copyHTML' after 12 ms
-[22:54:02] Starting 'test.build'...
-[22:54:04] TypeScript: emit succeeded
-[22:54:04] Finished 'test.build' after 1.88 s
-[22:54:04] Starting 'startKarma'...
+[13:47:03] Requiring external module ts-node/register
+[13:47:06] Using gulpfile ~/code/clicker/gulpfile.ts
+[13:47:06] Starting 'test'...
+[13:47:06] Starting 'test.clean'...
+[13:47:06] Starting 'test.lint'...
+[13:47:07] Deleted /home/lathonez/code/clicker/www/build/app.html, /home/lathonez/code/clicker/www/build/components, /home/lathonez/code/clicker/www/build/css, /home/lathonez/code/clicker/www/build/fonts, /home/lathonez/code/clicker/www/build/pages
+[13:47:07] Finished 'test.clean' after 491 ms
+[13:47:08] Finished 'test.lint' after 1.25 s
+[13:47:08] Starting 'test.build.html'...
+
+∆ Copying HTML
+√ Matching patterns: app/**/*.html
+[13:47:08] Finished 'test.build.html' after 11 ms
+[13:47:08] Starting 'test.build.fonts'...
+
+∆ Copying fonts
+√ Matching patterns: node_modules/ionic-angular/fonts/**/*.+(ttf|woff|woff2)
+[13:47:08] Finished 'test.build.fonts' after 2.07 ms
+[13:47:08] Starting 'test.build.sass'...
+
+∆ Compiling Sass to CSS
+√ Matching patterns: app/theme/app.+(ios|md).scss
+[13:47:08] Finished 'test.build.sass' after 3.83 ms
+[13:47:08] Starting 'test.build.locker'...
+[13:47:08] buildLocker: waiting for fonts build to complete
+√ HTML copied to www/build
+√ Fonts copied to www/build/fonts
+[13:47:08] buildLocker: waiting for css build to complete
+[13:47:08] buildLocker: waiting for css build to complete
+[13:47:08] buildLocker: waiting for css build to complete
+[13:47:09] buildLocker: waiting for css build to complete
+√ Sass compilation complete
+[13:47:09] buildLocker: unlocked
+[13:47:09] Finished 'test.build.locker' after 968 ms
+[13:47:09] Starting 'test.build.typescript'...
+[13:47:12] Finished 'test.build.typescript' after 2.79 s
+[13:47:12] Starting 'test.karma'...
 
 START:
-[23:33:26] Finished 'test' after 800 ms
-24 02 2016 23:33:26.416:INFO [karma]: Karma v0.13.21 server started at http://localhost:9876/
-24 02 2016 23:33:26.422:INFO [launcher]: Starting browser PhantomJS
-24 02 2016 23:33:26.647:INFO [PhantomJS 2.1.1 (Linux 0.0.0)]: Connected on socket /#uuQjIqLkOQKcVuk2AAAA with id 99323503
-  MyApp
+04 03 2016 13:47:13.357:INFO [karma]: Karma v0.13.21 server started at http://localhost:9876/
+04 03 2016 13:47:13.365:INFO [launcher]: Starting browser PhantomJS
+04 03 2016 13:47:13.637:INFO [PhantomJS 2.1.1 (Linux 0.0.0)]: Connected on socket /#cEaU3-8LQtWDI375AAAA with id 2734143
+  Click
+    ✔ initialises with defaults
+    ✔ initialises with overrides
+  Clicker
+    ✔ initialises with the correct name
+  ClickerApp
     ✔ initialises with two possible pages
+    ✔ initialises with a root page
+    ✔ initialises with an app
+    ✔ opens a page
+  ClickerButton
+    ✔ initialises
+    ✔ displays the clicker name and count
+    ✔ does a click
+  ClickerForm
+    ✔ initialises
+    ✔ passes new clicker through to service
+    ✔ doesn't try to add a clicker with no name
+  Clickers
+    ✔ initialises with empty clickers
+    ✔ creates an instance of SqlStorage
+    ✔ has empty ids with no storage
+    ✔ has empty clickers with no storage
+    ✔ can initialise a clicker from string
+    ✔ returns undefined for a bad id
+    ✔ adds a new clicker with the correct name
+    ✔ removes a clicker by id
+    ✔ does a click
+    ✔ loads IDs from storage
+    ✔ loads clickers from storage
+  ClickerList
+    ✔ initialises
+  Utils
+    ✔ resets a control
 
-Finished in 0.028 secs / 0.015 secs
+Finished in 0.413 secs / 0.356 secs
 
 SUMMARY:
-✔ 1 test completed
--------------------|----------|----------|----------|----------|----------------|
-File               |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
--------------------|----------|----------|----------|----------|----------------|
- test/             |       85 |    48.28 |       80 |    93.75 |                |
-  app.js           |       85 |    48.28 |       80 |    93.75 |              4 |
- test/pages/page1/ |    82.35 |    48.28 |       75 |    92.31 |                |
-  page1.js         |    82.35 |    48.28 |       75 |    92.31 |              4 |
- test/pages/page2/ |    82.35 |    48.28 |       75 |    92.31 |                |
-  page2.js         |    82.35 |    48.28 |       75 |    92.31 |              4 |
- test/pages/page3/ |    82.35 |    48.28 |       75 |    92.31 |                |
-  page3.js         |    82.35 |    48.28 |       75 |    92.31 |              4 |
- test/pages/tabs/  |    73.91 |    48.28 |       75 |    78.95 |                |
-  tabs.js          |    73.91 |    48.28 |       75 |    78.95 |     4,18,19,20 |
--------------------|----------|----------|----------|----------|----------------|
-All files          |    80.85 |    48.28 |    76.19 |    89.19 |                |
--------------------|----------|----------|----------|----------|----------------|
-
-karma exited with 0
+✔ 26 tests completed
+--------------------------------|----------|----------|----------|----------|----------------|
+File                            |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
+--------------------------------|----------|----------|----------|----------|----------------|
+ test/                          |    89.74 |    48.39 |       80 |    94.29 |                |
+  app.js                        |    89.66 |    48.28 |    85.71 |       96 |              5 |
+  testUtils.js                  |       90 |       50 |    66.67 |       90 |              8 |
+ test/components/clickerButton/ |       85 |    48.28 |      100 |    93.75 |                |
+  clickerButton.js              |       85 |    48.28 |      100 |    93.75 |              5 |
+ test/components/clickerForm/   |    90.32 |    51.61 |      100 |     96.3 |                |
+  clickerForm.js                |    90.32 |    51.61 |      100 |     96.3 |              5 |
+ test/models/                   |      100 |      100 |      100 |      100 |                |
+  click.js                      |      100 |      100 |      100 |      100 |                |
+  clicker.js                    |      100 |      100 |      100 |      100 |                |
+ test/pages/clickerList/        |    86.96 |    48.28 |      100 |    94.74 |                |
+  clickerList.js                |    86.96 |    48.28 |      100 |    94.74 |              5 |
+ test/pages/page2/              |    82.35 |    48.28 |       75 |    92.31 |                |
+  page2.js                      |    82.35 |    48.28 |       75 |    92.31 |              5 |
+ test/services/                 |    92.55 |    48.39 |    86.67 |    95.35 |                |
+  clickers.js                   |    94.94 |    48.39 |       96 |    97.22 |           5,67 |
+  utils.js                      |       80 |      100 |       40 |    85.71 |            6,8 |
+--------------------------------|----------|----------|----------|----------|----------------|
+All files                       |    90.87 |       50 |    89.71 |    95.54 |                |
+--------------------------------|----------|----------|----------|----------|----------------|
 ```
 Add the following lines to your `package.json` so we can get everything working nicely with `npm` instead of calling `gulp`:
 
@@ -349,24 +454,25 @@ FAQ
 [angular2-sg-dir]:    https://github.com/mgechev/angular2-style-guide#directory-structure
 [app.spec.ts]:        https://github.com/lathonez/clicker/blob/master/test/app.spec.ts
 [app.stub.ts]:        https://github.com/lathonez/clicker/blob/master/test/app.stub.ts
-[build.sym]:          https://github.com/lathonez/clicker/blob/master/build
 [clicker-codecov]:    https://codecov.io/github/lathonez/clicker?branch=master
 [clicker-coveralls]:  https://coveralls.io/github/lathonez/clicker?branch=master
-[clicker-issue-new]:  https://github.com/lathonez/clicker/issues/new
-[clicker-issue-6]:    https://github.com/lathonez/clicker/issues/6
 [clicker-issue-20]:   https://github.com/lathonez/clicker/issues/20
 [clicker-issue-22]:   https://github.com/lathonez/clicker/issues/22
 [clicker-issue-29]:   https://github.com/lathonez/clicker/issues/29
+[clicker-issue-6]:    https://github.com/lathonez/clicker/issues/6
+[clicker-issue-new]:  https://github.com/lathonez/clicker/issues/new
 [clicker-repo]:       http://github.com/lathonez/clicker
 [clicker-travis]:     https://travis-ci.org/lathonez/clicker
+[config.ts]:          https://github.com/lathonez/clicker/blob/master/test/config.ts
 [cordova-prune-post]: http://lathonez.github.io/2016/cordova-remove-assets/
 [gulp-home]:          http://gulpjs.com/
 [gulp-inline-ng2]:    https://github.com/ludohenin/gulp-inline-ng2-template
 [gulpfile.ts]:        https://github.com/lathonez/clicker/blob/master/gulpfile.ts
-[config.ts]:          https://github.com/lathonez/clicker/blob/master/test/config.ts
+[ionic-angular.js]:   https://github.com/lathonez/clicker/blob/master/test/ionic-angular.js
+[ionic-index.ts]:     https://github.com/driftyco/ionic/blob/2.0/ionic/index.ts
 [karma-home]:         https://karma-runner.github.io/0.13/index.html
-[karma.config.js]:    https://github.com/lathonez/clicker/blob/master/test/karma.config.js
 [karma-tm-docs]:      https://karma-runner.github.io/0.8/plus/RequireJS.html
+[karma.config.js]:    https://github.com/lathonez/clicker/blob/master/test/karma.config.js
 [lcov-app-ss]:        /images/ionic2_unit_testing/lcov-app-screenshot.png
 [lcov-home]:          http://ltp.sourceforge.net/coverage/lcov.php
 [lcov-index-ss]:      /images/ionic2_unit_testing/lcov-index-screenshot.png
