@@ -221,7 +221,7 @@ done</code>
 [13:36:05] Finished 'test.build.typescript' after 2.88 s
 ```
 
-To verify that the compilation has succeed as planned, inspect `www/build`. You should see the following files (each indicating that the their part of the build succeeded):
+To verify that the compilation has succeed as planned, inspect `www/build`. You should see the following files (each indicating that their part of the build succeeded):
 
 ```
 www/build/
