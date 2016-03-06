@@ -410,6 +410,7 @@ FAQ
 * [How to test external node modules][clicker-issue-20]
 * [External node modules again][clicker-issue-22]
 * [404 on app.bundle.js][clicker-issue-29]
+* [what is app.stub.ts][clicker-issue-33]
 
 [analog-clicker-img]: http://thumbs.dreamstime.com/thumblarge_304/1219960995H0ZkZw.jpg
 [angular2-seed-cfg]:  https://github.com/mgechev/angular2-seed/blob/master/tools/config.ts
@@ -422,6 +423,7 @@ FAQ
 [clicker-issue-20]:   https://github.com/lathonez/clicker/issues/20
 [clicker-issue-22]:   https://github.com/lathonez/clicker/issues/22
 [clicker-issue-29]:   https://github.com/lathonez/clicker/issues/29
+[clicker-issue-33]:   https://github.com/lathonez/clicker/issues/33
 [clicker-issue-6]:    https://github.com/lathonez/clicker/issues/6
 [clicker-issue-new]:  https://github.com/lathonez/clicker/issues/new
 [clicker-repo]:       http://github.com/lathonez/clicker
