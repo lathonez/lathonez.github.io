@@ -259,7 +259,7 @@ Copy the following files into your project:
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>npm install --save-dev es6-module-loader jasmine-core karma-coverage karma-jasmine karma-mocha-reporter karma-phantomjs-launcher phantomjs-prebuilt systemjs traceur</code>
+<code>npm install --save-dev es6-module-loader gulp-watch jasmine-core karma-coverage karma-jasmine karma-mocha-reporter karma-phantomjs-launcher phantomjs-prebuilt systemjs traceur</code>
 </pre>
 </div>
 
@@ -353,43 +353,81 @@ Our Karma set up outputs [lcov][lcov-home] coverage to `./coverage` in the root 
 
 You can also use external tools like [coveralls][clicker-coveralls] or [codecov][clicker-codecov], more on this in an upcoming post **Using [Travis][clicker-travis] with Ionic 2**.
 
+Testing external modules
+------------------------
+
+To include external node modules in your testing you need to make a couple of additons to [karma.config.js][karma.config.js].
+
+This example uses moment.js and is taken from the [FAQ][clicker-issue-33]. There are more complicated examples too.
+
+First install the module and any necessary typings:
+
+<div class="highlighter-rouge">
+<pre class="lowlight">
+<code>npm install --save-dev moment
+typings install --ambient --save-dev moment
+typings install --ambient --save-dev moment-node</code>
+</pre>
+</div>
+
+Include it in your test somewhere:
+
+```javascript
+import * as moment from 'moment';
+```
+
+Add two lines to [karma.config.js][karma.config.js]. The first goes into the `files` array:
+
+```javascript
+{ pattern: 'node_modules/moment/moment.js', inclueded: false, watched: false }
+```
+
+The second into the `proxies` object. This is what most people forget. Karma will try to find moment at `/base/moment.js`, which doesn't exist and will give a 404. You need to proxy it to the correct location inside node modules:
+
+```javascript
+'/base/moment.js': '/base/node_modules/moment/moment.js'
+```
+
+Debugging the Tests
+--------------------
+
+Sometimes our tests fail and we get an unhelpful stack trace from phantom. This example is from the [FAQ][clicker-issue-6]:
+
+```
+FAILED TESTS:
+  MyApp
+    ✖ initialises with one possible page
+      PhantomJS 2.0.0 (Mac OS X 0.0.0)
+    TypeError: undefined is not an object (evaluating 'provider.toString') (line 180)
+      at 
+      at 
+      at forEach ([native code])
+      at 
+      at 
+      at 
+      at 
+      at 
+      at /Users/groyer/Documents/workspace/helperchoice/helpizr-app-v2/test/karma/tests.config.js:41:18
+```
+
+If this happens it's usually easier to debug yourself in Chrome.
+
+First build the tests and tell gulp to watch for changes. It'll rebuild the tests if you change anything:
+
+`npm run test.watch`
+
+Next start Karma. Calling it like this will invoke Chrome instead of Phantom and keep the browser open after the tests have finished. If Karma detects any changes (from the watch) it'll re-run your tests:
+
+`npm run karma`
+
+Chrome will pop up and run through all your tests. When this is finished, hit the [Debug][karma-debug-ss] button and another tab will open. Open the dev console and you can see the [output of all your tests][karma-console-ss], along with any errors which can be debugged as per usual.
+
 Linting
 -------
 
 This set up fully supports linting with [tslint][tslint-home]. Linting is done before compilation; if linting fails, your code does not compile or test.
 
 If you want to use linting, just add a [tslint.json][tslint.json] into your project. Each time your run `npm test`, your code will be fully linted.
-
-I get the following output if I turn linting on for the Ionic Starter App:
-
-```
-[00:02:00] Using gulpfile ~/code/myApp/gulpfile.ts
-[00:02:00] Starting 'test.lint'...
-[00:02:00] Finished 'test.lint' after 8.41 ms
-[00:02:00] Starting 'test.clean'...
-[00:02:00] [gulp-tslint] error (no-unused-variable) app.spec.ts[3, 10]: unused variable: 'IonicApp'
-[00:02:00] [gulp-tslint] error (typedef) app.spec.ts[9, 10]: expected variable-declaration: 'myApp' to have a typedef
-[00:02:00] [gulp-tslint] error (typedef) app.spec.ts[11, 22]: expected call-signature: 'main' to have a typedef
-[00:02:00] [gulp-tslint] error (typedef) app.spec.ts[15, 25]: expected call-signature to have a typedef
-[00:02:00] [gulp-tslint] error (typedef) app.spec.ts[16, 19]: expected variable-declaration: 'platform' to have a typedef
-[00:02:00] [gulp-tslint] error (use-strict) app.spec.ts[11, 1]: missing 'use strict'
-[00:02:00] [gulp-tslint] error (member-access) app.ts[13, 3]: default access modifier on member/method not allowed
-[00:02:00] [gulp-tslint] error (no-consecutive-blank-lines) app.ts[7, 1]: consecutive blank lines are disallowed
-[00:02:00] [gulp-tslint] error (trailing-comma) app.ts[10, 12]: missing trailing comma
-[00:02:00] Finished 'test.clean' after 273 ms
-[00:02:00] Starting 'test.compile'...
-[00:02:00] Starting 'test.copyHTML'...
-[00:02:00] Finished 'test.copyHTML' after 705 μs
-[00:02:00] [gulp-tslint] error (no-consecutive-blank-lines) pages/page1/page1.ts[3, 1]: consecutive blank lines are disallowed
-[00:02:00] [gulp-tslint] error (no-consecutive-blank-lines) pages/page2/page2.ts[3, 1]: consecutive blank lines are disallowed
-[00:02:00] [gulp-tslint] error (no-consecutive-blank-lines) pages/page3/page3.ts[3, 1]: consecutive blank lines are disallowed
-[00:02:00] [gulp-tslint] error (trailing-comma) pages/page3/page3.ts[5, 45]: missing trailing comma
-[00:02:00] [gulp-tslint] error (member-access) pages/tabs/tabs.ts[13, 3]: default access modifier on member/method not allowed
-[00:02:00] [gulp-tslint] error (member-access) pages/tabs/tabs.ts[14, 3]: default access modifier on member/method not allowed
-[00:02:00] [gulp-tslint] error (member-access) pages/tabs/tabs.ts[15, 3]: default access modifier on member/method not allowed
-[00:02:00] [gulp-tslint] error (no-consecutive-blank-lines) pages/tabs/tabs.ts[6, 1]: consecutive blank lines are disallowed
-[00:02:00] [gulp-tslint] error (trailing-comma) pages/tabs/tabs.ts[8, 43]: missing trailing comma
-```
 
 Removing tests from the .apk
 -----------------------------
@@ -406,11 +444,12 @@ If you can't get any of this working in your own project, [raise an issue][click
 FAQ
 ---
 
-* [How to debug PhantomJS stack trace][clicker-issue-6]
-* [How to test external node modules][clicker-issue-20]
-* [External node modules again][clicker-issue-22]
+* [Debugging unit tests example][clicker-issue-6]
+* [External modules example one][clicker-issue-20]
+* [External modules example two][clicker-issue-22]
+* [External modules example three (moment.js)][clicker-issue-33]
 * [404 on app.bundle.js][clicker-issue-29]
-* [what is app.stub.ts][clicker-issue-33]
+* [what is app.stub.ts][clicker-issue-34]
 
 [analog-clicker-img]: http://thumbs.dreamstime.com/thumblarge_304/1219960995H0ZkZw.jpg
 [angular2-seed-cfg]:  https://github.com/mgechev/angular2-seed/blob/master/tools/config.ts
@@ -423,6 +462,7 @@ FAQ
 [clicker-issue-20]:   https://github.com/lathonez/clicker/issues/20
 [clicker-issue-22]:   https://github.com/lathonez/clicker/issues/22
 [clicker-issue-29]:   https://github.com/lathonez/clicker/issues/29
+[clicker-issue-34]:   https://github.com/lathonez/clicker/issues/34
 [clicker-issue-33]:   https://github.com/lathonez/clicker/issues/33
 [clicker-issue-6]:    https://github.com/lathonez/clicker/issues/6
 [clicker-issue-new]:  https://github.com/lathonez/clicker/issues/new
@@ -435,6 +475,8 @@ FAQ
 [gulpfile.ts]:        https://github.com/lathonez/clicker/blob/master/test/gulpfile.ts
 [ionic-angular.js]:   https://github.com/lathonez/clicker/blob/master/test/ionic-angular.js
 [ionic-index.ts]:     https://github.com/driftyco/ionic/blob/2.0/ionic/index.ts
+[karma-console-ss]:   /images/ionic2_unit_testing/karma-console-screenshot.png
+[karma-debug-ss]:     /images/ionic2_unit_testing/karma-debug-screenshot.png
 [karma-home]:         https://karma-runner.github.io/0.13/index.html
 [karma-tm-docs]:      https://karma-runner.github.io/0.8/plus/RequireJS.html
 [karma.config.js]:    https://github.com/lathonez/clicker/blob/master/test/karma.config.js
