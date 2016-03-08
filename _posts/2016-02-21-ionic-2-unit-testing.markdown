@@ -450,6 +450,7 @@ FAQ
 * [External modules example three (moment.js)][clicker-issue-33]
 * [404 on app.bundle.js][clicker-issue-29]
 * [what is app.stub.ts][clicker-issue-34]
+* [run a single test][clicker-issue-35]
 
 [analog-clicker-img]: http://thumbs.dreamstime.com/thumblarge_304/1219960995H0ZkZw.jpg
 [angular2-seed-cfg]:  https://github.com/mgechev/angular2-seed/blob/master/tools/config.ts
@@ -464,6 +465,7 @@ FAQ
 [clicker-issue-29]:   https://github.com/lathonez/clicker/issues/29
 [clicker-issue-34]:   https://github.com/lathonez/clicker/issues/34
 [clicker-issue-33]:   https://github.com/lathonez/clicker/issues/33
+[clicker-issue-35]:   https://github.com/lathonez/clicker/issues/35
 [clicker-issue-6]:    https://github.com/lathonez/clicker/issues/6
 [clicker-issue-new]:  https://github.com/lathonez/clicker/issues/new
 [clicker-repo]:       http://github.com/lathonez/clicker
