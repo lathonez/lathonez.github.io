@@ -125,7 +125,7 @@ Make the following changes to your project:
 <div class="highlighter-rouge">
 <pre class="lowlight">
 <code>mkdir -p myApp/test
-cp clicker/gulpfile.ts myApp/test
+cp clicker/test/gulpfile.ts myApp/test
 cp clicker/test/config.ts myApp/test</code>
 </pre>
 </div>
@@ -147,8 +147,8 @@ This gulpfile defines several tasks which gulp will carry out for us during the 
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>npm install -g ionic-app-lib
-npm install --save-dev chalk del gulp gulp-load-plugins gulp-inline-ng2-template gulp-tap gulp-tslint gulp-typescript karma run-sequence tslint ts-node typings</code>
+<code>npm install -g ionic-app-lib typings
+npm install --save-dev chalk del gulp gulp-load-plugins gulp-inline-ng2-template gulp-tap gulp-tslint gulp-typescript karma run-sequence tslint ts-node</code>
 </pre>
 </div>
 
@@ -160,7 +160,7 @@ bluebird chalk del es6-shim express glob gulp gulp-load-plugins gulp-typescript 
 gulp-util jasmine karma log4js mime minimatch node orchestrator q \
 run-sequence serve-static through2 vinyl
 do
-./node_modules/typings/dist/bin/typings.js install $typing --save-dev --ambient --no-insight
+typings install $typing --save-dev --ambient --no-insight
 done</code>
 </pre>
 </div>
@@ -170,7 +170,7 @@ You're now ready to build the tests:
 <div class="highlighter-rouge">
 <pre class="lowlight">
 <code>for task in \
-test.clean test.lint test.build.fonts test.build.html test.build.sass test.build.locker test.build.typescript
+test.clean test.lint test.build.fonts test.build.html test.build.sass test.build.typescript
 do
 node_modules/gulp/bin/gulp.js --gulpfile test/gulpfile.ts --cwd ./ $task
 done</code>
