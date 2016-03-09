@@ -436,10 +436,15 @@ In the current setup, the test build residing in `www/build/test` will be compil
 
 See [here][cordova-prune-post] for a short post on how to prevent this from happening.
 
+Contribute
+----------
+
+[Clickers][clicker-repo] is a work in progress. If you'd like to help out or have any suggestions, check the [roadmap sticky][clicker-issue-38].
+
 Help!
 -----
 
-If you can't get any of this working in your own project, [raise an issue][clicker-issue-new] and I'll do my best to help out.
+If you can't get any of this working in your own project, [raise an issue][clicker-issue-new] and I'll do my best to help out. Check the FAQ (directly below) first.
 
 FAQ
 ---
@@ -466,6 +471,7 @@ FAQ
 [clicker-issue-34]:   https://github.com/lathonez/clicker/issues/34
 [clicker-issue-33]:   https://github.com/lathonez/clicker/issues/33
 [clicker-issue-35]:   https://github.com/lathonez/clicker/issues/35
+[clicker-issue-38]:   https://github.com/lathonez/clicker/issues/38
 [clicker-issue-6]:    https://github.com/lathonez/clicker/issues/6
 [clicker-issue-new]:  https://github.com/lathonez/clicker/issues/new
 [clicker-repo]:       http://github.com/lathonez/clicker
