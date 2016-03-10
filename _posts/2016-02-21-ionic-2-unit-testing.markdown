@@ -148,7 +148,8 @@ This gulpfile defines several tasks which gulp will carry out for us during the 
 <div class="highlighter-rouge">
 <pre class="lowlight">
 <code>npm install -g ionic-app-lib typings
-npm install --save-dev chalk del gulp gulp-load-plugins gulp-inline-ng2-template gulp-tap gulp-tslint gulp-typescript karma run-sequence tslint ts-node</code>
+npm install --save-dev chalk del gulp gulp-load-plugins gulp-inline-ng2-template gulp-tap gulp-tslint gulp-typescript karma run-sequence tslint ts-node
+npm link ionic-app-lib</code>
 </pre>
 </div>
 
