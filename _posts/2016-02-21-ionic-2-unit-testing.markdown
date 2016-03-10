@@ -332,7 +332,9 @@ Add the following lines to your `package.json` so we can get everything working 
   "scripts": {
     "postinstall": "typings install",
     "start": "ionic serve",
-    "test": "gulp --gulpfile test/gulpfile.ts --cwd ./ test"
+    "test": "gulp --gulpfile test/gulpfile.ts --cwd ./ test",
+    "test.watch": "gulp --gulpfile test/gulpfile.ts --cwd ./ test.watch.build",
+    "karma": "gulp --gulpfile test/gulpfile.ts --cwd ./ test.karma.debug"
   }
 ```
 
