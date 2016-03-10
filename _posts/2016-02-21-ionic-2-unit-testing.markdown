@@ -154,14 +154,7 @@ npm install --save-dev chalk del gulp gulp-load-plugins gulp-inline-ng2-template
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>typings install --ambient --save github:lathonez/typings/ionic-app-lib.d.ts
-for typing in \
-bluebird chalk del es6-shim express glob gulp gulp-load-plugins gulp-typescript \
-gulp-util jasmine karma log4js mime minimatch node orchestrator q \
-run-sequence serve-static through2 vinyl
-do
-typings install $typing --save-dev --ambient --no-insight
-done</code>
+<code>typings install --ambient --save bluebird chalk del es6-shim express glob gulp gulp-load-plugins gulp-typescript gulp-util jasmine karma log4js mime minimatch node orchestrator q run-sequence serve-static through2 vinyl ionic-app-lib=github:lathonez/typings/ionic-app-lib.d.ts#a8456d0ceb9eb5830003cb401bf558c5a6e66d9d</code>
 </pre>
 </div>
 
