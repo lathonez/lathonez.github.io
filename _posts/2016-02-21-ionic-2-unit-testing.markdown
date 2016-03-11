@@ -137,25 +137,23 @@ This gulpfile defines several tasks which gulp will carry out for us during the 
 
 1. **test.clean**: remove content from `www/build`, except `www/build/js`, which isn't used for testing
 2. **test.lint**: perform static analysis on source code using `tslint` if enabled
-3. **test.build.[fonts,html,sass]**: use `ionic-app-lib` to build fonts, html or sass
-4. **test.build.locker**: prevent any progress until Ionic builds are completed
-5. **test.build.typescript**: compile all our Typescript (both source and test), into individual Javascript files. This is done differently from Ionic which bundles everything into `app.bundle.js`
-6. **test.karma**: spin up [Karma][karma-home] (more on this later)
-7. **test**: combine all of the above to run the tests (more on this later)
+3. **sass, copy.fonts, copy.html**: sourced directly from Ionic's [gulpfile.js][gulpfile.js]
+4. **test.build.typescript**: compile all our Typescript (both source and test), into individual Javascript files. This is done differently from Ionic which bundles everything into `app.bundle.js`
+5. **test.karma**: spin up [Karma][karma-home] (more on this later)
+6. **test**: combine all of the above to run the tests (more on this later)
 
 **Install Dependencies and Typings:**
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>npm install -g ionic-app-lib typings
-npm install --save-dev chalk del gulp gulp-load-plugins gulp-inline-ng2-template gulp-tap gulp-tslint gulp-typescript karma run-sequence tslint ts-node
-npm link ionic-app-lib</code>
+<code>npm install -g typings
+npm install --save-dev chalk del gulp gulp-load-plugins gulp-inline-ng2-template gulp-tap gulp-tslint gulp-typescript karma run-sequence tslint ts-node</code>
 </pre>
 </div>
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>typings install --ambient --save bluebird chalk del es6-shim express glob gulp gulp-load-plugins gulp-typescript gulp-util jasmine karma log4js mime minimatch node orchestrator q run-sequence serve-static through2 vinyl ionic-app-lib=github:lathonez/typings/ionic-app-lib.d.ts#a8456d0ceb9eb5830003cb401bf558c5a6e66d9d</code>
+<code>typings install --ambient --save bluebird chalk del es6-shim express glob gulp gulp-load-plugins gulp-typescript gulp-util jasmine karma log4js mime minimatch node orchestrator q run-sequence serve-static through2 vinyl</code>
 </pre>
 </div>
 
@@ -163,72 +161,28 @@ You're now ready to build the tests:
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>for task in \
-test.clean test.lint test.build.fonts test.build.html test.build.sass test.build.typescript
-do
-node_modules/gulp/bin/gulp.js --gulpfile test/gulpfile.ts --cwd ./ $task
-done</code>
+<code>node_modules/gulp/bin/gulp.js --gulpfile test/gulpfile.ts --cwd ./ test.build</code>
 </pre>
 </div>
 
 ```
-[16:49:26] Requiring external module ts-node/register
-[16:49:29] Using gulpfile ~/code/myApp/test/gulpfile.ts
-[16:49:29] Starting 'test.clean'...
-[16:49:29] Deleted /home/lathonez/code/myApp/www/build/css, /home/lathonez/code/myApp/www/build/fonts, /home/lathonez/code/myApp/www/build/pages
-[16:49:29] Finished 'test.clean' after 16 ms
-[16:49:29] Requiring external module ts-node/register
-[16:49:33] Using gulpfile ~/code/myApp/test/gulpfile.ts
-[16:49:33] Starting 'test.lint'...
-[16:49:33] Finished 'test.lint' after 122 ms
-[16:49:33] Requiring external module ts-node/register
-[16:49:36] Using gulpfile ~/code/myApp/test/gulpfile.ts
-[16:49:36] Starting 'test.build.fonts'...
-
-∆ Copying fonts
-√ Matching patterns: node_modules/ionic-angular/fonts/**/*.+(ttf|woff|woff2)
-[16:49:36] Finished 'test.build.fonts' after 12 ms
-√ Fonts copied to www/build/fonts
-[16:49:37] Requiring external module ts-node/register
-[16:49:40] Using gulpfile ~/code/myApp/test/gulpfile.ts
-[16:49:40] Starting 'test.build.html'...
-
-∆ Copying HTML
-√ Matching patterns: app/**/*.html
-[16:49:40] Finished 'test.build.html' after 13 ms
-√ HTML copied to www/build
-[16:49:40] Requiring external module ts-node/register
-[16:49:43] Using gulpfile ~/code/myApp/test/gulpfile.ts
-[16:49:43] Starting 'test.build.sass'...
-
-∆ Compiling Sass to CSS
-√ Matching patterns: app/theme/app.+(ios|md).scss
-[16:49:43] Finished 'test.build.sass' after 15 ms
-√ Sass compilation complete
-[16:49:45] Requiring external module ts-node/register
-[16:49:48] Using gulpfile ~/code/myApp/test/gulpfile.ts
-[16:49:48] Starting 'test.build.locker'...
-[16:49:48] buildLocker: unlocked
-[16:49:48] Finished 'test.build.locker' after 476 μs
-[16:49:48] Requiring external module ts-node/register
-[16:49:51] Using gulpfile ~/code/myApp/test/gulpfile.ts
-[16:49:51] Starting 'test.build.typescript'...
-[16:49:54] Finished 'test.build.typescript' after 2.71 s
-
-```
-
-To verify that the compilation has succeed as planned, inspect `www/build`. You should see the following files (each indicating that their part of the build succeeded):
-
-```
-www/build/
-├── app.html
-├── css
-│   ├── app.md.css
-├── fonts
-│   ├── ionicons.ttf
-└── test
-    ├── app.js
-    └── app.spec.js
+[11:26:06] Requiring external module ts-node/register
+[11:26:08] Using gulpfile ~/code/clicker/test/gulpfile.ts
+[11:26:08] Starting 'test.build'...
+[11:26:08] Starting 'test.lint'...
+[11:26:08] Starting 'test.clean'...
+[11:26:08] Deleted -
+[11:26:08] Finished 'test.clean' after 10 ms
+[11:26:09] Finished 'test.lint' after 1.11 s
+[11:26:09] Starting 'sass'...
+[11:26:09] Starting 'copy.fonts'...
+[11:26:09] Starting 'copy.html'...
+[11:26:09] Finished 'copy.html' after 27 ms
+[11:26:09] Finished 'copy.fonts' after 31 ms
+[11:26:10] Finished 'sass' after 736 ms
+[11:26:10] Starting 'test.build.typescript'...
+[11:26:12] Finished 'test.build.typescript' after 2.42 s
+[11:26:12] Finished 'test.build' after 4.27 s
 ```
 
 Running the tests
@@ -260,42 +214,27 @@ Copy the following files into your project:
 Now we're ready to test: `node_modules/gulp/bin/gulp.js --gulpfile test/gulpfile.ts --cwd ./ test`
 
 ```
-[16:58:32] Requiring external module ts-node/register
-[16:58:35] Using gulpfile ~/code/myApp/test/gulpfile.ts
-[16:58:35] Starting 'test'...
-[16:58:35] Starting 'test.clean'...
-[16:58:35] Starting 'test.lint'...
-[16:58:35] Deleted /home/lathonez/code/myApp/www/build/css, /home/lathonez/code/myApp/www/build/fonts, /home/lathonez/code/myApp/www/build/pages
-[16:58:35] Finished 'test.clean' after 111 ms
-[16:58:35] Finished 'test.lint' after 137 ms
-[16:58:35] Starting 'test.build.html'...
+> gulp --gulpfile test/gulpfile.ts --cwd ./ test
 
-∆ Copying HTML
-√ Matching patterns: app/**/*.html
-[16:58:35] Finished 'test.build.html' after 11 ms
-[16:58:35] Starting 'test.build.fonts'...
-
-∆ Copying fonts
-√ Matching patterns: node_modules/ionic-angular/fonts/**/*.+(ttf|woff|woff2)
-[16:58:35] Finished 'test.build.fonts' after 2.23 ms
-[16:58:35] Starting 'test.build.sass'...
-
-∆ Compiling Sass to CSS
-√ Matching patterns: app/theme/app.+(ios|md).scss
-[16:58:35] Finished 'test.build.sass' after 4.58 ms
-[16:58:35] Starting 'test.build.locker'...
-[16:58:35] buildLocker: waiting for fonts build to complete
-√ HTML copied to www/build
-√ Fonts copied to www/build/fonts
-[16:58:35] buildLocker: waiting for css build to complete
-[16:58:36] buildLocker: waiting for css build to complete
-[16:58:36] buildLocker: waiting for css build to complete
-√ Sass compilation complete
-[16:58:36] buildLocker: unlocked
-[16:58:36] Finished 'test.build.locker' after 1.04 s
-[16:58:36] Starting 'test.build.typescript'...
-[16:58:39] Finished 'test.build.typescript' after 2.59 s
-[16:58:39] Starting 'test.karma'...
+[11:28:25] Requiring external module ts-node/register
+[11:28:28] Using gulpfile ~/code/clicker/test/gulpfile.ts
+[11:28:28] Starting 'test'...
+[11:28:28] Starting 'test.build'...
+[11:28:28] Starting 'test.lint'...
+[11:28:28] Starting 'test.clean'...
+[11:28:28] Deleted /home/lathonez/code/myApp/www/build/app.html, /home/lathonez/code/myApp/www/build/components, /home/lathonez/code/myApp/www/build/css, /home/lathonez/code/myApp/www/build/fonts, /home/lathonez/code/myApp/www/build/pages
+[11:28:28] Finished 'test.clean' after 417 ms
+[11:28:29] Finished 'test.lint' after 1.14 s
+[11:28:29] Starting 'sass'...
+[11:28:29] Starting 'copy.fonts'...
+[11:28:29] Starting 'copy.html'...
+[11:28:29] Finished 'copy.html' after 26 ms
+[11:28:29] Finished 'copy.fonts' after 29 ms
+[11:28:30] Finished 'sass' after 847 ms
+[11:28:30] Starting 'test.build.typescript'...
+[11:28:32] Finished 'test.build.typescript' after 2.43 s
+[11:28:32] Finished 'test.build' after 4.42 s
+[11:28:32] Starting 'test.karma'...
 
 START:
 04 03 2016 16:58:40.522:INFO [karma]: Karma v0.13.21 server started at http://localhost:9876/
@@ -476,6 +415,7 @@ FAQ
 [cordova-prune-post]: http://lathonez.github.io/2016/cordova-remove-assets/
 [gulp-home]:          http://gulpjs.com/
 [gulp-inline-ng2]:    https://github.com/ludohenin/gulp-inline-ng2-template
+[gulpfile.js]:        https://github.com/lathonez/clicker/blob/master/test/gulpfile.js
 [gulpfile.ts]:        https://github.com/lathonez/clicker/blob/master/test/gulpfile.ts
 [ionic-angular.js]:   https://github.com/lathonez/clicker/blob/master/test/ionic-angular.js
 [ionic-index.ts]:     https://github.com/driftyco/ionic/blob/2.0/ionic/index.ts
