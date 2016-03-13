@@ -147,7 +147,7 @@ This gulpfile defines several tasks which gulp will carry out for us during the 
 <div class="highlighter-rouge">
 <pre class="lowlight">
 <code>npm install -g typings
-npm install --save-dev chalk del gulp gulp-load-plugins gulp-inline-ng2-template gulp-tap gulp-tslint gulp-typescript karma run-sequence tslint ts-node</code>
+npm install --save-dev chalk del gulp gulp-load-plugins gulp-inline-ng2-template gulp-tslint gulp-typescript karma run-sequence tslint ts-node</code>
 </pre>
 </div>
 
@@ -396,7 +396,7 @@ FAQ
 [angular2-seed-cfg]:  https://github.com/mgechev/angular2-seed/blob/master/tools/config.ts
 [angular2-seed-repo]: https://github.com/mgechev/angular2-seed
 [angular2-sg-dir]:    https://github.com/mgechev/angular2-style-guide#directory-structure
-[app.spec.ts]:        https://github.com/lathonez/clicker/blob/master/test/app.spec.ts
+[app.spec.ts]:        https://github.com/lathonez/clicker/blob/master/app/app.spec.ts
 [app.stub.ts]:        https://github.com/lathonez/clicker/blob/master/test/app.stub.ts
 [clicker-codecov]:    https://codecov.io/github/lathonez/clicker?branch=master
 [clicker-coveralls]:  https://coveralls.io/github/lathonez/clicker?branch=master
