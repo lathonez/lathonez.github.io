@@ -20,7 +20,7 @@ For the purposes of this post, it'll be useful to have the demo app cloned local
 
 The app is very simple, each [clicker][analog-clicker-img] is a counter that lets the user increment some arbitrary event. The motivation (aside from learning things) was to plot the number of times my partner bitched about the weather here in Wellington.
 
-![alt text](/images/ionic2_unit_testing/clicker_screenshot.png "Clicker App"){: .center-image }
+![alt text](/images/ionic2_unit_testing/clicker.gif "Clicker App"){: .center-image }
 
 Directory Structure
 --------------------
