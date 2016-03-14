@@ -1,6 +1,6 @@
 ---
 title:  "End to End testing an Ionic2 project"
-date:   2016-03-15 01:00:00
+date:   2016-03-12 01:00:00
 categories: [dev]
 tags: [ionic2, angular2, testing]
 ---
@@ -18,7 +18,7 @@ Note we keep the tests with source code, as per the guidance in the [Angular 2 S
 
 `cp clicker/app/app.e2e.ts myApp/app/app.e2e.ts`
 
-Modify the test cases in [app.e2e.ts][app.e2e.ts] to suit your application, or use the simple example below:
+Modify the test cases in [app.e2e.ts][app.e2e.ts] to suit your application, or use the simple example below (works with the ionic starter app):
 
 ```javascript
 describe('MyApp', () => {
@@ -28,7 +28,7 @@ describe('MyApp', () => {
   });
 
   it('should have a title', () => {
-    expect(browser.getTitle()).toEqual('MyApp Title');
+    expect(browser.getTitle()).toEqual('Tab 1');
   });
 });
 ```
@@ -66,7 +66,7 @@ This gulpfile defines several tasks which gulp will carry out for us during the 
 <div class="highlighter-rouge">
 <pre class="lowlight">
 <code>npm install -g typings
-npm install --save-dev chalk del gulp gulp-load-plugins gulp-inline-ng2-template gulp-tap gulp-tslint gulp-typescript karma run-sequence tslint ts-node</code>
+npm install --save-dev chalk del gulp gulp-load-plugins gulp-inline-ng2-template gulp-tslint gulp-typescript karma run-sequence tslint ts-node</code>
 </pre>
 </div>
 
@@ -106,27 +106,49 @@ You're now ready to build the tests:
 Running the tests
 ------------------
 
-To get [Protractor][protractor-home] up and runnning, we need more boilerplate config and more dev dependencies.
+We'll be running our E2E tests using [Protractor][protractor-home]. To get it up and runnning, we need more boilerplate config and more dev dependencies.
 
 Copy the following files into your project:
 
-`cp clicker/test/protractor.config.js myApp/test`
+`cp clicker/test/protractor.conf.js myApp/test`
 
-* [protractor.config.ts][protractor.config.ts]: Protractor's config
+* [protractor.conf.js][protractor.conf.js]: Protractor's config
 
 **Install deps:**
 
-`npm install --save-dev protractor selenium-webdriver`
+`npm install --save-dev jasmine-spec-reporter protractor`
 
-Add the following lines to your `package.json` so we can get everything working nicely with `npm` instead of calling `gulp`:
+Add the following lines to your `package.json` so we can get everything working nicely with `npm` instead of calling `gulp`, `ionic` and `protractor`:
 
 ```yaml
   "scripts": {
     "e2e": "gulp --gulpfile test/gulpfile.ts --cwd ./ test.build && ./node_modules/protractor/bin/protractor test/protractor.conf.js",
     "start": "ionic serve",
-    "webdriver-start": "webdriver-manager start",
     "webdriver-update": "webdriver-manager update"
   }
+```
+
+**Run the E2E tests:**
+
+* `npm run webdriver-update` - Update webdriver, **only necessary one time after install**
+* `npm start` - Start Ionic's dev server
+* `npm run e2e` - Build the tests and start protractor (in another terminal)
+
+```
+Using ChromeDriver directly...
+[launcher] Running 1 instances of WebDriver
+Spec started
+Started
+
+  MyApp
+    ✓ should have a title
+.
+Executed 1 of 1 spec SUCCESS in 4 secs.
+
+1 spec, 0 failures
+Finished in 3.714 seconds
+[launcher] 0 instance(s) of WebDriver still running
+[launcher] chrome #1 passed
 ```
 
 Contribute
@@ -140,50 +162,10 @@ Help!
 If you can't get any of this working in your own project, [raise an issue][clicker-issue-new] and I'll do my best to help out.
 
 [angular2-sg-dir]:      https://github.com/mgechev/angular2-style-guide#directory-structure
-[blog-unit-testing]:    http://lathonez.github.io/2016/ionic-2-unit-testing/
-[clicker-repo]:         http://github.com/lathonez/clicker
 [app.e2e.ts]:           https://github.com/lathonez/clicker/blob/master/app/app.e2e.ts
-[protractor-home]:      https://angular.github.io/protractor-home
-[protractor.config.js]: https://github.com/lathonez/clicker/blob/master/test/protractor.config.js
-
-
-[analog-clicker-img]: http://thumbs.dreamstime.com/thumblarge_304/1219960995H0ZkZw.jpg
-[angular2-seed-cfg]:  https://github.com/mgechev/angular2-seed/blob/master/tools/config.ts
-[angular2-seed-repo]: https://github.com/mgechev/angular2-seed
-[angular2-sg-dir]:    https://github.com/mgechev/angular2-style-guide#directory-structure
-[app.spec.ts]:        https://github.com/lathonez/clicker/blob/master/test/app.spec.ts
-[app.stub.ts]:        https://github.com/lathonez/clicker/blob/master/test/app.stub.ts
-[clicker-codecov]:    https://codecov.io/github/lathonez/clicker?branch=master
-[clicker-coveralls]:  https://coveralls.io/github/lathonez/clicker?branch=master
-[clicker-issue-20]:   https://github.com/lathonez/clicker/issues/20
-[clicker-issue-22]:   https://github.com/lathonez/clicker/issues/22
-[clicker-issue-29]:   https://github.com/lathonez/clicker/issues/29
-[clicker-issue-34]:   https://github.com/lathonez/clicker/issues/34
-[clicker-issue-33]:   https://github.com/lathonez/clicker/issues/33
-[clicker-issue-35]:   https://github.com/lathonez/clicker/issues/35
-[clicker-issue-38]:   https://github.com/lathonez/clicker/issues/38
-[clicker-issue-6]:    https://github.com/lathonez/clicker/issues/6
-[clicker-issue-new]:  https://github.com/lathonez/clicker/issues/new
-[clicker-travis]:     https://travis-ci.org/lathonez/clicker
-[config.ts]:          https://github.com/lathonez/clicker/blob/master/test/config.ts
-[cordova-prune-post]: http://lathonez.github.io/2016/cordova-remove-assets/
-[gulp-home]:          http://gulpjs.com/
-[gulp-inline-ng2]:    https://github.com/ludohenin/gulp-inline-ng2-template
-[gulpfile.js]:        https://github.com/lathonez/clicker/blob/master/test/gulpfile.js
-[gulpfile.ts]:        https://github.com/lathonez/clicker/blob/master/test/gulpfile.ts
-[ionic-angular.js]:   https://github.com/lathonez/clicker/blob/master/test/ionic-angular.js
-[ionic-index.ts]:     https://github.com/driftyco/ionic/blob/2.0/ionic/index.ts
-[karma-console-ss]:   /images/ionic2_unit_testing/karma-console-screenshot.png
-[karma-debug-ss]:     /images/ionic2_unit_testing/karma-debug-screenshot.png
-[karma-home]:         https://karma-runner.github.io/0.13/index.html
-[karma-tm-docs]:      https://karma-runner.github.io/0.8/plus/RequireJS.html
-[karma.config.js]:    https://github.com/lathonez/clicker/blob/master/test/karma.config.js
-[lcov-app-ss]:        /images/ionic2_unit_testing/lcov-app-screenshot.png
-[lcov-home]:          http://ltp.sourceforge.net/coverage/lcov.php
-[lcov-index-ss]:      /images/ionic2_unit_testing/lcov-index-screenshot.png
-[sbtp-docs]:          https://angular.io/docs/js/latest/api/testing/setBaseTestProviders-function.html
-[strict-typing]:      https://github.com/lathonez/clicker/blob/master/tslint.json#L80-L97
-[test-main.js]:       https://github.com/lathonez/clicker/blob/master/test/test-main.js
-[tslint-home]:        https://www.npmjs.com/package/tslint
-[tslint.json]:        https://github.com/lathonez/clicker/blob/master/tslint.json
-[typings-home]:       https://www.npmjs.com/package/typings
+[blog-unit-testing]:    http://lathonez.github.io/2016/ionic-2-unit-testing/
+[clicker-issue-38]:     https://github.com/lathonez/clicker/issues/38
+[clicker-issue-new]:    https://github.com/lathonez/clicker/issues/new
+[clicker-repo]:         http://github.com/lathonez/clicker
+[protractor-home]:      https://angular.github.io/protractor
+[protractor.conf.js]:   https://github.com/lathonez/clicker/blob/master/test/protractor.conf.js
