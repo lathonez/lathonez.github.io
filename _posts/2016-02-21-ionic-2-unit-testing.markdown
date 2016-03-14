@@ -130,7 +130,7 @@ cp clicker/test/config.ts myApp/test</code>
 </pre>
 </div>
 
-* [gulpfile.ts][gulpfile.ts]: gulp’s config file
+* [gulpfile.ts][gulpfile.ts]: gulp’s task definition file
 * [config.ts][config.ts]: config file for this setup, containing only paths at the moment. Can be [expanded][angular2-seed-cfg] down the line.
 
 This gulpfile defines several tasks which gulp will carry out for us during the test cycle:

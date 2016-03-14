@@ -5,7 +5,7 @@ categories: [dev]
 tags: [ionic2, angular2, testing]
 ---
 
-**TL;DR** - I have an Ionic 2 project on github set up with E2E testing, [dive in][clicker-repo], or read on.
+**TL;DR** - I have an Ionic 2 project on github set up for E2E testing with [protractor][protractor-home], [dive in][clicker-repo], or read on.
 
 The previous post in this series on [Unit Testing][blog-unit-testing] does a bit of intro that I won't repeat here. For the purposes of this post, it'll be useful to have the demo app cloned locally.
 
@@ -14,7 +14,7 @@ The previous post in this series on [Unit Testing][blog-unit-testing] does a bit
 A simple e2e test on app.ts
 ----------------------------
 
-Note we keep the tests with source code, as per the guidance in the [Angular 2 Style Guide][angular2-sg-dir].
+Note we keep the tests and source code together, as per the [Angular 2 Style Guide][angular2-sg-dir].
 
 `cp clicker/app/app.e2e.ts myApp/app/app.e2e.ts`
 
@@ -36,9 +36,7 @@ describe('MyApp', () => {
 Building the tests
 -------------------
 
-Unlike unit tests, E2E tests will be run against our Ionic development server, which builds source code into `app.bundle.js`. All we need to do is compile our E2E tests from Typescript to Javascript, as opposed to building all the source as well.
-
-The [gulp][gulp-home] build task we set up for building the unit tests does this for free, so we're just going to use that. It's just worth noting that the other stuff that task does (building *.ts and *.spec, and copying assets) are surplus to requirements here.
+Unlike the unit tests, E2E tests are run against the Ionic development server. All we need to do is compile our E2E tests from Typescript to Javascript, as opposed to building all the source as well.
 
 Make the following changes to your project:
 
@@ -50,14 +48,10 @@ cp clicker/test/config.ts myApp/test</code>
 </pre>
 </div>
 
-* [gulpfile.ts][gulpfile.ts]: gulp’s config file
-* [config.ts][config.ts]: config file for this setup, containing only paths at the moment. Can be [expanded][angular2-seed-cfg] down the line.
+* [gulpfile.ts][gulpfile.ts]: gulp’s task definition file
+* [config.ts][config.ts]: config file for this setup
 
-This gulpfile defines several tasks which gulp will carry out for us during the test cycle. The ones we care about for E2E are:
-
-1. **test.clean**: remove content from `www/build`, except `www/build/js`, which isn't used for testing
-2. **test.lint**: perform static analysis on source code using `tslint` if enabled
-3. **test.build.typescript**: compile all our Typescript (both source and test), into individual Javascript files. This is done differently from Ionic which bundles everything into `app.bundle.js`
+This gulpfile defines several tasks which gulp will carry out for us during the test cycle. The only one we care about for E2E is `test.build.e2e`
 
 **Install Dependencies and Typings:**
 
@@ -108,17 +102,15 @@ Running the tests
 
 We'll be running our E2E tests using [Protractor][protractor-home]. To get it up and runnning, we need more boilerplate config and more dev dependencies.
 
-Copy the following files into your project:
+Copy [protractor's config][protractor.conf.js] into your project:
 
 `cp clicker/test/protractor.conf.js myApp/test`
 
-* [protractor.conf.js][protractor.conf.js]: Protractor's config
-
-**Install deps:**
+Install deps:
 
 `npm install --save-dev jasmine-spec-reporter protractor`
 
-Add the following lines to your `package.json` so we can get everything working nicely with `npm` instead of calling `gulp`, `ionic` and `protractor`:
+Add the following lines to your `package.json` so we can get everything working nicely with `npm`:
 
 ```yaml
   "scripts": {
@@ -128,7 +120,7 @@ Add the following lines to your `package.json` so we can get everything working 
   }
 ```
 
-**Run the E2E tests:**
+Run the E2E tests:
 
 * `npm run webdriver-update` - Update webdriver, **only necessary one time after install**
 * `npm start` - Start Ionic's dev server
@@ -167,5 +159,8 @@ If you can't get any of this working in your own project, [raise an issue][click
 [clicker-issue-38]:     https://github.com/lathonez/clicker/issues/38
 [clicker-issue-new]:    https://github.com/lathonez/clicker/issues/new
 [clicker-repo]:         http://github.com/lathonez/clicker
+[config.ts]:            https://github.com/lathonez/clicker/blob/master/test/config.ts
+[gulp-home]:            http://gulpjs.com/
+[gulpfile.ts]:          https://github.com/lathonez/clicker/blob/master/test/gulpfile.ts
 [protractor-home]:      https://angular.github.io/protractor
 [protractor.conf.js]:   https://github.com/lathonez/clicker/blob/master/test/protractor.conf.js
