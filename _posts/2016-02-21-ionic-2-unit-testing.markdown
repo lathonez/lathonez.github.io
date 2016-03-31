@@ -388,9 +388,11 @@ FAQ
 * [External modules example one][clicker-issue-20]
 * [External modules example two][clicker-issue-22]
 * [External modules example three (moment.js)][clicker-issue-33]
+* [External modules example four (ionic-native.js)][clicker-issue-66]
 * [404 on app.bundle.js][clicker-issue-29]
 * [what is app.stub.ts][clicker-issue-34]
 * [run a single test][clicker-issue-35]
+* [why do our tests need a main method][clicker-issue-65]
 
 [analog-clicker-img]: http://thumbs.dreamstime.com/thumblarge_304/1219960995H0ZkZw.jpg
 [angular2-seed-cfg]:  https://github.com/mgechev/angular2-seed/blob/master/tools/config.ts
@@ -407,6 +409,8 @@ FAQ
 [clicker-issue-33]:   https://github.com/lathonez/clicker/issues/33
 [clicker-issue-35]:   https://github.com/lathonez/clicker/issues/35
 [clicker-issue-38]:   https://github.com/lathonez/clicker/issues/38
+[clicker-issue-66]:   https://github.com/lathonez/clicker/pull/66
+[clicker-issue-65]:   https://github.com/lathonez/clicker/issues/65
 [clicker-issue-6]:    https://github.com/lathonez/clicker/issues/6
 [clicker-issue-new]:  https://github.com/lathonez/clicker/issues/new
 [clicker-repo]:       http://github.com/lathonez/clicker
