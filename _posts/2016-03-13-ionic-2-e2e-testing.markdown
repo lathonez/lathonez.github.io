@@ -66,7 +66,7 @@ npm install --save-dev chalk del gulp gulp-load-plugins gulp-inline-ng2-template
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>typings install --ambient --save angular-protractor bluebird chalk del express glob gulp gulp-load-plugins gulp-typescript gulp-util karma jasmine log4js mime minimatch node orchestrator q run-sequence selenium-webdriver serve-static through2 vinyl</code>
+<code>typings install --ambient --save angular-protractor bluebird chalk del express express-serve-static-core glob gulp gulp-load-plugins gulp-typescript gulp-util karma jasmine log4js mime minimatch node orchestrator q run-sequence selenium-webdriver serve-static through2 vinyl</code>
 </pre>
 </div>
 
