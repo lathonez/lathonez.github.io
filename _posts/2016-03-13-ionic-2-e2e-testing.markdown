@@ -74,7 +74,7 @@ You're now ready to build the tests:
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>node_modules/gulp/bin/gulp.js --gulpfile test/gulpfile.ts --cwd ./ test.build</code>
+<code>node_modules/gulp/bin/gulp.js --gulpfile test/gulpfile.ts --cwd ./ build-e2e</code>
 </pre>
 </div>
 ```
@@ -114,7 +114,7 @@ Add the following lines to your `package.json` so we can get everything working 
 
 ```yaml
   "scripts": {
-    "e2e": "gulp --gulpfile test/gulpfile.ts --cwd ./ test.build && ./node_modules/protractor/bin/protractor test/protractor.conf.js",
+    "e2e": "gulp --gulpfile test/gulpfile.ts --cwd ./ build-e2e && ./node_modules/protractor/bin/protractor test/protractor.conf.js",
     "start": "ionic serve",
     "webdriver-update": "webdriver-manager update"
   }
