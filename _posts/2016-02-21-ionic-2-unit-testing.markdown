@@ -85,7 +85,7 @@ Modify the test cases in [app.spec.ts][app.spec.ts] to suit your application, o
 ```javascript
 import { TEST_BROWSER_PLATFORM_PROVIDERS, TEST_BROWSER_APPLICATION_PROVIDERS} from 'angular2/platform/testing/browser';
 import { setBaseTestProviders } from 'angular2/testing';
-import { MyApp }           from './app';
+import { MyApp } from './app';
 
 // this needs doing _once_ for the entire test suite, hence it's here
 setBaseTestProviders(TEST_BROWSER_PLATFORM_PROVIDERS, TEST_BROWSER_APPLICATION_PROVIDERS);
