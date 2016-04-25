@@ -66,7 +66,7 @@ npm install --save-dev chalk del gulp gulp-load-plugins gulp-inline-ng2-template
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>typings install --ambient --save angular-protractor bluebird chalk del express express-serve-static-core glob gulp gulp-load-plugins gulp-typescript gulp-util karma jasmine log4js mime minimatch node orchestrator q run-sequence selenium-webdriver serve-static through2 vinyl</code>
+<code>typings install --ambient --save angular-protractor bluebird chalk del express express-serve-static-core glob gulp gulp-load-plugins gulp-typescript gulp-util karma jasmine jasmine-spec-reporter log4js mime minimatch node orchestrator protractor q run-sequence selenium-webdriver serve-static through2 vinyl</code>
 </pre>
 </div>
 
@@ -106,15 +106,11 @@ Copy [protractor's config][protractor.conf.js] into your project:
 
 `cp clicker/test/protractor.conf.js myApp/test`
 
-Install deps:
-
-`npm install --save-dev jasmine-spec-reporter protractor`
-
 Add the following lines to your `package.json` so we can get everything working nicely with `npm`:
 
 ```yaml
   "scripts": {
-    "e2e": "gulp --gulpfile test/gulpfile.ts --cwd ./ build-e2e && ./node_modules/protractor/bin/protractor test/protractor.conf.js",
+    "e2e": "gulp --gulpfile test/gulpfile.ts --cwd ./ build-e2e && protractor test/protractor.conf.js",
     "start": "ionic serve",
     "webdriver-update": "webdriver-manager update"
   }
