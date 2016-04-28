@@ -85,6 +85,9 @@ We probably haven't got much logic in `app.ts` worthy of unit testing, but being
 Modify the test cases in [app.spec.ts][app.spec.ts] to suit your application, or use the simple example below:
 
 ```javascript
+// http://stackoverflow.com/questions/33332394/angular-2-typescript-cant-find-names
+/// <reference path="../node_modules/angular2/typings/browser.d.ts" />
+
 import { TEST_BROWSER_PLATFORM_PROVIDERS, TEST_BROWSER_APPLICATION_PROVIDERS} from 'angular2/platform/testing/browser';
 import { setBaseTestProviders } from 'angular2/testing';
 import { MyApp } from './app';
@@ -154,13 +157,13 @@ The project's [README.md][clicker-deps] has list of dependencies and a brief des
 <div class="highlighter-rouge">
 <pre class="lowlight">
 <code>npm install -g typings
-npm install --save-dev browserify-istanbul codecov.io gulp-load-plugins gulp-tslint gulp-typescript gulp-util isparta jasmine-core karma karma-browserify karma-chrome-launcher karma-coverage karma-jasmine karma-mocha-reporter karma-phantomjs-launcher phantomjs-prebuilt traceur tsify ts-node tslint tslint-eslint-rules typescript</code>
+npm install --save-dev browserify-istanbul codecov.io gulp-tslint gulp-typescript isparta jasmine-core karma karma-browserify karma-chrome-launcher karma-coverage karma-jasmine karma-mocha-reporter karma-phantomjs-launcher phantomjs-prebuilt traceur tsify ts-node tslint</code>
 </pre>
 </div>
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>typings install --ambient --save bluebird chalk del es6-shim express express-serve-static-core glob gulp gulp-load-plugins gulp-typescript gulp-util istanbul jasmine karma log4js mime minimatch node orchestrator q run-sequence serve-static through2 vinyl</code>
+<code>typings install --ambient --save jasmine node</code>
 </pre>
 </div>
 

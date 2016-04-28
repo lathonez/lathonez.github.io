@@ -38,20 +38,16 @@ Building the tests
 
 Unlike the unit tests, E2E tests are run against the Ionic development server. All we need to do is compile our E2E tests from Typescript to Javascript, as opposed to building all the source as well.
 
-Make the following changes to your project:
+Copy gulp's [task definition file][gulpfile.ts] into your project:
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
 <code>mkdir -p myApp/test
-cp clicker/test/gulpfile.ts myApp/test
-cp clicker/test/config.ts myApp/test</code>
+cp clicker/test/gulpfile.ts myApp/test</code>
 </pre>
 </div>
 
-* [gulpfile.ts][gulpfile.ts]: gulp’s task definition file
-* [config.ts][config.ts]: config file for this setup
-
-This gulpfile defines several tasks which gulp will carry out for us during the test cycle. The only one we care about for E2E is `test.build.e2e`
+This gulpfile defines several tasks for use during the test cycle. The only one we care about for E2E is `build-e2e`
 
 **Install Dependencies and Typings:**
 
@@ -60,13 +56,13 @@ This gulpfile defines several tasks which gulp will carry out for us during the 
 <div class="highlighter-rouge">
 <pre class="lowlight">
 <code>npm install -g typings
-npm install --save-dev chalk del gulp gulp-load-plugins gulp-inline-ng2-template gulp-tslint gulp-typescript karma run-sequence tslint ts-node</code>
+npm install --save-dev del gulp gulp-tslint gulp-typescript karma jasmine-spec-reporter protractor run-sequence tslint ts-node</code>
 </pre>
 </div>
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>typings install --ambient --save angular-protractor bluebird chalk del express express-serve-static-core glob gulp gulp-load-plugins gulp-typescript gulp-util karma jasmine jasmine-spec-reporter log4js mime minimatch node orchestrator protractor q run-sequence selenium-webdriver serve-static through2 vinyl</code>
+<code>typings install --ambient --save angular-protractor jasmine node selenium-webdriver</code>
 </pre>
 </div>
 
@@ -100,9 +96,7 @@ You're now ready to build the tests:
 Running the tests
 ------------------
 
-We'll be running our E2E tests using [Protractor][protractor-home]. To get it up and runnning, we need more boilerplate config and more dev dependencies.
-
-Copy [protractor's config][protractor.conf.js] into your project:
+We'll be running our E2E tests using [Protractor][protractor-home]. Copy [protractor's config][protractor.conf.js] into your project:
 
 `cp clicker/test/protractor.conf.js myApp/test`
 
