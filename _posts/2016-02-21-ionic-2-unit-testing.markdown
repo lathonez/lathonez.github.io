@@ -64,11 +64,13 @@ app/
     └── utils.ts
 
 test
-├── app.stub.js
-├── config.ts
 ├── gulpfile.ts
 ├── karma.config.js
-└── testUtils.ts
+├── testUtils.ts
+└── karma-static
+    ├── context.html
+    └── debug.html
+
 ```
 
 This may not be the correct decision for your project / team. If you decide to keep the source and tests separately, you should still be able to follow this post with minimal config changes.
@@ -119,9 +121,9 @@ Note the [setBaseTestProviders][sbtp-docs] line, enabling us to utilise Angular
 Building the tests
 -------------------
 
-Our tests are written in Typescript, the same as our Ionic 2 source code. When we run `ionic serve`, Ionic uses [Browserify][browserify-home] to bundle up our app's source and transpile it into Javascript. It isn't going to do this for our tests.
+We'll use [gulp][gulp-home] to orchastrate the test process and [browserify][browserify-home] to transpile the unit tests and generate sourcemaps.
 
-Enter [gulp][gulp-home]. Ionic are already using gulp; you should have `gulpfile.js` inside the root of your app. In order to separate concerns we'll keep ours in `./test/gulpfile.ts`. Feel free to combine the two if you wish, ours will actually hook directly into Ionic's to make use of the tasks defined therein.
+Ionic use both gulp and browserify already; you should have `gulpfile.js` inside the root of your app. In order to separate concerns we'll keep ours in `./test/gulpfile.ts`. Feel free to combine the two if you wish, ours will actually hook directly into Ionic's to make use of the tasks defined therein.
 
 Make the following changes to your project:
 
@@ -129,20 +131,21 @@ Make the following changes to your project:
 <pre class="lowlight">
 <code>mkdir -p myApp/test
 cp clicker/test/gulpfile.ts myApp/test
-cp clicker/test/config.ts myApp/test</code>
+cp clicker/test/karma.config.js myApp/test
+cp -r clicker/test/karma-static myApp/test</code>
 </pre>
 </div>
 
 * [gulpfile.ts][gulpfile.ts]: gulp’s task definition file
-* [config.ts][config.ts]: config file for this setup, containing only paths at the moment. Can be [expanded][angular2-seed-cfg] down the line.
+* [karma.config.js][karma.config.js]: Karma's config
+* [karma-static][karma-static]: Karma's HTML static with an `<ion-app></ion-app>` injected. See [here][clicker-issue-79] for more info
 
 This gulpfile defines several tasks which gulp will carry out for us during the test cycle:
 
 1. **clean-test**: remove content from `www/build`, except `www/build/js`, which isn't used for testing
 2. **lint**: perform static analysis on source code using `tslint` if enabled
-3. **build-unit**: transpile all our Typescript (source, test and external dependencies), into one giant bundle. Also generate a sourcemap.
-4. **karma**: spin up [Karma][karma-home] (more on this later)
-5. **unit-test**: combine all of the above to run the tests (more on this later)
+3. **karma**: spin up [Karma][karma-home]
+4. **unit-test**: combine all of the above to run the tests
 
 **Install Dependencies and Typings:**
 
@@ -151,7 +154,7 @@ The project's [README.md][clicker-deps] has list of dependencies and a brief des
 <div class="highlighter-rouge">
 <pre class="lowlight">
 <code>npm install -g typings
-npm install --save-dev codecov.io gulp-load-plugins gulp-rename gulp-tslint gulp-typescript gulp-util istanbul jasmine-core karma karma-chrome-launcher karma-coverage karma-jasmine karma-mocha-reporter karma-phantomjs-launcher phantomjs-prebuilt remap-istanbul traceur ts-node tslint tslint-eslint-rules typescript</code>
+npm install --save-dev browserify-istanbul codecov.io gulp-load-plugins gulp-tslint gulp-typescript gulp-util isparta jasmine-core karma karma-browserify karma-chrome-launcher karma-coverage karma-jasmine karma-mocha-reporter karma-phantomjs-launcher phantomjs-prebuilt traceur tsify ts-node tslint tslint-eslint-rules typescript</code>
 </pre>
 </div>
 
@@ -161,83 +164,32 @@ npm install --save-dev codecov.io gulp-load-plugins gulp-rename gulp-tslint gulp
 </pre>
 </div>
 
-You're now ready to build the tests:
+**Patch Karma's static:**
 
-<div class="highlighter-rouge">
-<pre class="lowlight">
-<code>node_modules/gulp/bin/gulp.js --gulpfile test/gulpfile.ts --cwd ./ build-unit</code>
-</pre>
-</div>
-
-```
-[23:42:55] Requiring external module ts-node/register
-[23:42:59] sourced Ionic's gulpfile @ /home/lathonez/code/clicker/gulpfile.js
-[23:42:59] Using gulpfile ~/code/clicker/test/gulpfile.ts
-[23:42:59] Starting 'clean-test'...
-[23:42:59] Starting 'html'...
-[23:42:59] Starting 'lint'...
-[23:42:59] Starting 'patch-app'...
-[23:42:59] node_modules/ionic-angular/decorators/app.js has been backed up to node_modules/ionic-angular/decorators/app.backup
-[23:42:59] node_modules/ionic-angular/decorators/app.js has been patched with test/app.stub.js
-[23:42:59] Finished 'patch-app' after 11 ms
-[23:42:59] Deleted /home/lathonez/code/clicker/www/build/test
-[23:42:59] Finished 'clean-test' after 87 ms
-[23:42:59] Finished 'html' after 767 ms
-[23:43:00] Finished 'lint' after 1.07 s
-[23:43:00] Starting 'build-unit'...
-[23:43:13] Starting 'restore-app'...
-[23:43:13] node_modules/ionic-angular/decorators/app.backup has been restored to node_modules/ionic-angular/decorators/app.js
-[23:43:13] Finished 'restore-app' after 4.89 ms
-[23:43:13] Finished 'build-unit' after 13 s
-```
-
-After the build has completed you should have a bundle and a sourcemap in `www/build/test`:
-
-```
-$ ls www/build/test/
-test.bundle.js
-test.bundle.js.map
-```
+`cp test/karma-static/*.html node_modules/karma/static`
 
 Running the tests
 ------------------
 
-To get [Karma][karma-home] up and runnning, we need to copy a couple more files over:
-
-`cp clicker/test/app.stub.js clicker/test/karma.config.js myApp/test`
-
-* [app.stub.js][app.stub.js]: A stub for Ionic's @App decorator.
-* [karma.config.js][karma.config.js]: Karma's config
-
 `node_modules/gulp/bin/gulp.js --gulpfile test/gulpfile.ts --cwd ./ unit-test`
 
 ```
-[23:46:09] Requiring external module ts-node/register
-[23:46:13] sourced Ionic's gulpfile @ /home/lathonez/code/clicker/gulpfile.js
-[23:46:13] Using gulpfile ~/code/clicker/test/gulpfile.ts
-[23:46:13] Starting 'unit-test'...
-[23:46:13] Starting 'clean-test'...
-[23:46:13] Starting 'html'...
-[23:46:13] Starting 'lint'...
-[23:46:13] Starting 'patch-app'...
-[23:46:13] node_modules/ionic-angular/decorators/app.js has been backed up to node_modules/ionic-angular/decorators/app.backup
-[23:46:13] node_modules/ionic-angular/decorators/app.js has been patched with test/app.stub.js
-[23:46:13] Finished 'patch-app' after 4.44 ms
-[23:46:13] Deleted /home/lathonez/code/clicker/www/build/test
-[23:46:13] Finished 'clean-test' after 80 ms
-[23:46:13] Finished 'html' after 834 ms
-[23:46:14] Finished 'lint' after 1.33 s
-[23:46:14] Starting 'build-unit'...
-[23:46:30] Starting 'restore-app'...
-[23:46:30] node_modules/ionic-angular/decorators/app.backup has been restored to node_modules/ionic-angular/decorators/app.js
-[23:46:30] Finished 'restore-app' after 2.15 ms
-[23:46:30] Finished 'build-unit' after 16 s
-[23:46:30] Starting 'karma'...
+[22:20:58] Requiring external module ts-node/register
+[22:21:02] sourced Ionic's gulpfile @ /home/lathonez/code/clicker/gulpfile.js
+[22:22:09] Using gulpfile ~/code/clicker/test/gulpfile.ts
+[22:22:09] Starting 'unit-test'...
+[22:22:09] Starting 'clean-test'...
+[22:22:09] Deleted /home/lathonez/code/clicker/www/build/test
+[22:21:02] Starting 'unit-test'...
+[22:21:02] Starting 'html'...
+[22:21:02] Finished 'html' after 25 ms
+[22:21:02] Starting 'karma'...
 
 START:
-20 04 2016 23:46:34.030:INFO [karma]: Karma v0.13.22 server started at http://localhost:9876/
-20 04 2016 23:46:34.035:INFO [launcher]: Starting browser PhantomJS
-20 04 2016 23:46:34.264:INFO [PhantomJS 2.1.1 (Linux 0.0.0)]: Connected on socket /#QZuD3WqKouSSBai1AAAA with id 3413228
+28 04 2016 22:21:14.274:INFO [framework.browserify]: bundle built
+28 04 2016 22:21:14.297:INFO [karma]: Karma v0.13.9 server started at http://localhost:9876/
+28 04 2016 22:21:14.302:INFO [launcher]: Starting browser PhantomJS
+28 04 2016 22:21:14.507:INFO [PhantomJS 2.1.1 (Linux 0.0.0)]: Connected on socket 7iyg7ThvlYkHrCl3AAAA with id 42386869
   ClickerApp
     ✔ initialises with two possible pages
     ✔ initialises with a root page
@@ -259,6 +211,8 @@ LOG: 'Angular 2 is running in the development mode. Call enableProdMode() to ena
     ✔ initialises with the correct name
   ClickerList
     ✔ initialises
+  Page2
+    ✔ initialises
   Clickers
     ✔ initialises with empty clickers
     ✔ creates an instance of SqlStorage
@@ -274,16 +228,10 @@ LOG: 'Angular 2 is running in the development mode. Call enableProdMode() to ena
   Utils
     ✔ resets a control
 
-Finished in 4.644 secs / 1.57 secs
+Finished in 0.634 secs / 0.62 secs
 
 SUMMARY:
-✔ 26 tests completed
-[23:46:41] Finished 'karma' after 11 s
-[23:46:41] Starting 'remap-coverage'...
-[23:46:47] Finished 'remap-coverage' after 5.18 s
-[23:46:47] Starting 'prune-coverage'...
-[23:46:47] Finished 'prune-coverage' after 260 ms
-[23:46:47] Starting 'report-coverage'...
+✔ 27 tests completed
 -------------------------------|----------|----------|----------|----------|----------------|
 File                           |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
 -------------------------------|----------|----------|----------|----------|----------------|
@@ -298,33 +246,33 @@ File                           |  % Stmts | % Branch |  % Funcs |  % Lines |Unco
   clicker.ts                   |      100 |      100 |      100 |      100 |                |
  app/pages/clickerList/        |      100 |      100 |      100 |      100 |                |
   clickerList.ts               |      100 |      100 |      100 |      100 |                |
- app/pages/page2/              |      100 |      100 |       50 |      100 |                |
-  page2.ts                     |      100 |      100 |       50 |      100 |                |
- app/services/                 |    95.18 |       50 |    92.59 |    95.89 |                |
-  clickers.ts                  |    98.55 |       50 |      100 |    98.36 |             35 |
-  utils.ts                     |    78.57 |      100 |       50 |    83.33 |           8,10 |
+ app/pages/page2/              |      100 |      100 |      100 |      100 |                |
+  page2.ts                     |      100 |      100 |      100 |      100 |                |
+ app/services/                 |    95.83 |    96.77 |       90 |    95.95 |                |
+  clickers.ts                  |    98.77 |    96.77 |      100 |    98.39 |             35 |
+  utils.ts                     |       80 |      100 |       40 |    83.33 |           8,10 |
 -------------------------------|----------|----------|----------|----------|----------------|
-All files                      |    97.73 |     87.5 |    94.23 |    98.11 |                |
+All files                      |    98.36 |    99.45 |    95.38 |    98.18 |                |
 -------------------------------|----------|----------|----------|----------|----------------|
 
-[23:46:47] Finished 'report-coverage' after 109 ms
-[23:46:47] Finished 'unit-test' after 34 s
+[22:21:15] Finished 'karma' after 14 s
+[22:21:15] Finished 'unit-test' after 14 s
 
 ```
 Congrats! You now have unit tests working on your Ionic 2 Project!
 
-Add the following lines to your `package.json` so we can get everything working nicely with `npm` instead of calling `gulp` directly:
+Add the following lines to your `package.json` to get everything working nicely with `npm` instead of calling `gulp` directly:
 
 ```yaml
   "scripts": {
     "karma": "gulp --gulpfile test/gulpfile.ts --cwd ./ karma-debug",
-    "postinstall": "typings install",
+    "postinstall": "typings install && cp test/karma-static/*.html node_modules/karma/static",
     "test": "gulp --gulpfile test/gulpfile.ts --cwd ./ unit-test",
     "watch": "gulp --gulpfile test/gulpfile.ts --cwd ./ watch-unit"
   }
 ```
 
-Now you can simply run `npm test`. Also when you run `npm install` in future, it will also install the typings.
+Now you can simply run `npm test`. Also when you run `npm install` in future, it will also install the typings and patch Karma.
 
 Test Coverage
 --------------
@@ -385,7 +333,6 @@ See [here][cordova-prune-post] for a short post on how to prevent this from happ
 
 Contribute
 ----------
-
 [Clickers][clicker-repo] is a work in progress. If you'd like to help out or have any suggestions, check the [roadmap sticky][clicker-issue-38].
 
 Help!
@@ -402,6 +349,8 @@ FAQ
 * [run a single test][clicker-issue-35]
 * [why do our tests need a main method (they don't anymore - for posterity)][clicker-issue-65]
 
+<div align="center"><iframe src="https://ghbtns.com/github-btn.html?user=lathonez&repo=clicker&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe></div>
+
 [analog-clicker-img]: http://thumbs.dreamstime.com/thumblarge_304/1219960995H0ZkZw.jpg
 [angular2-di-testing]:https://developers.livechatinc.com/blog/testing-angular-2-apps-dependency-injection-and-components
 [angular2-seed-cfg]:  https://github.com/mgechev/angular2-seed/blob/master/tools/config.ts
@@ -412,12 +361,13 @@ FAQ
 [browserify-home]:    http://browserify.org/
 [clicker-codecov]:    https://codecov.io/github/lathonez/clicker?branch=master
 [clicker-coveralls]:  https://coveralls.io/github/lathonez/clicker?branch=master
+[clicker-issue-6]:    https://github.com/lathonez/clicker/issues/6
 [clicker-issue-29]:   https://github.com/lathonez/clicker/issues/29
 [clicker-issue-34]:   https://github.com/lathonez/clicker/issues/34
 [clicker-issue-35]:   https://github.com/lathonez/clicker/issues/35
 [clicker-issue-38]:   https://github.com/lathonez/clicker/issues/38
 [clicker-issue-65]:   https://github.com/lathonez/clicker/issues/65
-[clicker-issue-6]:    https://github.com/lathonez/clicker/issues/6
+[clicker-issue-79]:   https://github.com/lathonez/clicker/issues/79
 [clicker-issue-new]:  https://github.com/lathonez/clicker/issues/new
 [clicker-deps]:       https://github.com/lathonez/clicker#dependencies
 [clicker-repo]:       http://github.com/lathonez/clicker
@@ -429,6 +379,7 @@ FAQ
 [karma-console-ss]:   /images/ionic2_unit_testing/karma-console-screenshot.png
 [karma-debug-ss]:     /images/ionic2_unit_testing/karma-debug-screenshot.png
 [karma-home]:         https://karma-runner.github.io/0.13/index.html
+[karma-static]:       https://github.com/lathonez/clicker/tree/master/test/karma-static
 [karma-tm-docs]:      https://karma-runner.github.io/0.8/plus/RequireJS.html
 [karma.config.js]:    https://github.com/lathonez/clicker/blob/master/test/karma.config.js
 [lcov-app-ss]:        /images/ionic2_unit_testing/lcov-app-screenshot.png
