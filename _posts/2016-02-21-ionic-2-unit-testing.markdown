@@ -121,7 +121,7 @@ describe('MyApp', () => {
 
 Note the [setBaseTestProviders][sbtp-docs] line, enabling us to utilise Angular 2's testing framework in our tests. See this [excellent blog post][angular2-di-testing] for more info.
 
-Building the tests
+Building the test
 ------------------
 
 We'll use [gulp][gulp-home] to orchastrate the test process and [browserify][browserify-home] to transpile the unit tests and generate sourcemaps.
