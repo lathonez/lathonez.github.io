@@ -25,7 +25,7 @@ The app is very simple, each [clicker][analog-clicker-img] is a counter that le
 Directory Structure
 --------------------
 
-There is some debate around where to keep unit tests. I started off with the unit tests in a separate `test/` directory, but have recently combined with the source code as per the [Angular 2 Style Guide][angular2-sg-dir]. Now I use `test/` for configs, etc purely pertaining to the test setup.
+There is some debate around where to keep unit tests. I started off with the unit tests in a separate `test/` directory, but have since combined with the source code as per the [Angular 2 Style Guide][angular2-sg-dir]. Now I use `test/` for configs, etc purely pertaining to the test setup.
 
 
 ```
@@ -86,7 +86,7 @@ Modify the test cases in [app.spec.ts][app.spec.ts] to suit your application, o
 
 ```javascript
 // http://stackoverflow.com/questions/33332394/angular-2-typescript-cant-find-names
-/// <reference path="../node_modules/angular2/typings/browser.d.ts" />
+/// <reference path="node_modules/angular2/typings/browser.d.ts" />
 
 import { TEST_BROWSER_PLATFORM_PROVIDERS, TEST_BROWSER_APPLICATION_PROVIDERS} from 'angular2/platform/testing/browser';
 import { setBaseTestProviders } from 'angular2/testing';
@@ -121,14 +121,14 @@ describe('MyApp', () => {
 
 Note the [setBaseTestProviders][sbtp-docs] line, enabling us to utilise Angular 2's testing framework in our tests. See this [excellent blog post][angular2-di-testing] for more info.
 
-Building the tests
--------------------
+Building the test
+------------------
 
 We'll use [gulp][gulp-home] to orchastrate the test process and [browserify][browserify-home] to transpile the unit tests and generate sourcemaps.
 
-Ionic use both gulp and browserify already; you should have `gulpfile.js` inside the root of your app. In order to separate concerns we'll keep ours in `./test/gulpfile.ts`. Feel free to combine the two if you wish, ours will actually hook directly into Ionic's to make use of the tasks defined therein.
+Ionic use both gulp and browserify already; you should have `gulpfile.js` in your app's root directory. In order to separate concerns we'll keep ours in `./test/gulpfile.ts`. Feel free to combine the two if you wish, ours hooks directly into Ionic's to make use of the tasks defined therein.
 
-Make the following changes to your project:
+Add the following files to your project:
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
@@ -141,14 +141,14 @@ cp -r clicker/test/karma-static myApp/test</code>
 
 * [gulpfile.ts][gulpfile.ts]: gulp’s task definition file
 * [karma.config.js][karma.config.js]: Karma's config
-* [karma-static][karma-static]: Karma's HTML static with an `<ion-app></ion-app>` injected. See [here][clicker-issue-79] for more info
+* [karma-static][karma-static]: Karma's HTML static with an `<ion-app></ion-app>` injected. See [here][clicker-issue-79] for more info.
 
-This gulpfile defines several tasks which gulp will carry out for us during the test cycle:
+This gulpfile defines several tasks which gulp will carry out during the unit-test cycle:
 
-1. **clean-test**: remove content from `www/build`, except `www/build/js`, which isn't used for testing
-2. **lint**: perform static analysis on source code using `tslint` if enabled
-3. **karma**: spin up [Karma][karma-home]
-4. **unit-test**: combine all of the above to run the tests
+1. **lint**: perform static analysis on source code using [tslint][tslint-home]
+2. **html**: hook into Ionic's gulpfile to copy html files
+3. **karma**: spin up [Karma][karma-home], which calls browserify before running the tests
+4. **unit-test**: gulp sequence of the above three taska to run the tests
 
 **Install Dependencies and Typings:**
 
@@ -157,15 +157,11 @@ The project's [README.md][clicker-deps] has list of dependencies and a brief des
 <div class="highlighter-rouge">
 <pre class="lowlight">
 <code>npm install -g typings
-npm install --save-dev browserify-istanbul codecov.io gulp-tslint gulp-typescript isparta jasmine-core karma karma-browserify karma-chrome-launcher karma-coverage karma-jasmine karma-mocha-reporter karma-phantomjs-launcher phantomjs-prebuilt traceur tsify ts-node tslint</code>
+npm install --save-dev browserify-istanbul codecov.io gulp-tslint gulp-typescript isparta jasmine-core karma@0.13.9 karma-browserify karma-chrome-launcher karma-coverage karma-jasmine karma-mocha-reporter karma-phantomjs-launcher phantomjs-prebuilt traceur tsify ts-node tslint</code>
 </pre>
 </div>
 
-<div class="highlighter-rouge">
-<pre class="lowlight">
-<code>typings install --ambient --save jasmine node</code>
-</pre>
-</div>
+`typings install --ambient --save jasmine node`
 
 **Patch Karma's static:**
 
@@ -177,94 +173,64 @@ Running the tests
 `node_modules/gulp/bin/gulp.js --gulpfile test/gulpfile.ts --cwd ./ unit-test`
 
 ```
-[22:20:58] Requiring external module ts-node/register
-[22:21:02] sourced Ionic's gulpfile @ /home/lathonez/code/clicker/gulpfile.js
-[22:22:09] Using gulpfile ~/code/clicker/test/gulpfile.ts
-[22:22:09] Starting 'unit-test'...
-[22:22:09] Starting 'clean-test'...
-[22:22:09] Deleted /home/lathonez/code/clicker/www/build/test
-[22:21:02] Starting 'unit-test'...
-[22:21:02] Starting 'html'...
-[22:21:02] Finished 'html' after 25 ms
-[22:21:02] Starting 'karma'...
+[00:05:13] Requiring external module ts-node/register
+[00:05:16] Using gulpfile ~/code/myApp/test/gulpfile.ts
+[00:05:16] Starting 'unit-test'...
+[00:05:16] Starting 'html'...
+[00:05:16] Finished 'html' after 28 ms
+[00:05:16] Starting 'karma'...
 
 START:
-28 04 2016 22:21:14.274:INFO [framework.browserify]: bundle built
-28 04 2016 22:21:14.297:INFO [karma]: Karma v0.13.9 server started at http://localhost:9876/
-28 04 2016 22:21:14.302:INFO [launcher]: Starting browser PhantomJS
-28 04 2016 22:21:14.507:INFO [PhantomJS 2.1.1 (Linux 0.0.0)]: Connected on socket 7iyg7ThvlYkHrCl3AAAA with id 42386869
-  ClickerApp
+30 04 2016 00:05:28.914:INFO [framework.browserify]: bundle built
+30 04 2016 00:05:28.937:INFO [karma]: Karma v0.13.9 server started at http://localhost:9876/
+30 04 2016 00:05:28.941:INFO [launcher]: Starting browser PhantomJS
+30 04 2016 00:05:29.178:INFO [PhantomJS 2.1.1 (Linux 0.0.0)]: Connected on socket CvuugedPDP7gbjxEAAAA with id 98871511
+  MyApp
     ✔ initialises with two possible pages
-    ✔ initialises with a root page
-    ✔ initialises with an app
-    ✔ opens a page
-LOG: 'Angular 2 is running in the development mode. Call enableProdMode() to enable the production mode.'
-  ClickerButton
-    ✔ initialises
-    ✔ displays the clicker name and count
-    ✔ does a click
-  ClickerForm
-    ✔ initialises
-    ✔ passes new clicker through to service
-    ✔ doesn't try to add a clicker with no name
-  Click
-    ✔ initialises with defaults
-    ✔ initialises with overrides
-  Clicker
-    ✔ initialises with the correct name
-  ClickerList
-    ✔ initialises
-  Page2
-    ✔ initialises
-  Clickers
-    ✔ initialises with empty clickers
-    ✔ creates an instance of SqlStorage
-    ✔ has empty ids with no storage
-    ✔ has empty clickers with no storage
-    ✔ can initialise a clicker from string
-    ✔ returns undefined for a bad id
-    ✔ adds a new clicker with the correct name
-    ✔ removes a clicker by id
-    ✔ does a click
-    ✔ loads IDs from storage
-    ✔ loads clickers from storage
-  Utils
-    ✔ resets a control
 
-Finished in 0.634 secs / 0.62 secs
+Finished in 0.007 secs / 0.001 secs
 
 SUMMARY:
-✔ 27 tests completed
--------------------------------|----------|----------|----------|----------|----------------|
-File                           |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
--------------------------------|----------|----------|----------|----------|----------------|
- app/                          |      100 |      100 |      100 |      100 |                |
-  app.ts                       |      100 |      100 |      100 |      100 |                |
- app/components/clickerButton/ |      100 |      100 |      100 |      100 |                |
-  clickerButton.ts             |      100 |      100 |      100 |      100 |                |
- app/components/clickerForm/   |      100 |      100 |      100 |      100 |                |
-  clickerForm.ts               |      100 |      100 |      100 |      100 |                |
- app/models/                   |      100 |      100 |      100 |      100 |                |
-  click.ts                     |      100 |      100 |      100 |      100 |                |
-  clicker.ts                   |      100 |      100 |      100 |      100 |                |
- app/pages/clickerList/        |      100 |      100 |      100 |      100 |                |
-  clickerList.ts               |      100 |      100 |      100 |      100 |                |
- app/pages/page2/              |      100 |      100 |      100 |      100 |                |
-  page2.ts                     |      100 |      100 |      100 |      100 |                |
- app/services/                 |    95.83 |    96.77 |       90 |    95.95 |                |
-  clickers.ts                  |    98.77 |    96.77 |      100 |    98.39 |             35 |
-  utils.ts                     |       80 |      100 |       40 |    83.33 |           8,10 |
--------------------------------|----------|----------|----------|----------|----------------|
-All files                      |    98.36 |    99.45 |    95.38 |    98.18 |                |
--------------------------------|----------|----------|----------|----------|----------------|
+✔ 1 test completed
+------------------|----------|----------|----------|----------|----------------|
+File              |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
+------------------|----------|----------|----------|----------|----------------|
+ app/             |    95.45 |      100 |       80 |    90.91 |                |
+  app.ts          |    95.45 |      100 |       80 |    90.91 |             17 |
+ app/pages/page1/ |      100 |      100 |       75 |      100 |                |
+  page1.ts        |      100 |      100 |       75 |      100 |                |
+ app/pages/page2/ |      100 |      100 |       75 |      100 |                |
+  page2.ts        |      100 |      100 |       75 |      100 |                |
+ app/pages/page3/ |      100 |      100 |       75 |      100 |                |
+  page3.ts        |      100 |      100 |       75 |      100 |                |
+ app/pages/tabs/  |    86.96 |      100 |       75 |    72.73 |                |
+  tabs.ts         |    86.96 |      100 |       75 |    72.73 |       13,14,15 |
+------------------|----------|----------|----------|----------|----------------|
+All files         |    95.83 |      100 |    76.19 |       90 |                |
+------------------|----------|----------|----------|----------|----------------|
 
-[22:21:15] Finished 'karma' after 14 s
-[22:21:15] Finished 'unit-test' after 14 s
-
+[00:05:29] Finished 'karma' after 13 s
+[00:05:29] Finished 'unit-test' after 13 s
 ```
-Congrats! You now have unit tests working on your Ionic 2 Project!
 
-Add the following lines to your `package.json` to get everything working nicely with `npm` instead of calling `gulp` directly:
+**Remove Linting:**
+
+By default we're running linting with [these tslint rules][tslint.json]. You may find this fails with your project, in which case your tests wont run.
+
+To disable linting, just remove the `lint` task from the array below in [gulpfile.ts][gulpfile.ts].
+
+```javascript
+// build unit tests, run unit tests, remap and report coverage
+gulp.task('unit-test', (done: Function) => {
+  runSequence(
+    ['lint', 'html'],
+    'karma',
+    (<any>done)
+  );
+});
+```
+
+Finally, add the following lines to your `package.json` to get everything working nicely with `npm` instead of calling `gulp` directly:
 
 ```yaml
   "scripts": {
@@ -323,7 +289,7 @@ Chrome will pop up and run through all your tests. When this is finished, hit th
 Linting
 -------
 
-This set up fully supports linting with [tslint][tslint-home]. Linting is done before compilation; if linting fails, your code does not compile or test.
+This set up fully supports linting with [tslint][tslint-home]. Linting is done before unit testing; if linting fails, your code does not transpile or test.
 
 If you want to use linting, just add a [tslint.json][tslint.json] into your project. Each time your run `npm test` your code will be fully linted.
 
