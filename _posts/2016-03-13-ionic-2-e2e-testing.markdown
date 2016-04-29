@@ -36,7 +36,7 @@ describe('MyApp', () => {
 Building the tests
 -------------------
 
-Unlike the unit tests, E2E tests are run against the Ionic development server. All we need to do is compile our E2E tests from Typescript to Javascript, as opposed to building all the source as well.
+We need to transpile our E2E tests from Typescript to Javascript, but we don't need to build all the source as `ionic serve` will do this for us later.
 
 Copy gulp's [task definition file][gulpfile.ts] into your project:
 
@@ -51,46 +51,26 @@ This gulpfile defines several tasks for use during the test cycle. The only one 
 
 **Install Dependencies and Typings:**
 
-`karma` is necessary only because we are doing unit tests in the same gulpfile.
-
 <div class="highlighter-rouge">
 <pre class="lowlight">
 <code>npm install -g typings
-npm install --save-dev del gulp gulp-tslint gulp-typescript karma jasmine-spec-reporter protractor run-sequence tslint ts-node</code>
-</pre>
-</div>
-
-<div class="highlighter-rouge">
-<pre class="lowlight">
-<code>typings install --ambient --save angular-protractor jasmine node selenium-webdriver</code>
+npm install --save-dev del gulp gulp-typescript jasmine-spec-reporter protractor run-sequence ts-node</code>
+typings install --ambient --save angular-protractor jasmine node selenium-webdriver
 </pre>
 </div>
 
 You're now ready to build the tests:
 
-<div class="highlighter-rouge">
-<pre class="lowlight">
-<code>node_modules/gulp/bin/gulp.js --gulpfile test/gulpfile.ts --cwd ./ build-e2e</code>
-</pre>
-</div>
+`node_modules/gulp/bin/gulp.js --gulpfile test/gulpfile.ts --cwd ./ build-e2e`
+
 ```
-[11:26:06] Requiring external module ts-node/register
-[11:26:08] Using gulpfile ~/code/clicker/test/gulpfile.ts
-[11:26:08] Starting 'test.build'...
-[11:26:08] Starting 'test.lint'...
-[11:26:08] Starting 'test.clean'...
-[11:26:08] Deleted -
-[11:26:08] Finished 'test.clean' after 10 ms
-[11:26:09] Finished 'test.lint' after 1.11 s
-[11:26:09] Starting 'sass'...
-[11:26:09] Starting 'copy.fonts'...
-[11:26:09] Starting 'copy.html'...
-[11:26:09] Finished 'copy.html' after 27 ms
-[11:26:09] Finished 'copy.fonts' after 31 ms
-[11:26:10] Finished 'sass' after 736 ms
-[11:26:10] Starting 'test.build.typescript'...
-[11:26:12] Finished 'test.build.typescript' after 2.42 s
-[11:26:12] Finished 'test.build' after 4.27 s
+[09:27:47] Requiring external module ts-node/register
+[09:27:50] Using gulpfile ~/code/myApp/test/gulpfile.ts
+[09:27:50] Starting 'clean-test'...
+Deleted -
+[09:27:50] Finished 'clean-test' after 5.43 ms
+[09:27:50] Starting 'build-e2e'...
+[09:27:51] Finished 'build-e2e' after 1.79 s
 ```
 
 Running the tests
@@ -117,20 +97,27 @@ Run the E2E tests:
 * `npm run e2e` - Build the tests and start protractor (in another terminal)
 
 ```
-Using ChromeDriver directly...
-[launcher] Running 1 instances of WebDriver
+[09:31:41] Requiring external module ts-node/register
+[09:31:44] Using gulpfile ~/code/myApp/test/gulpfile.ts
+[09:31:44] Starting 'clean-test'...
+Deleted /home/lathonez/code/myApp/www/build/test
+[09:31:44] Finished 'clean-test' after 15 ms
+[09:31:44] Starting 'build-e2e'...
+[09:31:46] Finished 'build-e2e' after 1.76 s
+[09:31:46] I/direct - Using ChromeDriver directly...
+[09:31:46] I/launcher - Running 1 instances of WebDriver
 Spec started
 Started
 
   MyApp
     ✓ should have a title
 .
-Executed 1 of 1 spec SUCCESS in 4 secs.
+Executed 1 of 1 spec SUCCESS in 1 sec.
 
 1 spec, 0 failures
-Finished in 3.714 seconds
-[launcher] 0 instance(s) of WebDriver still running
-[launcher] chrome #1 passed
+Finished in 1.385 seconds
+[09:31:49] I/launcher - 0 instance(s) of WebDriver still running
+[09:31:49] I/launcher - chrome #01 passed
 ```
 
 Contribute
@@ -142,6 +129,8 @@ Help!
 -----
 
 If you can't get any of this working in your own project, [raise an issue][clicker-issue-new] and I'll do my best to help out.
+
+<div align="center"><iframe src="https://ghbtns.com/github-btn.html?user=lathonez&repo=clicker&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe></div>
 
 [angular2-sg-dir]:      https://github.com/mgechev/angular2-style-guide#directory-structure
 [app.e2e.ts]:           https://github.com/lathonez/clicker/blob/master/app/app.e2e.ts
