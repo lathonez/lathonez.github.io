@@ -1,6 +1,6 @@
 ---
 title:  "Unit Testing an Ionic2 project"
-date:   2016-02-21 11:34:23
+date:   2016-04-30 01:48:23
 categories: [dev]
 tags: [ionic2, angular2, testing]
 ---
@@ -26,7 +26,6 @@ Directory Structure
 --------------------
 
 There is some debate around where to keep unit tests. I started off with the unit tests in a separate `test/` directory, but have since combined with the source code as per the [Angular 2 Style Guide][angular2-sg-dir]. Now I use `test/` for configs, etc purely pertaining to the test setup.
-
 
 ```
 app/
@@ -85,9 +84,6 @@ We probably haven't got much logic in `app.ts` worthy of unit testing, but being
 Modify the test cases in [app.spec.ts][app.spec.ts] to suit your application, or use the simple example below:
 
 ```javascript
-// http://stackoverflow.com/questions/33332394/angular-2-typescript-cant-find-names
-/// <reference path="node_modules/angular2/typings/browser.d.ts" />
-
 import { TEST_BROWSER_PLATFORM_PROVIDERS, TEST_BROWSER_APPLICATION_PROVIDERS} from 'angular2/platform/testing/browser';
 import { setBaseTestProviders } from 'angular2/testing';
 import { MyApp } from './app';
@@ -121,12 +117,44 @@ describe('MyApp', () => {
 
 Note the [setBaseTestProviders][sbtp-docs] line, enabling us to utilise Angular 2's testing framework in our tests. See this [excellent blog post][angular2-di-testing] for more info.
 
+**Don't use inline templates with the @App decorator:**
+
+Unit Testing Ionic's `@App` decorator in `app.ts` throws the following error:
+
+```
+The selector "ion-app" did not match any elements
+```
+
+Our [solution][clicker-issue-79] for this is to add `<ion-app></ion-app>` tags to Karma's static html. This doesn't work with inline templating:
+
+<div class="highlighter-rouge">
+<pre class="lowlight">
+<code>@App({
+  template: '<ion-nav [root]="rootPage"></ion-nav>',
+  config: {}, // http://ionicframework.com/docs/v2/api/config/Config/
+})</code>
+</pre>
+</div>
+
+Move the template into an [html file][app.html] instead:
+
+<div class="highlighter-rouge">
+<pre class="lowlight">
+<code>@App({
+  templateUrl: 'build/app.html',
+  config: {}, // http://ionicframework.com/docs/v2/api/config/Config/
+})</code>
+</pre>
+</div>
+
+This is only required for the `@App` decorator and thus only for `app.ts`
+
 Building the tests
 ------------------
 
 We'll use [gulp][gulp-home] to orchastrate the test process and [browserify][browserify-home] to transpile the unit tests and generate sourcemaps.
 
-Ionic use both gulp and browserify already; you should have `gulpfile.js` in your app's root directory. In order to separate concerns we'll keep ours in `./test/gulpfile.ts`. Feel free to combine the two if you wish, ours hooks directly into Ionic's to make use of the tasks defined therein.
+Ionic use both gulp and browserify already; you should have `gulpfile.js` in your app's root directory. In order to separate concerns we keep ours in `./test/gulpfile.ts`
 
 Add the following files to your project:
 
@@ -148,7 +176,7 @@ This gulpfile defines several tasks which gulp will carry out during the unit-te
 1. **lint**: perform static analysis on source code using [tslint][tslint-home]
 2. **html**: hook into Ionic's gulpfile to copy html files
 3. **karma**: spin up [Karma][karma-home], which calls browserify before running the tests
-4. **unit-test**: gulp sequence of the above three taska to run the tests
+4. **unit-test**: sequence of the above tasks to run the tests
 
 **Install Dependencies and Typings:**
 
@@ -157,7 +185,7 @@ The project's [README.md][clicker-deps] has list of dependencies and a brief des
 <div class="highlighter-rouge">
 <pre class="lowlight">
 <code>npm install -g typings
-npm install --save-dev browserify-istanbul codecov.io gulp-tslint gulp-typescript isparta jasmine-core karma@0.13.9 karma-browserify karma-chrome-launcher karma-coverage karma-jasmine karma-mocha-reporter karma-phantomjs-launcher phantomjs-prebuilt traceur tsify ts-node tslint</code>
+npm install --save-dev browserify-istanbul codecov.io gulp-tslint gulp-typescript isparta jasmine-core karma karma-browserify karma-chrome-launcher karma-coverage karma-jasmine karma-mocha-reporter karma-phantomjs-launcher phantomjs-prebuilt traceur tsify ts-node tslint</code>
 </pre>
 </div>
 
@@ -166,6 +194,23 @@ npm install --save-dev browserify-istanbul codecov.io gulp-tslint gulp-typescrip
 **Patch Karma's static:**
 
 `cp test/karma-static/*.html node_modules/karma/static`
+
+**Linting:**
+
+By default we're running linting with [these tslint rules][tslint.json]. You may find this fails with your project, in which case your tests wont run.
+
+To disable linting, just remove the `lint` task from the array below in [gulpfile.ts][gulpfile.ts].
+
+```javascript
+// build unit tests, run unit tests, remap and report coverage
+gulp.task('unit-test', (done: Function) => {
+  runSequence(
+    ['lint', 'html'],
+    'karma',
+    (<any>done)
+  );
+});
+```
 
 Running the tests
 ------------------
@@ -213,22 +258,7 @@ All files         |    95.83 |      100 |    76.19 |       90 |                |
 [00:05:29] Finished 'unit-test' after 13 s
 ```
 
-**Remove Linting:**
-
-By default we're running linting with [these tslint rules][tslint.json]. You may find this fails with your project, in which case your tests wont run.
-
-To disable linting, just remove the `lint` task from the array below in [gulpfile.ts][gulpfile.ts].
-
-```javascript
-// build unit tests, run unit tests, remap and report coverage
-gulp.task('unit-test', (done: Function) => {
-  runSequence(
-    ['lint', 'html'],
-    'karma',
-    (<any>done)
-  );
-});
-```
+Congrats! You now have unit testing working in your Ionic 2 project.
 
 Finally, add the following lines to your `package.json` to get everything working nicely with `npm` instead of calling `gulp` directly:
 
@@ -236,8 +266,7 @@ Finally, add the following lines to your `package.json` to get everything workin
   "scripts": {
     "karma": "gulp --gulpfile test/gulpfile.ts --cwd ./ karma-debug",
     "postinstall": "typings install && cp test/karma-static/*.html node_modules/karma/static",
-    "test": "gulp --gulpfile test/gulpfile.ts --cwd ./ unit-test",
-    "watch": "gulp --gulpfile test/gulpfile.ts --cwd ./ watch-unit"
+    "test": "gulp --gulpfile test/gulpfile.ts --cwd ./ unit-test"
   }
 ```
 
@@ -274,31 +303,13 @@ FAILED TESTS:
       at /Users/groyer/Documents/workspace/helperchoice/helpizr-app-v2/test/karma/tests.config.js:41:18
 ```
 
-If this happens it's usually easier to debug yourself in Chrome.
-
-First build the tests and tell gulp to watch for changes. It'll rebuild the tests if you change anything:
-
-`npm run watch`
-
-Next start Karma. Calling it like this will invoke Chrome instead of Phantom and keep the browser open after the tests have finished. If Karma detects any changes (from the watch) it'll re-run your tests:
+If this happens it's usually easier to debug in a a real browser.
 
 `npm run karma`
 
-Chrome will pop up and run through all your tests. When this is finished, hit the [Debug][karma-debug-ss] button and another tab will open. Open the dev console and you can see the [output of all your tests][karma-console-ss], along with any errors which can be debugged as per usual.
+This will invoke Chrome instead of Phantom and keep the browser open after the tests have finished. If Karma detects any changes it'll re-run your tests.
 
-Linting
--------
-
-This set up fully supports linting with [tslint][tslint-home]. Linting is done before unit testing; if linting fails, your code does not transpile or test.
-
-If you want to use linting, just add a [tslint.json][tslint.json] into your project. Each time your run `npm test` your code will be fully linted.
-
-Removing tests from the .apk
------------------------------
-
-In this set up, test files residing in `www/build/test` will be bundled into the `.apk` when `ionic build` is run.
-
-See [here][cordova-prune-post] for a short post on how to prevent this from happening.
+Hit the [Debug][karma-debug-ss] button and another tab will open. Open the dev console and you can see the [output of all your tests][karma-console-ss], along with any errors which can be debugged as per usual.
 
 Contribute
 ----------
@@ -314,7 +325,6 @@ FAQ
 
 * [Debugging unit tests example][clicker-issue-6]
 * [404 on app.bundle.js][clicker-issue-29]
-* [what is app.stub.ts][clicker-issue-34]
 * [run a single test][clicker-issue-35]
 * [why do our tests need a main method (they don't anymore - for posterity)][clicker-issue-65]
 
@@ -325,14 +335,13 @@ FAQ
 [angular2-seed-cfg]:  https://github.com/mgechev/angular2-seed/blob/master/tools/config.ts
 [angular2-seed-repo]: https://github.com/mgechev/angular2-seed
 [angular2-sg-dir]:    https://github.com/mgechev/angular2-style-guide#directory-structure
+[app.html]:           https://github.com/lathonez/clicker/blob/master/app/app.html
 [app.spec.ts]:        https://github.com/lathonez/clicker/blob/master/app/app.spec.ts
-[app.stub.js]:        https://github.com/lathonez/clicker/blob/master/test/app.stub.js
 [browserify-home]:    http://browserify.org/
 [clicker-codecov]:    https://codecov.io/github/lathonez/clicker?branch=master
 [clicker-coveralls]:  https://coveralls.io/github/lathonez/clicker?branch=master
 [clicker-issue-6]:    https://github.com/lathonez/clicker/issues/6
 [clicker-issue-29]:   https://github.com/lathonez/clicker/issues/29
-[clicker-issue-34]:   https://github.com/lathonez/clicker/issues/34
 [clicker-issue-35]:   https://github.com/lathonez/clicker/issues/35
 [clicker-issue-38]:   https://github.com/lathonez/clicker/issues/38
 [clicker-issue-65]:   https://github.com/lathonez/clicker/issues/65
@@ -341,7 +350,6 @@ FAQ
 [clicker-deps]:       https://github.com/lathonez/clicker#dependencies
 [clicker-repo]:       http://github.com/lathonez/clicker
 [clicker-travis]:     https://travis-ci.org/lathonez/clicker
-[config.ts]:          https://github.com/lathonez/clicker/blob/master/test/config.ts
 [cordova-prune-post]: http://lathonez.github.io/2016/cordova-remove-assets/
 [gulp-home]:          http://gulpjs.com/
 [gulpfile.ts]:        https://github.com/lathonez/clicker/blob/master/test/gulpfile.ts
