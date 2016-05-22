@@ -1,6 +1,6 @@
 ---
 title:  "Unit Testing an Ionic2 project"
-date:   2016-04-29 01:48:23
+date:   2016-05-22 01:48:23
 categories: [dev]
 tags: [ionic2, angular2, testing]
 ---
@@ -84,11 +84,13 @@ We probably haven't got much logic in `app.ts` worthy of unit testing, but being
 Modify the test cases in [app.spec.ts][app.spec.ts] to suit your application, or use the simple example below:
 
 ```javascript
-import { TEST_BROWSER_PLATFORM_PROVIDERS, TEST_BROWSER_APPLICATION_PROVIDERS} from 'angular2/platform/testing/browser';
-import { setBaseTestProviders } from 'angular2/testing';
+import { ADDITIONAL_TEST_BROWSER_PROVIDERS, TEST_BROWSER_STATIC_PLATFORM_PROVIDERS } from '@angular/platform-browser/testing/browser_static';
+import { BROWSER_APP_DYNAMIC_PROVIDERS }                from '@angular/platform-browser-dynamic';
+import { resetBaseTestProviders, setBaseTestProviders } from '@angular/core/testing';
 import { MyApp } from './app';
 
 // this needs doing _once_ for the entire test suite, hence it's here
+resetBaseTestProviders();
 setBaseTestProviders(TEST_BROWSER_PLATFORM_PROVIDERS, TEST_BROWSER_APPLICATION_PROVIDERS);
 
 // Mock out Ionic's platform class
@@ -186,7 +188,7 @@ The project's [README.md][clicker-deps] has list of dependencies and a brief des
 <pre class="lowlight">
 <code>npm install -g typings
 npm install --save-dev browserify-istanbul codecov.io gulp-tslint gulp-typescript isparta jasmine-core karma karma-browserify karma-chrome-launcher karma-coverage karma-jasmine karma-mocha-reporter karma-phantomjs-launcher phantomjs-prebuilt traceur tsify ts-node tslint
-typings install --ambient --save jasmine node</code>
+typings install --save --global registry:dt/jasmine registry:dt/node</code>
 </pre>
 </div>
 
