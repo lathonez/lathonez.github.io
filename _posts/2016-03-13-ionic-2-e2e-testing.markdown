@@ -54,8 +54,8 @@ This gulpfile defines several tasks for use during the test cycle. The only one 
 <div class="highlighter-rouge">
 <pre class="lowlight">
 <code>npm install -g typings
-npm install --save-dev del gulp gulp-typescript jasmine-spec-reporter protractor run-sequence ts-node</code>
-typings install --global --save registry:dt/angular-protractor registry:dt/jasmine registry:dt/node registry:dt/selenium-webdriver
+npm install --save-dev del gulp gulp-typescript jasmine-spec-reporter protractor run-sequence ts-node
+typings install --global --save registry:dt/angular-protractor registry:dt/jasmine registry:dt/node registry:dt/selenium-webdriver</code>
 </pre>
 </div>
 
