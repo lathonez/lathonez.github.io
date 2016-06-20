@@ -119,37 +119,6 @@ describe('MyApp', () => {
 
 Note the [setBaseTestProviders][sbtp-docs] line, enabling us to utilise Angular 2's testing framework in our tests. See this [excellent blog post][angular2-di-testing] for more info.
 
-**Don't use inline templates with the @App decorator:**
-
-Unit Testing Ionic's `@App` decorator in `app.ts` throws the following error:
-
-```
-The selector "ion-app" did not match any elements
-```
-
-Our [solution][clicker-issue-79] for this is to add `<ion-app></ion-app>` tags to Karma's static html. This doesn't work with inline templating:
-
-<div class="highlighter-rouge">
-<pre class="lowlight">
-<code>@App({
-  template: '<ion-nav [root]="rootPage"></ion-nav>',
-  config: {}, // http://ionicframework.com/docs/v2/api/config/Config/
-})</code>
-</pre>
-</div>
-
-Move the template into an [html file][app.html] instead:
-
-<div class="highlighter-rouge">
-<pre class="lowlight">
-<code>@App({
-  templateUrl: 'build/app.html',
-  config: {}, // http://ionicframework.com/docs/v2/api/config/Config/
-})</code>
-</pre>
-</div>
-
-This is only required for the `@App` decorator and thus only for `app.ts`
 
 Building the tests
 ------------------
