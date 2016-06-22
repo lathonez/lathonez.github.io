@@ -169,6 +169,8 @@ typings install --save --global registry:dt/jasmine registry:dt/node</code>
 
 **Patch Karma's static:**
 
+We need to have an `<ion-app></ion-app>` hook in our test runner's HTML, otherwise we'll get errors when running the tests. See [this issue][clicker-issue-79] for more information and [this one][clicker-issue-99] for what happens if you remove it.
+
 `cp test/karma-static/*.html node_modules/karma/static`
 
 **Linting:**
@@ -327,6 +329,7 @@ FAQ
 [clicker-issue-38]:   https://github.com/lathonez/clicker/issues/38
 [clicker-issue-65]:   https://github.com/lathonez/clicker/issues/65
 [clicker-issue-79]:   https://github.com/lathonez/clicker/issues/79
+[clicker-issue-99]:   https://github.com/lathonez/clicker/issues/99
 [clicker-issue-new]:  https://github.com/lathonez/clicker/issues/new
 [clicker-deps]:       https://github.com/lathonez/clicker#dependencies
 [clicker-repo]:       http://github.com/lathonez/clicker
