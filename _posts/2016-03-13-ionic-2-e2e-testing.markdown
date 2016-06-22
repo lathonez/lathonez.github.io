@@ -122,8 +122,9 @@ Finished in 1.385 seconds
 
 Contribute
 ----------
-
 [Clickers][clicker-repo] is a work in progress. If you'd like to help out or have any suggestions, check the [roadmap sticky][clicker-issue-38].
+
+This blog is [on github][blog-repo], if you can improve it, have any suggestions or I've failed to keep it up to date, [raise an issue][blog-issue-new] or a PR.
 
 Help!
 -----
@@ -134,6 +135,8 @@ If you can't get any of this working in your own project, [raise an issue][click
 
 [angular2-sg-dir]:      https://github.com/mgechev/angular2-style-guide#directory-structure
 [app.e2e.ts]:           https://github.com/lathonez/clicker/blob/master/app/app.e2e.ts
+[blog-issue-new]:     https://github.com/lathonez/lathonez.github.io/issues/new
+[blog-repo]:          https://github.com/lathonez/lathonez.github.io
 [blog-unit-testing]:    http://lathonez.github.io/2016/ionic-2-unit-testing/
 [clicker-issue-38]:     https://github.com/lathonez/clicker/issues/38
 [clicker-issue-new]:    https://github.com/lathonez/clicker/issues/new

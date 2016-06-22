@@ -314,7 +314,10 @@ Hit the [Debug][karma-debug-ss] button and another tab will open. Open the dev c
 
 Contribute
 ----------
+
 [Clickers][clicker-repo] is a work in progress. If you'd like to help out or have any suggestions, check the [roadmap sticky][clicker-issue-38].
+
+This blog is [on github][blog-repo], if you can improve it, have any suggestions or I've failed to keep it up to date, [raise an issue][blog-issue-new] or a PR.
 
 Help!
 -----
@@ -338,6 +341,8 @@ FAQ
 [angular2-sg-dir]:    https://github.com/mgechev/angular2-style-guide#directory-structure
 [app.html]:           https://github.com/lathonez/clicker/blob/master/app/app.html
 [app.spec.ts]:        https://github.com/lathonez/clicker/blob/master/app/app.spec.ts
+[blog-issue-new]:     https://github.com/lathonez/lathonez.github.io/issues/new
+[blog-repo]:          https://github.com/lathonez/lathonez.github.io
 [browserify-home]:    http://browserify.org/
 [clicker-codecov]:    https://codecov.io/github/lathonez/clicker?branch=master
 [clicker-coveralls]:  https://coveralls.io/github/lathonez/clicker?branch=master

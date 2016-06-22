@@ -158,6 +158,13 @@ describe('Page2', () => {
 
 You can see the full commit of the above change [here][boilerplate-ci].
 
+Contribute
+----------
+
+[Clickers][clicker-repo] is a work in progress. If you'd like to help out or have any suggestions, check the [roadmap sticky][clicker-issue-38].
+
+This blog is [on github][blog-repo], if you can improve it, have any suggestions or I've failed to keep it up to date, [raise an issue][blog-issue-new] or a PR.
+
 Help!
 -----
 
@@ -166,6 +173,8 @@ If you can't get any of this working in your own project, [raise an issue][click
 <div align="center"><iframe src="https://ghbtns.com/github-btn.html?user=lathonez&repo=clicker&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe></div>
 
 [angular2-di-testing]: https://developers.livechatinc.com/blog/testing-angular-2-apps-dependency-injection-and-components
+[blog-issue-new]:      https://github.com/lathonez/lathonez.github.io/issues/new
+[blog-repo]:           https://github.com/lathonez/lathonez.github.io
 [boilerplate-ci]:      https://github.com/lathonez/clicker/commit/4769372596756ec60e876de07e484a01ad181de6
 [clicker-button-diff]: https://github.com/lathonez/clicker/commit/4769372596756ec60e876de07e484a01ad181de6#diff-81c66575523ad4932b8772dceb8eab4c
 [clicker-repo]:        http://github.com/lathonez/clicker
