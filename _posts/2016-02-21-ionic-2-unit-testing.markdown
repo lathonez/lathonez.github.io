@@ -91,7 +91,13 @@ import { MyApp } from './app';
 
 // this needs doing _once_ for the entire test suite, hence it's here
 resetBaseTestProviders();
-setBaseTestProviders(TEST_BROWSER_PLATFORM_PROVIDERS, TEST_BROWSER_APPLICATION_PROVIDERS);
+setBaseTestProviders(
+  TEST_BROWSER_STATIC_PLATFORM_PROVIDERS,
+  [
+    BROWSER_APP_DYNAMIC_PROVIDERS,
+    ADDITIONAL_TEST_BROWSER_PROVIDERS,
+  ]
+);
 
 // Mock out Ionic's platform class
 class MockClass {
