@@ -84,20 +84,14 @@ We probably haven't got much logic in `app.ts` worthy of unit testing, but being
 Modify the test cases in [app.spec.ts][app.spec.ts] to suit your application, or use the simple example below:
 
 ```javascript
-import { ADDITIONAL_TEST_BROWSER_PROVIDERS, TEST_BROWSER_STATIC_PLATFORM_PROVIDERS } from '@angular/platform-browser/testing/browser_static';
-import { BROWSER_APP_DYNAMIC_PROVIDERS }                from '@angular/platform-browser-dynamic';
-import { resetBaseTestProviders, setBaseTestProviders } from '@angular/core/testing';
+import {
+  TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS, TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS,
+}                               from '@angular/platform-browser-dynamic/testing';
+import { setBaseTestProviders } from '@angular/core/testing';
 import { MyApp } from './app';
 
 // this needs doing _once_ for the entire test suite, hence it's here
-resetBaseTestProviders();
-setBaseTestProviders(
-  TEST_BROWSER_STATIC_PLATFORM_PROVIDERS,
-  [
-    BROWSER_APP_DYNAMIC_PROVIDERS,
-    ADDITIONAL_TEST_BROWSER_PROVIDERS,
-  ]
-);
+setBaseTestProviders(TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS, TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS);
 
 // Mock out Ionic's platform class
 class MockClass {
