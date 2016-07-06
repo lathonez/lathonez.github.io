@@ -123,7 +123,7 @@ Finished in 1.385 seconds
 Using Docker?
 ----------
 
-Testing on docker (on any other headless environment), requires the use of `xvfb`, a virtual frame buffer implementing the X11 protocol.
+Testing on docker (or any other headless environment), requires the use of `xvfb`, a virtual frame buffer implementing the X11 protocol.
 
 `apt-get install xvfb`
 
@@ -136,7 +136,7 @@ Change the `e2e` line in `package.json` to include `xvfb-run`, ensuring protract
   }
 ```
 
-For more information see [issue #144](clicker-issue-114)
+For more information see [issue #144][clicker-issue-114]
 
 Contribute
 ----------
