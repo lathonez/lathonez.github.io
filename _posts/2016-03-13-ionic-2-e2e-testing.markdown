@@ -120,6 +120,24 @@ Finished in 1.385 seconds
 [09:31:49] I/launcher - chrome #01 passed
 ```
 
+Using Docker?
+----------
+
+Testing on docker (on any other headless environment), requires the use of `xvfb`, a virtual frame buffer implementing the X11 protocol.
+
+`apt-get install xvfb`
+
+Change the `e2e` line in `package.json` to include `xvfb-run`, ensuring protractor has access to the virtual display:
+
+```yaml
+  "scripts": {
+    "e2e": "gulp --gulpfile test/gulpfile.ts --cwd ./ build-e2e && xvfb-run protractor test/protractor.conf.js",
+    ...
+  }
+```
+
+For more information see [issue #144](clicker-issue-114)
+
 Contribute
 ----------
 [Clickers][clicker-repo] is a work in progress. If you'd like to help out or have any suggestions, check the [roadmap sticky][clicker-issue-38].
@@ -135,10 +153,11 @@ If you can't get any of this working in your own project, [raise an issue][click
 
 [angular2-sg-dir]:      https://github.com/mgechev/angular2-style-guide#directory-structure
 [app.e2e.ts]:           https://github.com/lathonez/clicker/blob/master/app/app.e2e.ts
-[blog-issue-new]:     https://github.com/lathonez/lathonez.github.io/issues/new
-[blog-repo]:          https://github.com/lathonez/lathonez.github.io
+[blog-issue-new]:       https://github.com/lathonez/lathonez.github.io/issues/new
+[blog-repo]:            https://github.com/lathonez/lathonez.github.io
 [blog-unit-testing]:    http://lathonez.github.io/2016/ionic-2-unit-testing/
 [clicker-issue-38]:     https://github.com/lathonez/clicker/issues/38
+[clicker-issue-114]:    https://github.com/lathonez/clicker/issues/114
 [clicker-issue-new]:    https://github.com/lathonez/clicker/issues/new
 [clicker-repo]:         http://github.com/lathonez/clicker
 [config.ts]:            https://github.com/lathonez/clicker/blob/master/test/config.ts
