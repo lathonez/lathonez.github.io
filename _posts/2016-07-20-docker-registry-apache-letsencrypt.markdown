@@ -14,7 +14,7 @@ TLS
 
 TLS [is mandatory][docker-docs-remote] when running a remote docker registry. We used [letsencrypt][letsencrypt-hiw] to obtain our certificates.
 
-If you don't already have one, create a vhost in apache for your registry. This is just so [certbot][certbot] will prompt you to generate the certificate for it.
+If you don't already have one, create an apache vhost with a subdomain for your registry. This is just so [certbot][certbot] will prompt you to generate the certificate for it.
 
 ```conf
 <VirtualHost *:80>
@@ -25,9 +25,7 @@ If you don't already have one, create a vhost in apache for your registry. This 
 
 Install and run [certbot][certbot]. It'll prompt you for the necessary info and configure apache with the certifcates it receives from letsencrypt.
 
-```bash
-./path/to/certbot-auto --apache
-```
+`./path/to/certbot-auto --apache`
 
 VHOST
 -----
@@ -87,11 +85,13 @@ htpasswd
 
 Skip if you don't want the auth.
 
-```bash
-mkdir /opt/registry-htpasswd
+<div class="highlighter-rouge">
+<pre class="lowlight">
+<code>mkdir /opt/registry-htpasswd
 cd /opt/registry-htpasswd
-htpasswd -bc .htpasswd username password
-```
+htpasswd -bc .htpasswd username password</code>
+</pre>
+</div>
 
 registry storage
 ----------------
@@ -105,21 +105,25 @@ running the registry
 
 As we're using Apache for TLS and auth, running the registry is straightforward:
 
-```bash
-docker run -d -p 5000:5000 \
+<div class="highlighter-rouge">
+<pre class="lowlight">
+<code>docker run -d -p 5000:5000 \
     --restart=always \
     --name registry \
     -v /opt/registry-data:/var/lib/registry \
-    registry:2
-```
+    registry:2</code>
+</pre>
+</div>
 
 using the registry
 ------------------
 
-```bash
-docker login docker.example.io
-docker push docker.example.io/example_image:latest
-```
+<div class="highlighter-rouge">
+<pre class="lowlight">
+<code>docker login docker.example.io
+docker push docker.example.io/example_image:latest</code>
+</pre>
+</div>
 
 [docker-docs-remote]:  https://docs.docker.com/registry/deploying/#/running-a-domain-registry
 [docker-docs-storage]: https://docs.docker.com/registry/deploying/#/storage
