@@ -1,5 +1,5 @@
 ---
-title:  "Running a secure docker registry behind Apache"
+title:  "Secure docker registry behind Apache"
 date:   2016-07-20 12:34:23
 categories: [dev]
 tags: [docker, registry, apache, letsencrypt]
@@ -16,7 +16,7 @@ TLS [is mandatory][docker-docs-remote] when running a remote docker registry. We
 
 If you don't already have one, create a vhost in apache for your registry. This is just so [certbot][certbot] will prompt you to generate the certificate for it.
 
-```aconf
+```xml
 <VirtualHost *:80>
     ServerAdmin dev@example.io
     ServerName  docker.example.io
@@ -42,7 +42,7 @@ Now you've got the certs, update your registry's vhost. Main things to note:
 
 If you don't want auth (e.g. username:password) for your registry, remove the `<Location>` entries.
 
-```aconf
+```xml
 <VirtualHost *:443>
 
         ServerName docker.example.io
