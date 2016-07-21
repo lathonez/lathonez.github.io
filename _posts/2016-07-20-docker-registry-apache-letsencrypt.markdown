@@ -121,6 +121,22 @@ docker login docker.example.io
 docker push docker.example.io/example_image:latest
 ```
 
+
+Help!
+-----
+
+If you can't get any of this working in your own project, [raise an issue][clicker-issue-new] and I'll do my best to help out.
+
+<div align="center"><iframe src="https://ghbtns.com/github-btn.html?user=lathonez&repo=clicker&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe></div>
+
+[angular2-di-testing]: https://developers.livechatinc.com/blog/testing-angular-2-apps-dependency-injection-and-components
+[blog-issue-new]:      https://github.com/lathonez/lathonez.github.io/issues/new
+[blog-repo]:           https://github.com/lathonez/lathonez.github.io
+[boilerplate-ci]:      https://github.com/lathonez/clicker/commit/4769372596756ec60e876de07e484a01ad181de6
+[clicker-button-diff]: https://github.com/lathonez/clicker/commit/4769372596756ec60e876de07e484a01ad181de6#diff-81c66575523ad4932b8772dceb8eab4c
+[clicker-repo]:        http://github.com/lathonez/clicker
+
+
 [docker-docs-remote]:  https://docs.docker.com/registry/deploying/#/running-a-domain-registry
 [docker-docs-storage]: https://docs.docker.com/registry/deploying/#/storage
 [certbot][certbot]:    https://certbot.eff.org/
