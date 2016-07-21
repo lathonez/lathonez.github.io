@@ -1,5 +1,5 @@
 ---
-title:  "Secure docker registry behind Apache"
+title:  "Securing a docker registry behind Apache"
 date:   2016-07-20 12:34:23
 categories: [dev]
 tags: [docker, registry, apache, letsencrypt]
