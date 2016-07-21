@@ -9,7 +9,7 @@ We recently went to setup a docker registry on our production build server. We w
 
 Basically if you've already got apache running on the target server, getting everything going is incredibly simple. If you don't run apache this guide will not useful for you.
 
-TLS
+tls
 ---
 
 TLS [is mandatory][docker-docs-remote] when running a remote docker registry. We used [letsencrypt][letsencrypt-hiw] to obtain our certificates.
@@ -27,7 +27,7 @@ Install and run [certbot][certbot]. It'll prompt you for the necessary info and 
 
 `./path/to/certbot-auto --apache`
 
-VHOST
+vhost
 -----
 
 Thanks to [R.I.Pienaar][rip-git] for this. I was banging my head against the `ProxyPreserveHost` line until I found it on his [blog][rip-blog].
