@@ -9,8 +9,8 @@ We recently went to setup a docker registry on our production build server. We w
 
 Basically if you've already got apache running on the target server, getting everything going is incredibly simple. If you don't run apache this guide will not useful for you.
 
-tls
----
+Securing the registry
+---------------------
 
 TLS [is mandatory][docker-docs-remote] when running a remote docker registry. We used [letsencrypt][letsencrypt-hiw] to obtain our certificates.
 
@@ -27,8 +27,8 @@ Install and run [certbot][certbot]. It'll prompt you for the necessary info and 
 
 `./path/to/certbot-auto --apache`
 
-vhost
------
+Virtual Host Entry
+-------------------
 
 Thanks to [R.I.Pienaar][rip-git] for this. I was banging my head against the `ProxyPreserveHost` line until I found it on his [blog][rip-blog].
 
@@ -80,10 +80,10 @@ If you don't want auth (e.g. username:password) for your registry, remove the `<
 </VirtualHost>
 ```
 
-htpasswd
----------
+Authentication
+---------------
 
-Skip if you don't want the auth.
+Skip if you don't want the username / password authentication for your registry.
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
@@ -93,14 +93,14 @@ htpasswd -bc .htpasswd username password</code>
 </pre>
 </div>
 
-registry storage
-----------------
+Storage
+-------
 
 It's [good practice][docker-docs-storage] to specify a storage folder for your registry.
 
 `mkdir /opt/registry-data`
 
-running the registry
+Running the Registry
 --------------------
 
 As we're using Apache for TLS and auth, running the registry is straightforward:
@@ -115,8 +115,8 @@ As we're using Apache for TLS and auth, running the registry is straightforward:
 </pre>
 </div>
 
-using the registry
-------------------
+Using the Registry
+-------------------
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
