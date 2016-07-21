@@ -40,7 +40,7 @@ Now you've got the certs, update your registry's vhost. Main things to note:
 
 If you don't want auth (e.g. username:password) for your registry, remove the `<Location>` entries.
 
-```xml
+```conf
 <VirtualHost *:443>
 
         ServerName docker.example.io
