@@ -125,6 +125,13 @@ docker push docker.example.io/example_image:latest</code>
 </pre>
 </div>
 
+Contribute
+----------
+
+This blog is [on github][blog-repo], if you can improve it, have any suggestions or I've failed to keep it up to date, [raise an issue][blog-issue-new] or a PR.
+
+[blog-issue-new]:       https://github.com/lathonez/lathonez.github.io/issues/new
+[blog-repo]:            https://github.com/lathonez/lathonez.github.io
 [docker-docs-remote]:  https://docs.docker.com/registry/deploying/#/running-a-domain-registry
 [docker-docs-storage]: https://docs.docker.com/registry/deploying/#/storage
 [certbot]:             https://certbot.eff.org/
