@@ -303,6 +303,7 @@ FAQ
 * [run a single test][clicker-issue-35]
 * [why do our tests need a main method (they don't anymore - for posterity)][clicker-issue-65]
 * [running as root][clicker-issue-111]
+* [env specific config][clicker-issue-134]
 
 <div align="center"><iframe src="https://ghbtns.com/github-btn.html?user=lathonez&repo=clicker&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe></div>
 
@@ -326,6 +327,7 @@ FAQ
 [clicker-issue-79]:   https://github.com/lathonez/clicker/issues/79
 [clicker-issue-99]:   https://github.com/lathonez/clicker/issues/99
 [clicker-issue-111]:   https://github.com/lathonez/clicker/issues/111
+[clicker-issue-134]:   https://github.com/lathonez/clicker/issues/134
 [clicker-issue-new]:  https://github.com/lathonez/clicker/issues/new
 [clicker-deps]:       https://github.com/lathonez/clicker#dependencies
 [clicker-repo]:       http://github.com/lathonez/clicker
