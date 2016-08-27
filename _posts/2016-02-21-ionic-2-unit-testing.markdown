@@ -161,12 +161,6 @@ typings install --save --global registry:dt/jasmine registry:dt/node</code>
 </pre>
 </div>
 
-**Patch Karma's static:**
-
-We need to have an `<ion-app></ion-app>` hook in our test runner's HTML, otherwise we'll get errors when running the tests. See [this issue][clicker-issue-79] for more information and [this one][clicker-issue-99] for what happens if you remove it.
-
-`cp test/karma-static/*.html node_modules/karma/static`
-
 **Linting:**
 
 By default we're running linting with [these tslint rules][tslint.json]. You may find this fails with your project, in which case your tests wont run.
@@ -237,7 +231,7 @@ Finally, add the following lines to your `package.json` to get everything workin
 ```yaml
   "scripts": {
     "karma": "gulp --gulpfile test/gulpfile.ts --cwd ./ karma-debug",
-    "postinstall": "typings install && cp test/karma-static/*.html node_modules/karma/static",
+    "postinstall": "typings install",
     "test": "gulp --gulpfile test/gulpfile.ts --cwd ./ unit-test"
   }
 ```
@@ -338,7 +332,6 @@ FAQ
 [karma-console-ss]:   /images/ionic2_unit_testing/karma-console-screenshot.png
 [karma-debug-ss]:     /images/ionic2_unit_testing/karma-debug-screenshot.png
 [karma-home]:         https://karma-runner.github.io/0.13/index.html
-[karma-static]:       https://github.com/lathonez/clicker/tree/master/test/karma-static
 [karma-tm-docs]:      https://karma-runner.github.io/0.8/plus/RequireJS.html
 [karma.config.js]:    https://github.com/lathonez/clicker/blob/master/test/karma.config.js
 [lcov-app-ss]:        /images/ionic2_unit_testing/lcov-app-screenshot.png
