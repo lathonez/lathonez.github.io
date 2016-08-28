@@ -1,0 +1,266 @@
+---
+title:  "Copying a row from one database to another"
+date:   2016-08-26 12:34:23
+categories: [devops]
+tags: [devops, release, databases, php, mysql, copying, merging]
+---
+
+How can I copy a row from our dev database to our production database?
+
+Most engineers would give an answer for this, varying depending on their background and the DBMS. The common ones are:
+
+* Use the tool that came with your DBMS! [mysqldump][mysql-dump-docs] or [pg_dump][pg-dump-docs] in the context of this post.
+* [Select][mysql-select-into-docs] / [copy][psql-copy-docs] to outfile
+* Use [raw sql with a connection to each db][so-copy-question]
+* Try [sqlworkbench][sql-workbench-home]
+* Turn on [replication][mysql-replication-docs]
+* Roll your own script
+
+The purpose of this post is to convince you that there's a better way, a python tool we've written called [CloneRow.py][clone-row]. It currently supports mysql and postgres. If there's a decent python lib for your DB we'll write an adapter ([open an issue][clone-row-issues]).
+
+CloneRow.py
+-----------
+
+We came up with a one liner that adheres to the [unix tools philosophy][unix-tools-philo]. To copy a row in `my_table` from development to production, where the `my_table.my_column` equals `my_filter`:
+
+`CloneRow.py dev prod my_table my_column my_filter`
+
+```
+DEV:~$ CloneRow.py dev prod my_table my_column my_filter
+2016-08-27 05:29:18 Reading configuration..
+2016-08-27 05:29:18 The following columns will be ignored: id last_updated
+2016-08-27 05:29:18 attempting to connect to local..
+2016-08-27 05:29:18 connected to root@local:my_db - Database version : 90503
+2016-08-27 05:29:18 attempting to connect to prod..
+2016-08-27 05:29:20 connected to lathonez@prod:my_db - Database version : 90502
+2016-08-27 05:29:20 getting local row..
+2016-08-27 05:29:20 getting prod row..
+2016-08-27 05:29:21 checking encoding..
+2016-08-27 05:29:21 source encoding UTF8
+2016-08-27 05:29:21 target encoding UTF8
+2016-08-27 05:29:21 finding deltas..
+2016-08-27 05:29:21
+2016-08-27 05:29:21 |--------------------------------|Data Changes|--------------------------------|
+2016-08-27 05:29:21   The following columns will be updated on prod
+2016-08-27 05:29:21     -updated_column_one
+2016-08-27 05:29:21     -updated_column_two
+2016-08-27 05:29:21 |------------------------------------------------------------------------------|
+2016-08-27 05:29:21
+2016-08-27 05:29:21 backing up target row..
+2016-08-27 05:29:21 backup file can be found at /tmp/my_table-my_column-my_filter-1472275758838.backup on this machine
+2016-08-27 05:29:21 dumping update sql to disk..
+2016-08-27 05:29:21 update sql is available for inspection at /tmp/my_table-my_column-my_filter-1472275758838.sql on this machine
+2016-08-27 05:29:22 Row has been cloned successfully..
+2016-08-27 05:29:22 Type 'r' to (r)estore from backup, anything else to exit
+
+2016-08-28 09:19:39
+2016-08-28 09:19:39 |---------------------------|Manual Rollback Steps|----------------------------|
+2016-08-28 09:19:39   To rollback manually, run the following steps on this machine
+2016-08-28 09:19:39     psql --host 127.0.0.1 --port 5432 --user my_user --pass my_pass
+2016-08-28 09:19:39     begin;
+2016-08-28 09:19:39     delete from my_table where my_column = 'my_filter';
+2016-08-28 09:19:39     -- if more than one row has been deleted above run `rollback;`
+2016-08-28 09:19:39     copy my_table from '/tmp/my_table-my_column-my_filter-1472275758838.backup';
+2016-08-28 09:19:39     commit;
+2016-08-28 09:19:39 |------------------------------------------------------------------------------|
+2016-08-28 09:19:39
+2016-08-28 09:19:39 operation completed successfully, have a fantastic day
+2016-08-28 09:19:39 housekeeping..
+
+```
+
+**Features:**
+
+* Copy a single row from one database to another, given a column and a filter to apply
+* Fail-safe operation, with automated and manual rollback procedures provided
+* Ignore columns that you'll never want to copy (serials, ids)
+* Display which columns will be modified in the update (deltas)
+* Allow the user to check the target system before 'committing' the changes
+* An [ssh_config like][clone-row-cfg] connection alias system
+* Ignore schema differences where possible (whilst warning the user)
+* Check that encoding matches on source and target
+* Hint at schema changes required to bring source and target tables in line
+
+If the above looks interesting to you, why not head on over to [github][clone-row] and give it a try?
+
+Still need convincing? Read on.
+
+Use Case #1: Releasing to prod (INSERT)
+---------------------------------------
+
+We have a configuration table for each of our clients, where one row contains many config items for a single client. Currently this table is 39 columns wide.
+
+When developing for a new client, you add the configuration it needs into the config table. When you're done, the config table represents a perfect view of that client's configuration, if you could only get it onto prod.
+
+The standard procedure was: "open phpmyadmin and paste everything in, column by column". Not only is this error prone but also extremely time consuming.
+
+We eventually wrote a simple mysqldump wrapper script for this. I expect there are lots of similar things out there.
+
+Use Case #2: Releasing to prod (UPDATE)
+---------------------------------------
+
+You've just finished updating an existing client on prod. Said config table is frequently updated on production after the initial release.
+
+Best case scenario: It was an easy change with only one option updated. You remember what that option is.
+
+Typical scenario: The change started simple, dragged on for a number of days (if not weeks), involving multiple config options. You vaguely remember which ones you changed.. or do you?
+
+Again, the standard procedure was: "open phpmyadmin and paste in whatever you changed"
+
+If you remembered the columns you'd updated and they hadn't been changed on prod since you started dev, you'd be ok. If you'd forgotten (and had to blat the whole row), or there had been updates in the interim, you'd be screwed.
+
+Use Case #3 Updating Development (UPDATE)
+-----------------------------------------
+
+Similar case to above, though obviously not as mission critical (though your work is on the dev database and what happens if you overwrite it?).
+
+The ideal workflow:
+
+* start dev: update development database with the configuration row from prod
+* finish dev: pull the prod row back in again, so we can see if any changes have happened in the interim
+* release: merge config changes (from above) if necessary in the dev database, then push that row to prod
+
+Clearly without proper tooling this was never going to happen. When possible, we'd refresh the entire dev database from prod, though more often than not there were loose changes on in the dev database which prevented this.
+
+CloneRow.py vs import / export
+------------------------------
+
+By import / export, I'm referring to the following from the intro, which all work in broadly the same way: export a row from one database, import it into another.
+
+* dump tools
+* copying / selecting to outfile
+* using raw sql with a connection to each database
+
+**dump tools**:
+
+<div class="highlighter-rouge">
+<pre class="lowlight">
+<code># run dump command
+mysqldump --host myhost.com --user my_user --port 3306 --no-create-info --databases my_db --tables my_table --where my_column=myfilter > dump.out
+# copy dump file to the target server
+scp dump.out myhost.com:/tmp
+# connect to target database
+DELETE FROM my_table WHERE my_column = 'my_filter';
+# load dump sql
+SOURCE '/tmp/dump.out'</code>
+</pre>
+</div>
+
+**copy / select to outfile**:
+
+<div class="highlighter-rouge">
+<pre class="lowlight">
+<code># select to outfile
+SELECT * INTO OUTFILE LOCAL 'dump.out'
+  FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
+  LINES TERMINATED BY '\n'
+  FROM my_table
+  WHERE my_column='my_filter';
+# copy the file to the target server
+scp /exportdata/customers.txt myhost.com:/tmp
+# connect to target database
+DELETE FROM my_table WHERE my_column='my_filter';
+LOAD DATA LOCAL INFILE '/tmp/dump.out';
+</code>
+</pre>
+</div>
+
+**raw sql**:
+
+<div class="highlighter-rouge">
+<pre class="lowlight">
+<code>DELETE FROM target_database.my WHERE some_id = 123;
+INSERT INTO to_database.to_table SELECT * FROM from_database WHERE some_id = 123;</code>
+</pre>
+</div>
+
+* These are all overly complicated for your average developer (in my experience).
+* They're time consuming. Even if you do this on a daily basis and get good at it, there are multiple steps in each.
+* They're prone to error. What happens if you get one of your where clauses wrong?
+* They don't do any comparison of data.
+* They don't allow an easy rollback
+
+CloneRow.py vs phpmyadmin (etc)
+-------------------------------
+
+Opening two phpmyadmin windows (one for source and one for target), does give you a kind of visual diff, however:
+
+* It is time consuming
+* It is error prone particularly for wide tables
+* There's no easy roll back
+
+If using import / export, you lose the visual comparison and risk updating the wrong data.
+
+CloneRow.py vs sqlworkbench
+---------------------------
+
+Sqlworkbench is extremely powerful and versatile; it's basically an abstraction over JDBC, allowing you to write sql-esque commands on top of the adapter. You can also define connection profiles which remove a lot of the headache from repeated operations.
+
+However, I found it to be a lacking in dbms specific nuances. Jack of all trades (NOT the unix tools philosophy!):
+
+* The dump / export format was inconsistent and couldn't be easily used with the import. This was solved easily enough with `sed` in the wrapper script, but not ideal.
+* The postgres JSON type seemed to be unsupported. The JSON output by sqlworkbench wasn't the same as in pg_dump, more to the point it was invalid JSON. The issue was around escaping quotes.
+
+I recommend looking at sqlworkbench, as it may be appropriate for your use case and it's a great tool for the right job. I see it as analagous to a [python database adapter][http://initd.org/psycopg/], you have to do a lot of scripting around it.
+
+An sqlworkbench script looks like this:
+
+<div class="highlighter-rouge">
+<pre class="lowlight">
+<code>-WbCopy
+ --sourceProfile=$[source_con]
+ --targetProfile=$[target_con]
+ --mode=update,insert
+ --keyColumns=$[column]
+ --sourceTable=my_db.$[table]
+ --targetTable=my_db.$[table]
+ --sourceWhere=$[column]='$[filter]'
+ -;</code>
+</pre>
+</div>
+
+Which you invoke via with Java (in a wrapper script):
+
+`java -jar sqlworkbench.jar -vardef='vars.def' -script='export.script'`
+
+CloneRow.py vs Replication
+--------------------------
+
+Production to Development replication handles Use Case #3 (Updating Development) extremely well. However:
+
+* It can be time consuming to set up if you do not have the skill set.
+* It puts strain on the prod database. It can be difficult to justify replication out of prod, when all you gain is updating development or test environments.
+* If you have developers working on their own databases, replication isn't an option.
+* Whilst it solves Use Case #3, it does not address #1 or #2.
+
+CloneRow.py vs rolling your own script
+--------------------------------------
+
+The vast majority of solutions out there will be script(s) written in house. CloneRow.py started off that way. Rolling your own script has a clear advantage that, it can do literally whatever you need it to do. However, it does have some disadvantes:
+
+* You have to actually roll it. We spent a lot of time getting CloneRow.py from zero to where it is now.
+* There will be bugs. There are bugs in CloneRow.py, but the advantages of using an open source tool used by others is, that we can identify the bugs and fix them together.
+* You have to maintain it. In my experience such tools are written by a single engineer; other users have very little idea of how it works, or what to do when it goes wrong. This is fine as long as the author is still around when it goes wrong or needs updating, and has the time.
+
+Contribute
+----------
+
+This blog is [on github][blog-repo], if you can improve it, have any suggestions or I've failed to keep it up to date, [raise an issue][blog-issue-new] or a PR.
+
+[blog-repo]:              https://github.com/lathonez/lathonez.github.io
+[blog-issue-new]:         https://github.com/lathonez/lathonez.github.io/issues/new
+[clone-row-cfg]:          https://github.com/lathonez/clone-row/blob/master/CloneRow.example.cfg
+[clone-row-issues]:       https://github.com/lathonez/clone-row/issues
+[clone-row]:              https://github.com/lathonez/clone-row
+[mysql-dump-docs]:        http://dev.mysql.com/doc/refman/5.7/en/mysqldump.html
+[mysql-replication-docs]: http://dev.mysql.com/doc/refman/5.7/en/replication.html
+[mysql-select-into-docs]: http://dev.mysql.com/doc/refman/5.7/en/select-into.html
+[pdbc]:                   https://github.com/lathonez/clone-row/blob/master/PDBC.py
+[pg-dump-docs]:           https://www.postgresql.org/docs/9.1/static/app-pgdump.html
+[psql-copy-docs]:         https://www.postgresql.org/docs/9.2/static/sql-copy.html
+[psycopg]:                http://initd.org/psycopg/
+[so-copy-question-one]:   http://stackoverflow.com/questions/12726893/mysql-copy-rows-from-one-database-to-another-with-auto-increment-ids
+[so-copy-question]:       http://stackoverflow.com/questions/20949346/how-to-copy-rows-from-one-mysql-database-to-another
+[sql-workbench-home]:     http://www.sql-workbench.net/
+[ssh-config]:             http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/
+[unix-tools-philo]:       http://www.tldp.org/LDP/GNU-Linux-Tools-Summary/html/c1089.htm
