@@ -9,11 +9,11 @@ tags: [ionic2, angular2, testing]
 
 **TL;DR** - I have an Ionic 2 project on github set up with unit testing, [dive in][clicker-repo], or read on.
 
-This blog and associated project has been around since the early days of Ionic 2, however there still isn't concrete guidance out there on how to unit test, or even a recommendend setup.
+This blog and associated project have been around since the early days of Ionic 2, however there still isn't concrete guidance out there on how to unit test, or even a recommendend setup.
 
-In their first release candidate (rc0), Ionic ditched their current build process (gulp) and sidestepped onto rollup. This was frustrating for many in the community, who were hoping for a move toward ng-cli and webpack.
+In `rc0`, Ionic ditched their current build process `gulp` and sidestepped onto `rollup`. This was frustrating for many in the community, who were hoping for a move toward `ng-cli` and `webpack`.
 
-Rather than re-write this setup for rollup, I decided to get to get as close to ng-cli as possible, mainly so we could have a stable reference point for our Ionic 2 testing framework.
+Rather than re-write this setup for `rollup`, I decided to get to get as close to `ng-cli` as possible, mainly so we could have a stable reference point for our Ionic 2 testing framework.
 
 This post explains the setup and how you can incorporate it into your own project without too much pain.
 
@@ -24,8 +24,7 @@ Install the following npm dev dependencies, or simply merge our [package.json][p
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>
-npm install --save-dev angular-cli codelyzer jasmine-core jasmine-spec-reporter karma karma-chrome-launcher karma-cli karma-jasmine karma-mocha-reporter karma-remap-istanbul</code>
+<code>npm install --save-dev angular-cli codelyzer jasmine-core jasmine-spec-reporter karma karma-chrome-launcher karma-cli karma-jasmine karma-mocha-reporter karma-remap-istanbul</code>
 </pre>
 </div>
 
@@ -46,7 +45,7 @@ Into your project's root:
 Into your project's `./src` folder
 
 * [mocks.ts][mocks.ts]: Mocks for Ionic classes we'll need to stub out when testing
-* [polyfills.ts][polyfills.ts]: Polyfills used by Angular Cli
+* [pollyfills.ts][pollyfills.ts]: Pollyfills used by Angular Cli
 * [test.ts][test.ts]: Main entry point for our unit tests
 * [typings.d.ts][typings.d.ts]: Angular Cli's typings file simply declaring System
 
@@ -59,7 +58,7 @@ Add the following lines to your [tsconfig.json][tsconfig.json]:
     ]
 ```
 
-[Why we're doing this ^][double-typing-commit]
+[Why we're doing this ^][double-typing]
 
 test.ts
 -------
@@ -96,7 +95,7 @@ The following function `configureIonicTestingModule` takes one or more of your c
 This means that instead of needing the above code in each of your spec files, you simply need:
 
 ```javascript
-    TestUtils.configureIonicTestingModule([ClickerForm]);
+TestUtils.configureIonicTestingModule([ClickerForm]);
 ```
 
 Your first unit test
@@ -161,12 +160,10 @@ SUMMARY:
 
 Congrats! You now have unit testing working in your Ionic 2 project.
 
-Finally, add the following lines to your `package.json` to get everything working nicely with `npm` instead of calling `gulp` directly:
-
 Test Coverage
 --------------
 
-TODO: this is currently broken with the upgrade to RC0, will be fixing it.
+*TODO*: this is currently broken with the upgrade to `rc0`, will be fixing it.
 
 At the end of the `npm test` output you'll see a coverage report table (as above). This gives a good overview, but if you're trying to figure out why your code isn't covered you'll need more.
 
@@ -184,7 +181,7 @@ Hit the [Debug][karma-debug-ss] button and another tab will open. Open the dev c
 Contribute
 ----------
 
-[Clickers][clicker-repo] is a work in progress. If you'd like to help out or have any suggestions, check the [roadmap sticky][clicker-issue-38].
+[Clicker][clicker-repo] is a work in progress. If you'd like to help out or have any suggestions, check the [roadmap sticky][clicker-issue-38].
 
 This blog is [on github][blog-repo], if you can improve it, have any suggestions or I've failed to keep it up to date, [raise an issue][blog-issue-new] or a PR.
 
@@ -210,6 +207,7 @@ FAQ
 [clicker-issue-38]:   https://github.com/lathonez/clicker/issues/38
 [clicker-issue-new]:  https://github.com/lathonez/clicker/issues/new
 [clicker-repo]:       http://github.com/lathonez/clicker
+[double-typing]:      https://github.com/lathonez/clicker/commit/246c28df59542ba0b3b03047a5c6e163c9844ee2
 [karma-console-ss]:   /images/ionic2_unit_testing/karma-console-screenshot.png
 [karma-debug-ss]:     /images/ionic2_unit_testing/karma-debug-screenshot.png
 [karma.conf.js]:      https://github.com/lathonez/clicker/blob/master/karma.conf.js
@@ -217,6 +215,9 @@ FAQ
 [lcov-home]:          http://ltp.sourceforge.net/coverage/lcov.php
 [lcov-index-ss]:      /images/ionic2_unit_testing/lcov-index-screenshot.png
 [mocks.ts]:           https://github.com/lathonez/clicker/blob/master/src/mocks.ts
-[polyfills.ts]:       https://github.com/lathonez/clicker/blob/master/src/pollyfills.ts
+[package.json]:       https://github.com/lathonez/clicker/blob/master/package.json
+[pollyfills.ts]:      https://github.com/lathonez/clicker/blob/master/src/pollyfills.ts
 [test.ts]:            https://github.com/lathonez/clicker/blob/master/src/test.ts
+[tsconfig.json]:      https://github.com/lathonez/clicker/blob/master/tsconfig.json
 [typings.d.ts]:       https://github.com/lathonez/clicker/blob/master/src/typings.d.ts
+
