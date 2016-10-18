@@ -1,245 +1,172 @@
 ---
 title:  "Unit Testing an Ionic2 project"
-date:   2016-05-22 01:48:23
+date:   2016-10-15 01:48:23
 categories: [dev]
 tags: [ionic2, angular2, testing]
 ---
 
+**Updated for Ionic 2 rc1 and Angular 2 Final!**
+
 **TL;DR** - I have an Ionic 2 project on github set up with unit testing, [dive in][clicker-repo], or read on.
 
-Ionic 2 looks very promising, allowing us to use the power of Angular 2 to create beautiful native mobile apps. As of yet, there isn't much guidance on how to set up unit testing for your Ionic 2 project, making one of the core benefits of Angular 2 redundant to early adopters.
+This blog and associated project has been around since the early days of Ionic 2, however there still isn't concrete guidance out there on how to unit test, or even a recommendend setup.
 
-This post explains the set up we're running and how you can incorporate it into your own project without too much pain.
+In their first release candidate (rc0), Ionic ditched their current build process (gulp) and sidestepped onto rollup. This was frustrating for many in the community, who were hoping for a move toward ng-cli and webpack.
 
-The Demo App (Clicker)
-----------------------
+Rather than re-write this setup for rollup, I decided to get to get as close to ng-cli as possible, mainly so we could have a stable reference point for our Ionic 2 testing framework.
 
-For the purposes of this post, it'll be useful to have the demo app cloned locally.
+This post explains the setup and how you can incorporate it into your own project without too much pain.
 
-`git clone git@github.com:lathonez/clicker.git`
+Install dev dependencies
+------------------------
 
-The app is very simple, each [clicker][analog-clicker-img] is a counter that lets the user increment some arbitrary event. The motivation (aside from learning things) was to plot the number of times my partner bitched about the weather here in Wellington.
+Install the following npm dev dependencies, or simply merge our [package.json][package.json] with your own.
 
-![alt text](/images/ionic2_unit_testing/clicker.gif "Clicker App"){: .center-image }
+<div class="highlighter-rouge">
+<pre class="lowlight">
+<code>
+npm install --save-dev angular-cli codelyzer jasmine-core jasmine-spec-reporter karma karma-chrome-launcher karma-cli karma-jasmine karma-mocha-reporter karma-remap-istanbul</code>
+</pre>
+</div>
 
-Directory Structure
---------------------
-
-There is some debate around where to keep unit tests. I started off with the unit tests in a separate `test/` directory, but have since combined with the source code as per the [Angular 2 Style Guide][angular2-sg-dir]. Now I use `test/` for configs, etc purely pertaining to the test setup.
-
-```
-app/
-├── app.html
-├── app.spec.ts
-├── app.ts
-├── components
-│   ├── clickerButton
-│   │   ├── clickerButton.html
-│   │   ├── clickerButton.spec.ts
-│   │   └── clickerButton.ts
-│   └── clickerForm
-│       ├── clickerForm.html
-│       ├── clickerForm.spec.ts
-│       └── clickerForm.ts
-├── models
-│   ├── clicker.spec.ts
-│   ├── clicker.ts
-│   ├── click.spec.ts
-│   └── click.ts
-├── pages
-│   ├── clickerList
-│   │   ├── clickerList.html
-│   │   ├── clickerList.scss
-│   │   ├── clickerList.spec.ts
-│   │   └── clickerList.ts
-│   └── page2
-│       ├── page2.html
-│       ├── page2.scss
-│       └── page2.ts
-└── services
-    ├── clickers.spec.ts
-    ├── clickers.ts
-    ├── utils.spec.ts
-    └── utils.ts
-
-test
-├── gulpfile.ts
-├── karma.config.js
-├── testUtils.ts
-└── karma-static
-    ├── context.html
-    └── debug.html
-
-```
-
-This may not be the correct decision for your project / team. If you decide to keep the source and tests separately, you should still be able to follow this post with minimal config changes.
-
-A simple unit test on app.ts
-----------------------------
-
-We probably haven't got much logic in `app.ts` worthy of unit testing, but being the root source file it makes a sensible starting point.
-
-`cp clicker/app/app.spec.ts myApp/app/app.spec.ts`
-
-Modify the test cases in [app.spec.ts][app.spec.ts] to suit your application, or use the simple example below:
+Add the following line to the `scripts` object in your [package.json][package.json]:
 
 ```javascript
-import {
-  TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS, TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS,
-}                               from '@angular/platform-browser-dynamic/testing';
-import { setBaseTestProviders } from '@angular/core/testing';
-import { MyApp } from './app';
+  "test": "ng test"
+```
 
-// this needs doing _once_ for the entire test suite, hence it's here
-setBaseTestProviders(TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS, TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS);
+Install config files and boilerplate
+------------------------------------
 
-// Mock out Ionic's platform class
-class MockClass {
-  public ready(): any {
-    return new Promise((resolve: Function) => {
-      resolve();
+Into your project's root:
+
+* [angular-cli.json][angular-cli.json]: Angular Cli's config file
+* [karma.conf.js][karma.conf.js]: Karma's config file
+
+Into your project's `./src` folder
+
+* [mocks.ts][mocks.ts]: Mocks for Ionic classes we'll need to stub out when testing
+* [polyfills.ts][polyfills.ts]: Polyfills used by Angular Cli
+* [test.ts][test.ts]: Main entry point for our unit tests
+* [typings.d.ts][typings.d.ts]: Angular Cli's typings file simply declaring System
+
+Add the following lines to your [tsconfig.json][tsconfig.json]:
+
+```javascript
+    "typeRoots": [
+      "node_modules/@types",
+      "../node_modules/@types"
+    ]
+```
+
+[Why we're doing this ^][double-typing-commit]
+
+test.ts
+-------
+
+This file is worth exploring a little futher. I've created a function to remove a lot of the boilerplate around an Ionic testbed setup, we'll be using it in any of our unit tests that create an Angular 2 component.
+
+The following function `configureIonicTestingModule` takes one or more of your components and sets up an Ionic test bed for them:
+
+```javascript
+  public static configureIonicTestingModule(components: Array<any>): void {
+    TestBed.configureTestingModule({
+      declarations: [
+        ...components,
+      ],
+      providers: [
+        {provide: App, useClass: ConfigMock},
+        {provide: Config, useClass: ConfigMock},
+        Form,
+        {provide: Keyboard, useClass: ConfigMock},
+        {provide: MenuController, useClass: ConfigMock},
+        {provide: NavController, useClass: NavMock},
+        {provide: Platform, useClass: PlatformMock},
+        {provide: ClickersService, useClass: ClickersServiceMock},
+      ],
+      imports: [
+        FormsModule,
+        IonicModule,
+        ReactiveFormsModule,
+      ],
     });
   }
-}
-
-let myApp = null;
-
-describe('MyApp', () => {
-
-  beforeEach(function() {
-    let platform = (<any>new MockClass());
-    myApp = new MyApp(platform);
-  });
-
-  it('initialises with two possible pages', () => {
-    expect(myApp).not.toBeNull();
-  });
-});
 ```
 
-Note the [setBaseTestProviders][sbtp-docs] line, enabling us to utilise Angular 2's testing framework in our tests. See this [excellent blog post][angular2-di-testing] for more info.
-
-
-Building the tests
-------------------
-
-We'll use [gulp][gulp-home] to orchastrate the test process and [browserify][browserify-home] to transpile the unit tests and generate sourcemaps.
-
-Ionic use both gulp and browserify already; you should have `gulpfile.js` in your app's root directory. In order to separate concerns we keep ours in `./test/gulpfile.ts`
-
-Add the following files to your project:
-
-<div class="highlighter-rouge">
-<pre class="lowlight">
-<code>mkdir -p myApp/test
-cp clicker/test/gulpfile.ts myApp/test
-cp clicker/test/karma.config.js myApp/test
-cp -r clicker/test/karma-static myApp/test</code>
-</pre>
-</div>
-
-* [gulpfile.ts][gulpfile.ts]: gulp’s task definition file
-* [karma.config.js][karma.config.js]: Karma's config
-* [karma-static][karma-static]: Karma's HTML static with an `<ion-app></ion-app>` injected. See [here][clicker-issue-79] for more info.
-
-This gulpfile defines several tasks which gulp will carry out during the unit-test cycle:
-
-1. **lint**: perform static analysis on source code using [tslint][tslint-home]
-2. **html**: hook into Ionic's gulpfile to copy html files
-3. **karma**: spin up [Karma][karma-home], which calls browserify before running the tests
-4. **unit-test**: sequence of the above tasks to run the tests
-
-**Install Dependencies and Typings:**
-
-The project's [README.md][clicker-deps] has list of dependencies and a brief description of what each is for
-
-<div class="highlighter-rouge">
-<pre class="lowlight">
-<code>npm install -g typings
-npm install --save-dev browserify-istanbul codecov.io gulp-tslint gulp-typescript isparta jasmine-core karma karma-browserify karma-chrome-launcher karma-coverage karma-jasmine karma-mocha-reporter karma-phantomjs-launcher phantomjs-prebuilt traceur tsify ts-node tslint
-typings install --save --global registry:dt/jasmine registry:dt/node</code>
-</pre>
-</div>
-
-**Linting:**
-
-By default we're running linting with [these tslint rules][tslint.json]. You may find this fails with your project, in which case your tests wont run.
-
-To disable linting, just remove the `lint` task from the array below in [gulpfile.ts][gulpfile.ts].
+This means that instead of needing the above code in each of your spec files, you simply need:
 
 ```javascript
-// build unit tests, run unit tests, remap and report coverage
-gulp.task('unit-test', (done: Function) => {
-  runSequence(
-    ['lint', 'html'],
-    'karma',
-    (<any>done)
-  );
+    TestUtils.configureIonicTestingModule([ClickerForm]);
+```
+
+Your first unit test
+--------------------
+
+Pick one of your components to write a test for and create a `component-name.spec.ts` file for it.
+
+A simple skeleton unit test file looks like this, where `Page2` is whatever component you're testing.
+
+```javascript
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { TestUtils }                        from '../../test';
+import { Page2 }                            from './page2';
+
+let fixture: ComponentFixture<Page2> = null;
+let instance: any = null;
+
+describe('Pages: Page2', () => {
+
+  beforeEach(() => {
+    TestUtils.configureIonicTestingModule([Page2]);
+    fixture = TestBed.createComponent(Page2);
+    instance = fixture.debugElement.componentInstance;
+  });
+
+  it('should create page2', async(() => {
+    expect(instance).toBeTruthy();
+  }));
 });
 ```
 
 Running the tests
-------------------
+-----------------
 
-`node_modules/gulp/bin/gulp.js --gulpfile test/gulpfile.ts --cwd ./ unit-test`
+`npm test`
 
 ```
-[00:05:13] Requiring external module ts-node/register
-[00:05:16] Using gulpfile ~/code/myApp/test/gulpfile.ts
-[00:05:16] Starting 'unit-test'...
-[00:05:16] Starting 'html'...
-[00:05:16] Finished 'html' after 28 ms
-[00:05:16] Starting 'karma'...
+x220:~/code/clicker$ npm test
+(node:11596) fs: re-evaluating native module sources is not supported. If you are using the graceful-fs module, please update it to a more recent version.
+
+> Clicker@2.0.0 test /home/lathonez/code/clicker
+> ng test
+
+Could not start watchman; falling back to NodeWatcher for file system events.
+Visit http://ember-cli.com/user-guide/#watchman for more info.
+18 10 2016 19:52:32.336:WARN [karma]: No captured browser, open http://localhost:9876/
+18 10 2016 19:52:32.348:INFO [karma]: Karma v1.2.0 server started at http://localhost:9876/
+18 10 2016 19:52:32.349:INFO [launcher]: Launching browser Chrome with unlimited concurrency
+18 10 2016 19:52:32.355:INFO [launcher]: Starting browser Chrome
+18 10 2016 19:52:33.363:INFO [Chrome 53.0.2785 (Linux 0.0.0)]: Connected on socket /#6bqnoHH631bVTN-pAAAA with id 98134208
 
 START:
-30 04 2016 00:05:28.914:INFO [framework.browserify]: bundle built
-30 04 2016 00:05:28.937:INFO [karma]: Karma v0.13.9 server started at http://localhost:9876/
-30 04 2016 00:05:28.941:INFO [launcher]: Starting browser PhantomJS
-30 04 2016 00:05:29.178:INFO [PhantomJS 2.1.1 (Linux 0.0.0)]: Connected on socket CvuugedPDP7gbjxEAAAA with id 98871511
-  MyApp
-    ✔ initialises with two possible pages
+Chrome 53.0.2785 (Linux 0.0.0): Executed 0 of 1 SUCCESS (0 secs / 0 secs)
+  Pages: Page2
+Chrome 53.0.2785 (Linux 0.0.0): Executed 1 of 1 SUCCESS (0.102 secs / 0.102 secs)
 
-Finished in 0.007 secs / 0.001 secs
+Finished in 0.102 secs / 0.102 secs
 
 SUMMARY:
 ✔ 1 test completed
-------------------|----------|----------|----------|----------|----------------|
-File              |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
-------------------|----------|----------|----------|----------|----------------|
- app/             |    95.45 |      100 |       80 |    90.91 |                |
-  app.ts          |    95.45 |      100 |       80 |    90.91 |             17 |
- app/pages/page1/ |      100 |      100 |       75 |      100 |                |
-  page1.ts        |      100 |      100 |       75 |      100 |                |
- app/pages/page2/ |      100 |      100 |       75 |      100 |                |
-  page2.ts        |      100 |      100 |       75 |      100 |                |
- app/pages/page3/ |      100 |      100 |       75 |      100 |                |
-  page3.ts        |      100 |      100 |       75 |      100 |                |
- app/pages/tabs/  |    86.96 |      100 |       75 |    72.73 |                |
-  tabs.ts         |    86.96 |      100 |       75 |    72.73 |       13,14,15 |
-------------------|----------|----------|----------|----------|----------------|
-All files         |    95.83 |      100 |    76.19 |       90 |                |
-------------------|----------|----------|----------|----------|----------------|
-
-[00:05:29] Finished 'karma' after 13 s
-[00:05:29] Finished 'unit-test' after 13 s
 ```
 
 Congrats! You now have unit testing working in your Ionic 2 project.
 
 Finally, add the following lines to your `package.json` to get everything working nicely with `npm` instead of calling `gulp` directly:
 
-```yaml
-  "scripts": {
-    "karma": "gulp --gulpfile test/gulpfile.ts --cwd ./ karma-debug",
-    "postinstall": "typings install",
-    "test": "gulp --gulpfile test/gulpfile.ts --cwd ./ unit-test"
-  }
-```
-
-Now you can simply run `npm test`. Also when you run `npm install` in future, it will also install the typings and patch Karma.
-
 Test Coverage
 --------------
+
+TODO: this is currently broken with the upgrade to RC0, will be fixing it.
 
 At the end of the `npm test` output you'll see a coverage report table (as above). This gives a good overview, but if you're trying to figure out why your code isn't covered you'll need more.
 
@@ -250,30 +177,7 @@ You can also use external tools, I highlighy recommend [codecov][clicker-codecov
 Debugging the Tests
 --------------------
 
-Sometimes our tests fail and we get an unhelpful stack trace from phantom. This example is from the [FAQ][clicker-issue-6]:
-
-```
-FAILED TESTS:
-  MyApp
-    ✖ initialises with one possible page
-      PhantomJS 2.0.0 (Mac OS X 0.0.0)
-    TypeError: undefined is not an object (evaluating 'provider.toString') (line 180)
-      at 
-      at 
-      at forEach ([native code])
-      at 
-      at 
-      at 
-      at 
-      at 
-      at /Users/groyer/Documents/workspace/helperchoice/helpizr-app-v2/test/karma/tests.config.js:41:18
-```
-
-If this happens it's usually easier to debug in a a real browser.
-
-`npm run karma`
-
-This will invoke Chrome instead of Phantom and keep the browser open after the tests have finished. If Karma detects any changes it'll re-run your tests.
+Sometimes it's useful to debug our tests in the Chrome console.
 
 Hit the [Debug][karma-debug-ss] button and another tab will open. Open the dev console and you can see the [output of all your tests][karma-console-ss], along with any errors which can be debugged as per usual.
 
@@ -292,52 +196,27 @@ If you can't get any of this working in your own project, [raise an issue][click
 FAQ
 ---
 
-* [Debugging unit tests example][clicker-issue-6]
-* [404 on app.bundle.js][clicker-issue-29]
 * [run a single test][clicker-issue-35]
-* [why do our tests need a main method (they don't anymore - for posterity)][clicker-issue-65]
 * [running as root][clicker-issue-111]
-* [env specific config][clicker-issue-134]
 
 <div align="center"><iframe src="https://ghbtns.com/github-btn.html?user=lathonez&repo=clicker&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe></div>
 
-[analog-clicker-img]: http://thumbs.dreamstime.com/thumblarge_304/1219960995H0ZkZw.jpg
-[angular2-di-testing]:https://developers.livechatinc.com/blog/testing-angular-2-apps-dependency-injection-and-components
-[angular2-seed-cfg]:  https://github.com/mgechev/angular2-seed/blob/master/tools/config.ts
-[angular2-seed-repo]: https://github.com/mgechev/angular2-seed
-[angular2-sg-dir]:    https://github.com/mgechev/angular2-style-guide#directory-structure
-[app.html]:           https://github.com/lathonez/clicker/blob/master/app/app.html
-[app.spec.ts]:        https://github.com/lathonez/clicker/blob/master/app/app.spec.ts
+[angular-cli.json]:   https://github.com/lathonez/clicker/blob/master/angular-cli.json
 [blog-issue-new]:     https://github.com/lathonez/lathonez.github.io/issues/new
 [blog-repo]:          https://github.com/lathonez/lathonez.github.io
-[browserify-home]:    http://browserify.org/
 [clicker-codecov]:    https://codecov.io/github/lathonez/clicker?branch=master
-[clicker-coveralls]:  https://coveralls.io/github/lathonez/clicker?branch=master
-[clicker-issue-6]:    https://github.com/lathonez/clicker/issues/6
-[clicker-issue-29]:   https://github.com/lathonez/clicker/issues/29
+[clicker-issue-111]:  https://github.com/lathonez/clicker/issues/111
 [clicker-issue-35]:   https://github.com/lathonez/clicker/issues/35
 [clicker-issue-38]:   https://github.com/lathonez/clicker/issues/38
-[clicker-issue-65]:   https://github.com/lathonez/clicker/issues/65
-[clicker-issue-79]:   https://github.com/lathonez/clicker/issues/79
-[clicker-issue-99]:   https://github.com/lathonez/clicker/issues/99
-[clicker-issue-111]:   https://github.com/lathonez/clicker/issues/111
-[clicker-issue-134]:   https://github.com/lathonez/clicker/issues/134
 [clicker-issue-new]:  https://github.com/lathonez/clicker/issues/new
-[clicker-deps]:       https://github.com/lathonez/clicker#dependencies
 [clicker-repo]:       http://github.com/lathonez/clicker
-[clicker-travis]:     https://travis-ci.org/lathonez/clicker
-[cordova-prune-post]: http://lathonez.github.io/2016/cordova-remove-assets/
-[gulp-home]:          http://gulpjs.com/
-[gulpfile.ts]:        https://github.com/lathonez/clicker/blob/master/test/gulpfile.ts
 [karma-console-ss]:   /images/ionic2_unit_testing/karma-console-screenshot.png
 [karma-debug-ss]:     /images/ionic2_unit_testing/karma-debug-screenshot.png
-[karma-home]:         https://karma-runner.github.io/0.13/index.html
-[karma-tm-docs]:      https://karma-runner.github.io/0.8/plus/RequireJS.html
-[karma.config.js]:    https://github.com/lathonez/clicker/blob/master/test/karma.config.js
+[karma.conf.js]:      https://github.com/lathonez/clicker/blob/master/karma.conf.js
 [lcov-app-ss]:        /images/ionic2_unit_testing/lcov-app-screenshot.png
 [lcov-home]:          http://ltp.sourceforge.net/coverage/lcov.php
 [lcov-index-ss]:      /images/ionic2_unit_testing/lcov-index-screenshot.png
-[sbtp-docs]:          https://angular.io/docs/js/latest/api/testing/setBaseTestProviders-function.html
-[tslint-home]:        https://www.npmjs.com/package/tslint
-[tslint.json]:        https://github.com/lathonez/clicker/blob/master/tslint.json
-[typings-home]:       https://www.npmjs.com/package/typings
+[mocks.ts]:           https://github.com/lathonez/clicker/blob/master/src/mocks.ts
+[polyfills.ts]:       https://github.com/lathonez/clicker/blob/master/src/pollyfills.ts
+[test.ts]:            https://github.com/lathonez/clicker/blob/master/src/test.ts
+[typings.d.ts]:       https://github.com/lathonez/clicker/blob/master/src/typings.d.ts
