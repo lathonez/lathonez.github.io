@@ -46,7 +46,7 @@ Into your project's `./src` folder
 
 * [mocks.ts][mocks.ts]: Mocks for Ionic classes we'll need to stub out when testing
 * [polyfills.ts][polyfills.ts]: Pollyfills used by Angular Cli
-* [test.ts][test.ts]: Main entry point for our unit tests. Be shore to remove references to ClickerServices as it won't be applicable to you.
+* [test.ts][test.ts]: Main entry point for our unit tests. **Remove references to ClickerServices as they won't be applicable to you**
 * [tsconfig.test.json][tsconfig.test.json]: Angular Cli's compiler config
 * [typings.d.ts][typings.d.ts]: Angular Cli's typings file (simply declaring System)
 
