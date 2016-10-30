@@ -24,7 +24,7 @@ Install the following npm dev dependencies, or simply merge our [package.json][p
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>npm install --save-dev angular-cli codelyzer jasmine-core jasmine-spec-reporter karma karma-chrome-launcher karma-cli karma-jasmine karma-mocha-reporter karma-remap-istanbul</code>
+<code>npm install --save-dev @types/jasmine @types/node angular-cli codelyzer jasmine-core jasmine-spec-reporter karma karma-chrome-launcher karma-cli karma-jasmine karma-mocha-reporter karma-remap-istanbul</code>
 </pre>
 </div>
 
@@ -45,25 +45,33 @@ Into your project's root:
 Into your project's `./src` folder
 
 * [mocks.ts][mocks.ts]: Mocks for Ionic classes we'll need to stub out when testing
-* [pollyfills.ts][pollyfills.ts]: Pollyfills used by Angular Cli
-* [test.ts][test.ts]: Main entry point for our unit tests
-* [typings.d.ts][typings.d.ts]: Angular Cli's typings file simply declaring System
+* [polyfills.ts][polyfills.ts]: Pollyfills used by Angular Cli
+* [test.ts][test.ts]: Main entry point for our unit tests. Be shore to remove references to ClickerServices as it won't be applicable to you.
+* [tsconfig.test.json][tsconfig.test.json]: Angular Cli's compiler config
+* [typings.d.ts][typings.d.ts]: Angular Cli's typings file (simply declaring System)
 
-Add the following lines to your [tsconfig.json][tsconfig.json]:
+For the lazy:
 
-```javascript
-    "typeRoots": [
-      "node_modules/@types",
-      "../node_modules/@types"
-    ]
-```
+<div class="highlighter-rouge">
+<pre class="lowlight">
+<code>for file in angular-cli.json karma.conf.js
+do
+  wget https://raw.githubusercontent.com/lathonez/clicker/master/${file}
+done
 
-[Why we're doing this ^][double-typing]
+cd src
+
+for file in mocks.ts polyfills.ts test.ts tsconfig.test.json typings.d.ts
+do
+  wget https://raw.githubusercontent.com/lathonez/clicker/master/src/${file}
+done</code>
+</pre>
+</div>
 
 test.ts
 -------
 
-This file is worth exploring a little futher. I've created a function to remove a lot of the boilerplate around an Ionic testbed setup, we'll be using it in any of our unit tests that create an Angular 2 component.
+This file is worth exploring a little futher. We've created a couple of functions to remove a lot of the boilerplate around an Ionic testbed setup, we'll be using these in any of our unit tests that create a Angular 2 components.
 
 The following function `configureIonicTestingModule` takes one or more of your components and sets up an Ionic test bed for them:
 
@@ -92,10 +100,28 @@ The following function `configureIonicTestingModule` takes one or more of your c
   }
 ```
 
-This means that instead of needing the above code in each of your spec files, you simply need:
+And this is just a wrapper we'll call from `beforeEach` to compile your components:
 
 ```javascript
-TestUtils.configureIonicTestingModule([ClickerForm]);
+  public static beforeEachCompiler(components: Array<any>): Promise<{fixture: any, instance: any}> {
+    return TestUtils.configureIonicTestingModule(components)
+      .compileComponents().then(() => {
+        let fixture: any = TestBed.createComponent(components[0]);
+        return {
+          fixture: fixture,
+          instance: fixture.debugElement.componentInstance,
+        };
+      });
+  }
+```
+
+This means that instead of needing the above code in each of your component's spec files, you simply need:
+
+```javascript
+  beforeEach(async(() => TestUtils.beforeEachCompiler([MyComponent]).then(compiled => {
+    fixture = compiled.fixture;
+    instance = compiled.instance;
+  })));
 ```
 
 Your first unit test
@@ -103,25 +129,25 @@ Your first unit test
 
 Pick one of your components to write a test for and create a `component-name.spec.ts` file for it.
 
-A simple skeleton unit test file looks like this, where `Page2` is whatever component you're testing.
+A simple skeleton unit test file looks like this, where `HelloIonic` is whatever component you're testing.
 
 ```javascript
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { TestUtils }                        from '../../test';
-import { Page2 }                            from './page2';
+import { HelloIonicPage }                   from './hello-ionic';
 
-let fixture: ComponentFixture<Page2> = null;
+let fixture: ComponentFixture<HelloIonicPage> = null;
 let instance: any = null;
 
-describe('Pages: Page2', () => {
+describe('Pages: HelloIonic', () => {
 
   beforeEach(() => {
-    TestUtils.configureIonicTestingModule([Page2]);
-    fixture = TestBed.createComponent(Page2);
+    TestUtils.configureIonicTestingModule([HelloIonicPage]);
+    fixture = TestBed.createComponent(HelloIonicPage);
     instance = fixture.debugElement.componentInstance;
   });
 
-  it('should create page2', async(() => {
+  it('should create the hello ionic page', async(() => {
     expect(instance).toBeTruthy();
   }));
 });
@@ -133,26 +159,23 @@ Running the tests
 `npm test`
 
 ```
-x220:~/code/clicker$ npm test
-(node:11596) fs: re-evaluating native module sources is not supported. If you are using the graceful-fs module, please update it to a more recent version.
+x220:~/code/myApp$ npm test
+(node:17800) fs: re-evaluating native module sources is not supported. If you are using the graceful-fs module, please update it to a more recent version.
 
-> Clicker@2.0.0 test /home/lathonez/code/clicker
+> ionic-hello-world@ test /home/lathonez/code/myApp
 > ng test
 
-Could not start watchman; falling back to NodeWatcher for file system events.
-Visit http://ember-cli.com/user-guide/#watchman for more info.
-18 10 2016 19:52:32.336:WARN [karma]: No captured browser, open http://localhost:9876/
-18 10 2016 19:52:32.348:INFO [karma]: Karma v1.2.0 server started at http://localhost:9876/
-18 10 2016 19:52:32.349:INFO [launcher]: Launching browser Chrome with unlimited concurrency
-18 10 2016 19:52:32.355:INFO [launcher]: Starting browser Chrome
-18 10 2016 19:52:33.363:INFO [Chrome 53.0.2785 (Linux 0.0.0)]: Connected on socket /#6bqnoHH631bVTN-pAAAA with id 98134208
+30 10 2016 19:12:00.472:WARN [karma]: No captured browser, open http://localhost:9876/
+30 10 2016 19:12:00.491:INFO [karma]: Karma v1.3.0 server started at http://localhost:9878/
+30 10 2016 19:12:00.491:INFO [launcher]: Launching browser Chrome with unlimited concurrency
+30 10 2016 19:12:00.546:INFO [launcher]: Starting browser Chrome
+30 10 2016 19:12:01.732:INFO [Chrome 54.0.2840 (Linux 0.0.0)]: Connected on socket /#-CZqilkRyMTyIn1xAAAA with id 84944674
 
 START:
-Chrome 53.0.2785 (Linux 0.0.0): Executed 0 of 1 SUCCESS (0 secs / 0 secs)
-  Pages: Page2
-Chrome 53.0.2785 (Linux 0.0.0): Executed 1 of 1 SUCCESS (0.102 secs / 0.102 secs)
+  Pages: HelloIonic
+    ✔ should create the hello ionic page
 
-Finished in 0.102 secs / 0.102 secs
+Finished in 0.776 secs / 0.77 secs
 
 SUMMARY:
 ✔ 1 test completed
@@ -163,13 +186,9 @@ Congrats! You now have unit testing working in your Ionic 2 project.
 Test Coverage
 --------------
 
-*TODO*: this is currently broken with the upgrade to `rc0`, will be fixing it.
-
-At the end of the `npm test` output you'll see a coverage report table (as above). This gives a good overview, but if you're trying to figure out why your code isn't covered you'll need more.
-
 This set up outputs [lcov][lcov-home] coverage to `./coverage` in the root folder of your app. If you browse to `/path/to/myApp/coverage/lcov-report/` in a web browser, you'll get [an overview][lcov-index-ss] of all your tested files. [Drill into one][lcov-app-ss] and you get line by line info as to what's covered.
 
-You can also use external tools, I highlighy recommend [codecov][clicker-codecov].
+You can also use external tools, I highly recommend [codecov][clicker-codecov].
 
 Debugging the Tests
 --------------------
@@ -216,8 +235,8 @@ FAQ
 [lcov-index-ss]:      /images/ionic2_unit_testing/lcov-index-screenshot.png
 [mocks.ts]:           https://github.com/lathonez/clicker/blob/master/src/mocks.ts
 [package.json]:       https://github.com/lathonez/clicker/blob/master/package.json
-[pollyfills.ts]:      https://github.com/lathonez/clicker/blob/master/src/pollyfills.ts
+[polyfills.ts]:       https://github.com/lathonez/clicker/blob/master/src/polyfills.ts
 [test.ts]:            https://github.com/lathonez/clicker/blob/master/src/test.ts
 [tsconfig.json]:      https://github.com/lathonez/clicker/blob/master/tsconfig.json
+[tsconfig.test.json]: https://github.com/lathonez/clicker/blob/master/src/tsconfig.test.json
 [typings.d.ts]:       https://github.com/lathonez/clicker/blob/master/src/typings.d.ts
-
