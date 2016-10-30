@@ -132,20 +132,19 @@ Pick one of your components to write a test for and create a `component-name.spe
 A simple skeleton unit test file looks like this, where `HelloIonic` is whatever component you're testing.
 
 ```javascript
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { TestUtils }                        from '../../test';
-import { HelloIonicPage }                   from './hello-ionic';
+import { ComponentFixture, async } from '@angular/core/testing';
+import { TestUtils }               from '../../test';
+import { HelloIonicPage }          from './hello-ionic';
 
 let fixture: ComponentFixture<HelloIonicPage> = null;
 let instance: any = null;
 
 describe('Pages: HelloIonic', () => {
 
-  beforeEach(() => {
-    TestUtils.configureIonicTestingModule([HelloIonicPage]);
-    fixture = TestBed.createComponent(HelloIonicPage);
-    instance = fixture.debugElement.componentInstance;
-  });
+  beforeEach(async(() => TestUtils.beforeEachCompiler([HelloIonicPage]).then(compiled => {
+    fixture = compiled.fixture;
+    instance = compiled.instance;
+  })));
 
   it('should create the hello ionic page', async(() => {
     expect(instance).toBeTruthy();
