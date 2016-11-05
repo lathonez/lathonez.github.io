@@ -24,7 +24,7 @@ Install the following npm dev dependencies, or simply merge our [package.json][p
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>npm install --save-dev @types/jasmine @types/node angular-cli codelyzer jasmine-core jasmine-spec-reporter karma karma-chrome-launcher karma-cli karma-jasmine karma-mocha-reporter karma-remap-istanbul</code>
+<code>npm install --save-dev @types/jasmine @types/node angular-cli codelyzer jasmine-core karma karma-chrome-launcher karma-cli karma-jasmine karma-mocha-reporter karma-remap-istanbul</code>
 </pre>
 </div>
 

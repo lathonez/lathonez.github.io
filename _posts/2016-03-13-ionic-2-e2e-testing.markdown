@@ -1,6 +1,6 @@
 ---
 title:  "End to End testing an Ionic2 project"
-date:   2016-04-29 02:48:23
+date:   2016-11-04 02:48:23
 categories: [dev]
 tags: [ionic2, angular2, testing]
 ---
@@ -9,18 +9,87 @@ tags: [ionic2, angular2, testing]
 
 The previous post in this series on [Unit Testing][blog-unit-testing] does a bit of intro that I won't repeat here. For the purposes of this post, it'll be useful to have the demo app cloned locally.
 
-`git clone git@github.com:lathonez/clicker.git`
+Install dev dependencies
+------------------------
 
-A simple e2e test on app.ts
-----------------------------
+<div class="highlighter-rouge">
+<pre class="lowlight">
+<code>npm install --save-dev angular-cli jasmine-spec-reporter protractor ts-node</code>
+</pre>
+</div>
 
-Note we keep the tests and source code together, as per the [Angular 2 Style Guide][angular2-sg-dir].
+Install config files and boilerplate
+------------------------------------
 
-`cp clicker/app/app.e2e.ts myApp/app/app.e2e.ts`
+Install config files and boilerplate
+------------------------------------
 
-Modify the test cases in [app.e2e.ts][app.e2e.ts] to suit your application, or use the simple example below (works with the ionic starter app):
+Into your project's root:
+
+* [angular-cli.json][angular-cli.json]: Angular Cli's config file
+* [protractor.conf.js][protractor.conf.js]: Protractor's config file
+
+
+Into a newly created `./e2e` folder in your project's root:
+
+* [tsconfig.json][tsconfig.json]: Angular Cli's compiler config
+
+For the lazy:
+
+<div class="highlighter-rouge">
+<pre class="lowlight">
+<code>for file in angular-cli.json protractor.conf.js
+do
+  wget https://raw.githubusercontent.com/lathonez/clicker/master/${file}
+done
+
+mkdir e2e
+cd e2e
+
+for file in tsconfig.json
+do
+  wget https://raw.githubusercontent.com/lathonez/clicker/master/e2e/${file}
+done</code>
+</pre>
+</div>
+
+
+Modify existing Ionic config files:
+-----------------------------------
+
+Add your new e2e folder into the exclude array in Ionic's [tsconfig.json][ion.tsconfig.json]:
+
+```yaml:
+  "exclude": [
+    "node_modules"
+  ],
+```
+
+Add the following to your [.gitignore][gitingore] file:
+
+```
+# e2e
+/e2e/*.js
+/e2e/*.map
+```
+
+Hook ng e2e into your [package.json][package.json] scripts array:
+
+
+```yaml
+  "scripts": {
+    "e2e": "protractor",
+    "postinstall": "webdriver-manager update"
+  },
+
+A simple e2e test on app.ts (./e2e/app.e2e-spec.ts)
+--------------------------------------------------
+
+Create a simple e2e test file to get us going:
 
 ```javascript
+import { browser, element, by } from 'protractor';
+
 describe('MyApp', () => {
 
   beforeEach(() => {
@@ -28,96 +97,67 @@ describe('MyApp', () => {
   });
 
   it('should have a title', () => {
-    expect(browser.getTitle()).toEqual('Tab 1');
+    expect(browser.getTitle()).toEqual('MyApp');
   });
-});
+})
 ```
 
-Building the tests
--------------------
+Update the webdriver
+--------------------
 
-We need to transpile our E2E tests from Typescript to Javascript, but we don't need to build all the source as `ionic serve` will do this for us later.
-
-Copy gulp's [task definition file][gulpfile.ts] into your project:
-
-<div class="highlighter-rouge">
-<pre class="lowlight">
-<code>mkdir -p myApp/test
-cp clicker/test/gulpfile.ts myApp/test</code>
-</pre>
-</div>
-
-This gulpfile defines several tasks for use during the test cycle. The only one we care about for E2E is `build-e2e`
-
-**Install Dependencies and Typings:**
-
-<div class="highlighter-rouge">
-<pre class="lowlight">
-<code>npm install -g typings
-npm install --save-dev del gulp gulp-typescript jasmine-spec-reporter protractor run-sequence ts-node
-typings install --global --save registry:dt/angular-protractor registry:dt/jasmine registry:dt/node registry:dt/selenium-webdriver</code>
-</pre>
-</div>
-
-You're now ready to build the tests:
-
-`node_modules/gulp/bin/gulp.js --gulpfile test/gulpfile.ts --cwd ./ build-e2e`
+As we hooked `webdriver-manager update` into our `npm postinstall` script, we just need to run `npm install`. Thus this step is covered by simply installing your project (in the future):
 
 ```
-[09:27:47] Requiring external module ts-node/register
-[09:27:50] Using gulpfile ~/code/myApp/test/gulpfile.ts
-[09:27:50] Starting 'clean-test'...
-Deleted -
-[09:27:50] Finished 'clean-test' after 5.43 ms
-[09:27:50] Starting 'build-e2e'...
-[09:27:51] Finished 'build-e2e' after 1.79 s
+x220:~/code/myApp$ npm install
+(node:28122) fs: re-evaluating native module sources is not supported. If you are using the graceful-fs module, please update it to a more recent version.
+(node:28122) fs: re-evaluating native module sources is not supported. If you are using the graceful-fs module, please update it to a more recent version.
+(node:28122) fs: re-evaluating native module sources is not supported. If you are using the graceful-fs module, please update it to a more recent version.
+
+> ionic-hello-world@ postinstall /home/lathonez/code/myApp
+> webdriver-manager update
+
+[16:37:57] I/file_manager - creating folder /home/lathonez/code/myApp/node_modules/protractor/node_modules/webdriver-manager/selenium
+[16:37:57] I/downloader - selenium standalone: downloading version 2.53.1
+[16:37:57] I/downloader - curl -o /home/lathonez/code/myApp/node_modules/protractor/node_modules/webdriver-manager/selenium/selenium-server-standalone-2.53.1.jar https://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar
+[16:37:57] I/downloader - chromedriver: downloading version 2.25
+[16:37:57] I/downloader - curl -o /home/lathonez/code/myApp/node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_2.25linux64.zip https://chromedriver.storage.googleapis.com/2.25/chromedriver_linux64.zip
+[16:37:57] I/downloader - geckodriver: downloading version v0.9.0
+[16:37:57] I/downloader - curl -o /home/lathonez/code/myApp/node_modules/protractor/node_modules/webdriver-manager/selenium/geckodriver-v0.9.0-linux64.tar.gz https://github.com/mozilla/geckodriver/releases/download/v0.9.0/geckodriver-v0.9.0-linux64.tar.gz
+[16:38:02] I/update - geckodriver: unzipping /home/lathonez/code/myApp/node_modules/protractor/node_modules/webdriver-manager/selenium/geckodriver-v0.9.0-linux64.tar.gz
+[16:38:02] I/update - geckodriver: setting permissions to 0755 for /home/lathonez/code/myApp/node_modules/protractor/node_modules/webdriver-manager/selenium/geckodriver-v0.9.0
+[16:38:03] I/update - chromedriver: unzipping /home/lathonez/code/myApp/node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_2.25linux64.zip
+[16:38:03] I/update - chromedriver: setting permissions to 0755 for /home/lathonez/code/myApp/node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_2.25
+npm WARN optional Skipping failed optional dependency /chokidar/fsevents:
+npm WARN notsup Not compatible with your operating system or architecture: fsevents@1.0.15
+npm WARN @ngtools/webpack@1.1.4 requires a peer of @angular/compiler-cli@^2.1.0 but none was installed.
 ```
 
 Running the tests
-------------------
+-----------------
 
-We'll be running our E2E tests using [Protractor][protractor-home]. Copy [protractor's config][protractor.conf.js] into your project:
-
-`cp clicker/test/protractor.conf.js myApp/test`
-
-Add the following lines to your `package.json` so we can get everything working nicely with `npm`:
-
-```yaml
-  "scripts": {
-    "e2e": "gulp --gulpfile test/gulpfile.ts --cwd ./ build-e2e && protractor test/protractor.conf.js",
-    "start": "ionic serve",
-    "webdriver-update": "webdriver-manager update"
-  }
-```
-
-Run the E2E tests:
-
-* `npm run webdriver-update` - Update webdriver, **only necessary one time after install**
-* `npm start` - Start Ionic's dev server
-* `npm run e2e` - Build the tests and start protractor (in another terminal)
+As we hooked into our [package.json][package.json] above, we can run the tests with a simple `npm run e2e`. Don't forget to start the server first (`ionic serve`):
 
 ```
-[09:31:41] Requiring external module ts-node/register
-[09:31:44] Using gulpfile ~/code/myApp/test/gulpfile.ts
-[09:31:44] Starting 'clean-test'...
-Deleted /home/lathonez/code/myApp/www/build/test
-[09:31:44] Finished 'clean-test' after 15 ms
-[09:31:44] Starting 'build-e2e'...
-[09:31:46] Finished 'build-e2e' after 1.76 s
-[09:31:46] I/direct - Using ChromeDriver directly...
-[09:31:46] I/launcher - Running 1 instances of WebDriver
-Spec started
+x220:~/code/myApp$ npm run e2e
+(node:31496) fs: re-evaluating native module sources is not supported. If you are using the graceful-fs module, please update it to a more recent version.
+
+> ionic-hello-world@ e2e /home/lathonez/code/myApp
+> protractor
+
+[16:40:33] I/direct - Using ChromeDriver directly...
+[16:40:33] I/launcher - Running 1 instances of WebDriver
 Started
-
+Spec started
+.
   MyApp
     ✓ should have a title
-.
-Executed 1 of 1 spec SUCCESS in 1 sec.
 
 1 spec, 0 failures
-Finished in 1.385 seconds
-[09:31:49] I/launcher - 0 instance(s) of WebDriver still running
-[09:31:49] I/launcher - chrome #01 passed
+Finished in 1.631 seconds
+
+Executed 1 of 1 spec SUCCESS in 2 secs.
+[16:40:36] I/launcher - 0 instance(s) of WebDriver still running
+[16:40:36] I/launcher - chrome #01 passed
 ```
 
 Using Docker?
@@ -131,7 +171,7 @@ Change the `e2e` line in `package.json` to include `xvfb-run`, ensuring protract
 
 ```yaml
   "scripts": {
-    "e2e": "gulp --gulpfile test/gulpfile.ts --cwd ./ build-e2e && xvfb-run protractor test/protractor.conf.js",
+    "e2e": "xvfb-run protractor",
     ...
   }
 ```
@@ -151,17 +191,16 @@ If you can't get any of this working in your own project, [raise an issue][click
 
 <div align="center"><iframe src="https://ghbtns.com/github-btn.html?user=lathonez&repo=clicker&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe></div>
 
-[angular2-sg-dir]:      https://github.com/mgechev/angular2-style-guide#directory-structure
-[app.e2e.ts]:           https://github.com/lathonez/clicker/blob/master/app/app.e2e.ts
+[angular-cli.json]:     https://github.com/lathonez/clicker/blob/master/angular-cli.json
 [blog-issue-new]:       https://github.com/lathonez/lathonez.github.io/issues/new
 [blog-repo]:            https://github.com/lathonez/lathonez.github.io
 [blog-unit-testing]:    http://lathonez.github.io/2016/ionic-2-unit-testing/
-[clicker-issue-38]:     https://github.com/lathonez/clicker/issues/38
 [clicker-issue-114]:    https://github.com/lathonez/clicker/issues/114
+[clicker-issue-38]:     https://github.com/lathonez/clicker/issues/38
 [clicker-issue-new]:    https://github.com/lathonez/clicker/issues/new
 [clicker-repo]:         http://github.com/lathonez/clicker
-[config.ts]:            https://github.com/lathonez/clicker/blob/master/test/config.ts
-[gulp-home]:            http://gulpjs.com/
-[gulpfile.ts]:          https://github.com/lathonez/clicker/blob/master/test/gulpfile.ts
+[ion.tsconfig.json]:    https://github.com/lathonez/clicker/blob/master/tsconfig.json
+[package.json]:         https://github.com/lathonez/clicker/blob/master/package.json
 [protractor-home]:      https://angular.github.io/protractor
-[protractor.conf.js]:   https://github.com/lathonez/clicker/blob/master/test/protractor.conf.js
+[protractor.conf.js]:   https://github.com/lathonez/clicker/blob/master/protractor.conf.js
+[tsconfig.json]:        https://github.com/lathonez/clicker/blob/master/e2e/tsconfig.json
