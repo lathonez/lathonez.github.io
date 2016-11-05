@@ -21,9 +21,6 @@ Install dev dependencies
 Install config files and boilerplate
 ------------------------------------
 
-Install config files and boilerplate
-------------------------------------
-
 Into your project's root:
 
 * [angular-cli.json][angular-cli.json]: Angular Cli's config file
@@ -59,13 +56,13 @@ Modify existing Ionic config files:
 
 Add your new e2e folder into the exclude array in Ionic's [tsconfig.json][ion.tsconfig.json]:
 
-```yaml:
+```yaml
   "exclude": [
     "node_modules"
   ],
 ```
 
-Add the following to your [.gitignore][gitingore] file:
+Add the following to your [gitignore][gitignore] file:
 
 ```
 # e2e
@@ -81,6 +78,7 @@ Hook ng e2e into your [package.json][package.json] scripts array:
     "e2e": "protractor",
     "postinstall": "webdriver-manager update"
   },
+```
 
 A simple e2e test on app.ts (./e2e/app.e2e-spec.ts)
 --------------------------------------------------
@@ -199,6 +197,7 @@ If you can't get any of this working in your own project, [raise an issue][click
 [clicker-issue-38]:     https://github.com/lathonez/clicker/issues/38
 [clicker-issue-new]:    https://github.com/lathonez/clicker/issues/new
 [clicker-repo]:         http://github.com/lathonez/clicker
+[gitignore]:            https://github.com/lathonez/clicker/blob/master/.gitignore
 [ion.tsconfig.json]:    https://github.com/lathonez/clicker/blob/master/tsconfig.json
 [package.json]:         https://github.com/lathonez/clicker/blob/master/package.json
 [protractor-home]:      https://angular.github.io/protractor
