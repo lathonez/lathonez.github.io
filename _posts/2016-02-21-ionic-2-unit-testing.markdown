@@ -28,12 +28,6 @@ Install the following npm dev dependencies, or simply merge our [package.json][p
 </pre>
 </div>
 
-Add the following line to the `scripts` object in your [package.json][package.json]:
-
-```javascript
-  "test": "ng test"
-```
-
 Install config files and boilerplate
 ------------------------------------
 
@@ -71,13 +65,19 @@ done</code>
 Modify existing Ionic config files:
 -----------------------------------
 
-Exclude spec friles from Ionic's [tsconfig.json][ion.tsconfig.json]:
+Exclude spec files from Ionic's [tsconfig.json][ion.tsconfig.json]:
 
 ```yaml
   "exclude": [
     "node_modules",
     "**/*.spec.ts"
   ],
+```
+
+Add the following line to the `scripts` object in your [package.json][package.json]:
+
+```javascript
+  "test": "ng test"
 ```
 
 test.ts
