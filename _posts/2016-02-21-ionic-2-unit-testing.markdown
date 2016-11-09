@@ -68,6 +68,18 @@ done</code>
 </pre>
 </div>
 
+Modify existing Ionic config files:
+-----------------------------------
+
+Exclude spec friles from Ionic's [tsconfig.json][ion.tsconfig.json]:
+
+```yaml
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ],
+```
+
 test.ts
 -------
 
@@ -226,6 +238,7 @@ FAQ
 [clicker-issue-new]:  https://github.com/lathonez/clicker/issues/new
 [clicker-repo]:       http://github.com/lathonez/clicker
 [double-typing]:      https://github.com/lathonez/clicker/commit/246c28df59542ba0b3b03047a5c6e163c9844ee2
+[ion.tsconfig.json]:  https://github.com/lathonez/clicker/blob/master/tsconfig.json
 [karma-console-ss]:   /images/ionic2_unit_testing/karma-console-screenshot.png
 [karma-debug-ss]:     /images/ionic2_unit_testing/karma-debug-screenshot.png
 [karma.conf.js]:      https://github.com/lathonez/clicker/blob/master/karma.conf.js

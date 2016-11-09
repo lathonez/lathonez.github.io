@@ -58,7 +58,8 @@ Add your new e2e folder into the exclude array in Ionic's [tsconfig.json][ion.ts
 
 ```yaml
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "e2e"
   ],
 ```
 
