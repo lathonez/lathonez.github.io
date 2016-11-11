@@ -176,7 +176,7 @@ Help!
 
 If you can't get any of this working in your own project, [raise an issue][clicker-issue-new] and I'll do my best to help out.
 
-If you have a more general question about unit testing concepts (e.g. how can I write a unit test for `some-module`), you'll have a much quicker (and better quality) response posting on [Stack Overflow][so-ask].
+If you have a more general question about unit testing concepts (e.g. how can I write an e2e test for `some-module`), you'll have a much quicker (and better quality) response posting on [Stack Overflow][so-ask].
 
 <div align="center"><iframe src="https://ghbtns.com/github-btn.html?user=lathonez&repo=clicker&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe></div>
 
