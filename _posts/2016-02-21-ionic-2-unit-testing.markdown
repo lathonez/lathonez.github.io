@@ -220,6 +220,8 @@ Help!
 
 If you can't get any of this working in your own project, [raise an issue][clicker-issue-new] and I'll do my best to help out. Check the FAQ (directly below) first.
 
+If you have a more general question about unit testing concepts (e.g. how can I write a unit test for `some-module`), you'll have a much quicker (and better quality) response posting on [Stack Overflow][so-ask].
+
 FAQ
 ---
 
@@ -248,6 +250,7 @@ FAQ
 [mocks.ts]:           https://github.com/lathonez/clicker/blob/master/src/mocks.ts
 [package.json]:       https://github.com/lathonez/clicker/blob/master/package.json
 [polyfills.ts]:       https://github.com/lathonez/clicker/blob/master/src/polyfills.ts
+[so-ask]:             http://stackoverflow.com/questions/ask
 [test.ts]:            https://github.com/lathonez/clicker/blob/master/src/test.ts
 [tsconfig.json]:      https://github.com/lathonez/clicker/blob/master/tsconfig.json
 [tsconfig.test.json]: https://github.com/lathonez/clicker/blob/master/src/tsconfig.test.json

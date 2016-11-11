@@ -176,6 +176,8 @@ Help!
 
 If you can't get any of this working in your own project, [raise an issue][clicker-issue-new] and I'll do my best to help out.
 
+If you have a more general question about unit testing concepts (e.g. how can I write a unit test for `some-module`), you'll have a much quicker (and better quality) response posting on [Stack Overflow][so-ask].
+
 <div align="center"><iframe src="https://ghbtns.com/github-btn.html?user=lathonez&repo=clicker&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe></div>
 
 [angular-cli.json]:     https://github.com/lathonez/clicker/blob/master/angular-cli.json
@@ -191,4 +193,5 @@ If you can't get any of this working in your own project, [raise an issue][click
 [package.json]:         https://github.com/lathonez/clicker/blob/master/package.json
 [protractor-home]:      https://angular.github.io/protractor
 [protractor.conf.js]:   https://github.com/lathonez/clicker/blob/master/protractor.conf.js
+[so-ask]:               http://stackoverflow.com/questions/ask
 [tsconfig.json]:        https://github.com/lathonez/clicker/blob/master/e2e/tsconfig.json
