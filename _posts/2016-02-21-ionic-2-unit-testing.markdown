@@ -65,13 +65,12 @@ done</code>
 Modify existing Ionic config files:
 -----------------------------------
 
-Exclude spec files from Ionic's [tsconfig.json][ion.tsconfig.json]:
+Add jasmine typings to `compilerOptions` Ionic's [tsconfig.json][ion.tsconfig.json]:
 
 ```yaml
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts"
-  ],
+  "types": [
+    "jasmine"
+  ]
 ```
 
 Add the following line to the `scripts` object in your [package.json][package.json]:

@@ -54,13 +54,12 @@ done</code>
 Modify existing Ionic config files:
 -----------------------------------
 
-Add your new e2e folder into the exclude array in Ionic's [tsconfig.json][ion.tsconfig.json]:
+Add jasmine typings to `compilerOptions` Ionic's [tsconfig.json][ion.tsconfig.json]:
 
 ```yaml
-  "exclude": [
-    "node_modules",
-    "e2e"
-  ],
+  "types": [
+    "jasmine"
+  ]
 ```
 
 Add the following to your [gitignore][gitignore] file:
