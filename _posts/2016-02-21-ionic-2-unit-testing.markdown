@@ -76,7 +76,7 @@ Add jasmine typings to `compilerOptions` Ionic's [tsconfig.json][ion.tsconfig.js
 Add the following line to the `scripts` object in your [package.json][package.json]:
 
 ```javascript
-  "test": "ng test"
+  "test": "ng test --code-coverage"
 ```
 
 test.ts
