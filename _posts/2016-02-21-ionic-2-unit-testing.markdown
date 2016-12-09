@@ -138,7 +138,6 @@ This means that instead of needing the above code in each of your component's sp
 Alternatively, you can write all this inline in your spec files (as opposed to using TestUtils above):
 
 ```javascript
-
   let fixture = null;
   let instance = null;
 
