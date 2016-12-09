@@ -135,6 +135,35 @@ This means that instead of needing the above code in each of your component's sp
   })));
 ```
 
+Alternatively, you can write all this inline in your spec files (as opposed to using TestUtils above):
+
+```javascript
+
+  let fixture = null;
+  let instance = null;
+
+  beforeEach(async(() => {
+
+    TestBed.configureTestingModule({
+      declarations: [MyComponent],
+      providers: [
+        App, Platform, Form, Keyboard, MenuController, NavController,
+        {provide: Config, useClass: ConfigMock},
+      ],
+      imports: [
+        FormsModule,
+        IonicModule,
+        ReactiveFormsModule,
+      ],
+    })
+    .compileComponents().then(() => {
+      fixture = TestBed.createComponent(MyComponent);
+      instance = fixture;
+      fixture.detectChanges();
+    });
+  }));
+```
+
 Your first unit test
 --------------------
 
