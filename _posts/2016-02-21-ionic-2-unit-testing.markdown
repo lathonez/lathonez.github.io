@@ -82,7 +82,7 @@ Add the following line to the `scripts` object in your [package.json][package.js
 test.ts
 -------
 
-This file is worth exploring a little futher. We've created a couple of functions to remove a lot of the boilerplate around an Ionic testbed setup, we'll be using these in any of our unit tests that create a Angular 2 components.
+[This file][test.ts] is worth exploring a little futher. We've created a couple of functions to remove a lot of the boilerplate around an Ionic testbed setup, we'll be using these in any of our unit tests that create a Angular 2 components.
 
 The following function `configureIonicTestingModule` takes one or more of your components and sets up an Ionic test bed for them:
 
