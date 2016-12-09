@@ -245,15 +245,9 @@ This blog is [on github][blog-repo], if you can improve it, have any suggestions
 Help!
 -----
 
-If you can't get any of this working in your own project, [raise an issue][clicker-issue-new] and I'll do my best to help out. Check the FAQ (directly below) first.
+If you can't get any of this working in your own project, [raise an issue][clicker-issue-new] and I'll do my best to help out.
 
-If you have a more general question about unit testing concepts (e.g. how can I write a unit test for `some-module`), you'll have a much quicker (and better quality) response posting on [Stack Overflow][so-ask].
-
-FAQ
----
-
-* [run a single test][clicker-issue-35]
-* [running as root][clicker-issue-111]
+If you have a general question about unit testing concepts (e.g. how can I write a unit test for `some-module`), see our [General Testing Help thread][clicker-issue-191].
 
 <div align="center"><iframe src="https://ghbtns.com/github-btn.html?user=lathonez&repo=clicker&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe></div>
 
@@ -261,9 +255,8 @@ FAQ
 [blog-issue-new]:     https://github.com/lathonez/lathonez.github.io/issues/new
 [blog-repo]:          https://github.com/lathonez/lathonez.github.io
 [clicker-codecov]:    https://codecov.io/github/lathonez/clicker?branch=master
-[clicker-issue-111]:  https://github.com/lathonez/clicker/issues/111
-[clicker-issue-35]:   https://github.com/lathonez/clicker/issues/35
 [clicker-issue-38]:   https://github.com/lathonez/clicker/issues/38
+[clicker-issue-191]:  https://github.com/lathonez/clicker/issues/191
 [clicker-issue-new]:  https://github.com/lathonez/clicker/issues/new
 [clicker-repo]:       http://github.com/lathonez/clicker
 [double-typing]:      https://github.com/lathonez/clicker/commit/246c28df59542ba0b3b03047a5c6e163c9844ee2

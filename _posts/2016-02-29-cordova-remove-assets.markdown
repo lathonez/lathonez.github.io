@@ -94,6 +94,8 @@ If you can't get any of this working in your own project, [raise an issue][click
 [blog-issue-new]:      https://github.com/lathonez/lathonez.github.io/issues/new
 [blog-repo]:           https://github.com/lathonez/lathonez.github.io
 [clicker-issue-15]:    https://github.com/lathonez/clicker/issues/15
+[clicker-issue-191]:    https://github.com/lathonez/clicker/issues/191
+[clicker-issue-38]:    https://github.com/lathonez/clicker/issues/38
 [clicker-issue-new]:   https://github.com/lathonez/clicker/issues/new
 [clicker-repo]:        http://github.com/lathonez/clicker
 [cordova-beg]:         https://cordova.apache.org/docs/en/dev/guide/platforms/android/#extending-build-gradle
