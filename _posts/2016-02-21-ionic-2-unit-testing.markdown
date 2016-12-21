@@ -24,7 +24,7 @@ Install the following npm dev dependencies, or simply merge our [package.json][p
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>npm install --save-dev @types/jasmine @types/node angular-cli codelyzer jasmine-core karma karma-chrome-launcher karma-cli karma-jasmine karma-mocha-reporter karma-remap-istanbul</code>
+<code>npm install --save-dev @types/jasmine @types/node angular-cli jasmine-core karma karma-chrome-launcher karma-cli karma-jasmine karma-mocha-reporter karma-remap-istanbul</code>
 </pre>
 </div>
 
@@ -42,7 +42,6 @@ Into your project's `./src` folder
 * [polyfills.ts][polyfills.ts]: Pollyfills used by Angular Cli
 * [test.ts][test.ts]: Main entry point for our unit tests. **Remove references to ClickerServices as they won't be applicable to you**
 * [tsconfig.test.json][tsconfig.test.json]: Angular Cli's compiler config
-* [typings.d.ts][typings.d.ts]: Angular Cli's typings file (simply declaring System)
 
 For the lazy:
 
@@ -55,7 +54,7 @@ done
 
 cd src
 
-for file in mocks.ts polyfills.ts test.ts tsconfig.test.json typings.d.ts
+for file in mocks.ts polyfills.ts test.ts tsconfig.test.json
 do
   wget https://raw.githubusercontent.com/lathonez/clicker/master/src/${file}
 done</code>
@@ -190,6 +189,10 @@ describe('Pages: HelloIonic', () => {
   }));
 });
 ```
+
+You'll also need to add `./` to your templateURL paths:
+
+`templateUrl: 'hello-ionic.html'` becomes `templateUrl: './hello-ionic.html'`
 
 Running the tests
 -----------------
