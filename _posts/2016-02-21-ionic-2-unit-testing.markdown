@@ -5,7 +5,7 @@ categories: [dev]
 tags: [ionic2, angular2, testing]
 ---
 
-**Updated for Ionic 2 rc1 and Angular 2 Final!**
+**Updated for Ionic 2 rc4 and Angular 2 Final!**
 
 **TL;DR** - I have an Ionic 2 project on github set up with unit testing, [dive in][clicker-repo], or read on.
 
