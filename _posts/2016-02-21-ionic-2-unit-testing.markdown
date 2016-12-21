@@ -190,7 +190,7 @@ describe('Pages: HelloIonic', () => {
 });
 ```
 
-You'll also need to add `./` to the templateUrl path in your component .ts file:
+**You'll also need to add** `./` to the templateUrl path in your component .ts file:
 
 `templateUrl: 'hello-ionic.html'` becomes `templateUrl: './hello-ionic.html'`
 
