@@ -1,6 +1,6 @@
 ---
 title:  "Unit Testing an Ionic2 project"
-date:   2016-10-15 01:48:23
+date:   2016-12-21 01:48:23
 categories: [dev]
 tags: [ionic2, angular2, testing]
 ---
