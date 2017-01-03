@@ -1,6 +1,6 @@
 ---
 title:  "Unit Testing an Ionic2 project"
-date:   2016-12-21 01:48:23
+date:   2017-01-02 01:48:23
 categories: [dev]
 tags: [ionic2, angular2, testing]
 ---
@@ -72,10 +72,11 @@ Add jasmine typings to `compilerOptions` Ionic's [tsconfig.json][ion.tsconfig.js
   ]
 ```
 
-Add the following line to the `scripts` object in your [package.json][package.json]:
+Add the following line to the `scripts` object in your [package.json][package.json] (generating code coverage [breaks sourcemaps][ng-cli-sourcemaps], so we add an explicit option for it):
 
 ```javascript
-  "test": "ng test --code-coverage"
+  "test-coverage": "ng test --code-coverage",
+  "test": "ng test"
 ```
 
 test.ts
@@ -271,6 +272,7 @@ If you have a general question about unit testing concepts (e.g. how can I write
 [lcov-home]:          http://ltp.sourceforge.net/coverage/lcov.php
 [lcov-index-ss]:      /images/ionic2_unit_testing/lcov-index-screenshot.png
 [mocks.ts]:           https://github.com/lathonez/clicker/blob/master/src/mocks.ts
+[ng-cli-sourcemaps]:  https://github.com/angular/angular-cli/pull/1799
 [package.json]:       https://github.com/lathonez/clicker/blob/master/package.json
 [polyfills.ts]:       https://github.com/lathonez/clicker/blob/master/src/polyfills.ts
 [so-ask]:             http://stackoverflow.com/questions/ask
