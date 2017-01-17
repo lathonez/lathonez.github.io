@@ -75,7 +75,7 @@ Hook ng e2e into your [package.json][package.json] scripts array:
 
 ```yaml
   "scripts": {
-    "e2e": "protractor",
+    "e2e": "ionic-app-scripts build && protractor",
     "postinstall": "webdriver-manager update"
   },
 ```
@@ -121,7 +121,7 @@ x220:~/code/myApp$ npm install
 Running the tests
 -----------------
 
-As we hooked into our [package.json][package.json] above, we can run the tests with a simple `npm run e2e`. Don't forget to start the server first with `ionic serve`:
+As we hooked into our [package.json][package.json] above, we can run the tests with a simple `npm run e2e`.
 
 ```
 x220:~/code/myApp$ npm run e2e
@@ -157,7 +157,7 @@ Change the `e2e` line in `package.json` to include `xvfb-run`, ensuring protract
 
 ```yaml
   "scripts": {
-    "e2e": "xvfb-run protractor",
+    "e2e": "xvfb-run && ionic-app-scripts build && protractor",
     ...
   }
 ```
