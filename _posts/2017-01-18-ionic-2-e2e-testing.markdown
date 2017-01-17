@@ -1,6 +1,6 @@
 ---
 title:  "End to End testing an Ionic2 project"
-date:   2016-11-04 02:48:23
+date:   2017-01-18 02:48:23
 categories: [dev]
 tags: [ionic2, angular2, testing]
 ---
