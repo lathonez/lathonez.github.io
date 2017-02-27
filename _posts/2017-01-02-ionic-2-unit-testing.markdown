@@ -1,6 +1,6 @@
 ---
 title:  "Unit Testing an Ionic2 project"
-date:   2017-01-25 01:48:23
+date:   2017-02-26 01:48:23
 categories: [dev]
 tags: [ionic2, angular2, testing]
 ---
@@ -24,7 +24,15 @@ Install the following npm dev dependencies, or simply merge our [package.json][p
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>npm install --save-dev @types/jasmine @types/node angular-cli jasmine-core karma karma-chrome-launcher karma-cli karma-jasmine karma-mocha-reporter karma-remap-istanbul</code>
+<code>npm install --save-dev @angular/cli @types/jasmine @types/node jasmine-core karma karma-chrome-launcher karma-cli karma-jasmine karma-mocha-reporter karma-remap-istanbul</code>
+</pre>
+</div>
+
+Temporary step for Ionic 2.1.0: Upgrade Ionic's packaged version of Angular (if you haven't already). Hopefully they will upgrade soon. You'll get a bunch of warnings at the end of your install about unmet peer dependencies. This is because we've installed newer versions of these packages than Ionic wants.
+
+<div class="highlighter-rouge">
+<pre class="lowlight">
+<code>npm install --save-dev @angular/common@2.4.0 @angular/compiler@2.4.0 @angular/compiler-cli@2.4.0 @angular/core@2.4.0 @angular/forms@2.4.0 @angular/http@2.4.0 @angular/platform-browser@2.4.0 @angular/platform-browser-dynamic@2.4.0 @angular/platform-server@2.4.0 @angular/router@3.4.0 rxjs@5.1.0 zone.js@0.7.6</code>
 </pre>
 </div>
 
@@ -33,7 +41,7 @@ Install config files and boilerplate
 
 Into your project's root:
 
-* [angular-cli.json][angular-cli.json]: Angular Cli's config file
+* [.angular-cli.json][.angular-cli.json]: Angular Cli's config file
 * [karma.conf.js][karma.conf.js]: Karma's config file
 
 Into your project's `./src` folder
@@ -41,7 +49,7 @@ Into your project's `./src` folder
 * [mocks.ts][mocks.ts]: Mocks for Ionic classes we'll need to stub out when testing
 * [polyfills.ts][polyfills.ts]: Pollyfills used by Angular Cli
 * [test.ts][test.ts]: Main entry point for our unit tests. **Remove references to ClickerServices as they won't be applicable to you**
-* [tsconfig.test.json][tsconfig.test.json]: Angular Cli's compiler config
+* [tsconfig.spec.json][tsconfig.spec.json]: Angular Cli's compiler config for spec files
 
 For the lazy:
 
@@ -54,7 +62,7 @@ done
 
 cd src
 
-for file in mocks.ts polyfills.ts test.ts tsconfig.test.json
+for file in mocks.ts polyfills.ts test.ts tsconfig.spec.json
 do
   wget https://raw.githubusercontent.com/lathonez/clicker/master/src/${file}
 done</code>
@@ -255,7 +263,7 @@ If you have a general question about unit testing concepts (e.g. how can I write
 
 <div align="center"><iframe src="https://ghbtns.com/github-btn.html?user=lathonez&repo=clicker&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe></div>
 
-[angular-cli.json]:   https://github.com/lathonez/clicker/blob/master/angular-cli.json
+[.angular-cli.json]:   https://github.com/lathonez/clicker/blob/master/.angular-cli.json
 [blog-issue-new]:     https://github.com/lathonez/lathonez.github.io/issues/new
 [blog-repo]:          https://github.com/lathonez/lathonez.github.io
 [clicker-codecov]:    https://codecov.io/github/lathonez/clicker?branch=master
@@ -263,7 +271,6 @@ If you have a general question about unit testing concepts (e.g. how can I write
 [clicker-issue-191]:  https://github.com/lathonez/clicker/issues/191
 [clicker-issue-new]:  https://github.com/lathonez/clicker/issues/new
 [clicker-repo]:       http://github.com/lathonez/clicker
-[double-typing]:      https://github.com/lathonez/clicker/commit/246c28df59542ba0b3b03047a5c6e163c9844ee2
 [ion.tsconfig.json]:  https://github.com/lathonez/clicker/blob/master/tsconfig.json
 [karma-console-ss]:   /images/ionic2_unit_testing/karma-console-screenshot.png
 [karma-debug-ss]:     /images/ionic2_unit_testing/karma-debug-screenshot.png

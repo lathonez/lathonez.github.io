@@ -1,6 +1,6 @@
 ---
 title:  "End to End testing an Ionic2 project"
-date:   2017-01-18 02:48:23
+date:   2017-02-26 02:48:23
 categories: [dev]
 tags: [ionic2, angular2, testing]
 ---
@@ -18,18 +18,26 @@ Install dev dependencies
 </pre>
 </div>
 
+Temporary step for Ionic 2.1.0: Upgrade Ionic's packaged version of Angular (if you haven't already). Hopefully they will upgrade soon. You'll get a bunch of warnings at the end of your install about unmet peer dependencies. This is because we've installed newer versions of these packages than Ionic wants.
+
+<div class="highlighter-rouge">
+<pre class="lowlight">
+<code>npm install --save-dev @angular/common@2.4.0 @angular/compiler@2.4.0 @angular/compiler-cli@2.4.0 @angular/core@2.4.0 @angular/forms@2.4.0 @angular/http@2.4.0 @angular/platform-browser@2.4.0 @angular/platform-browser-dynamic@2.4.0 @angular/platform-server@2.4.0 @angular/router@3.4.0 rxjs@5.1.0 zone.js@0.7.6</code>
+</pre>
+</div>
+
 Install config files and boilerplate
 ------------------------------------
 
 Into your project's root:
 
-* [angular-cli.json][angular-cli.json]: Angular Cli's config file
+* [.angular-cli.json][.angular-cli.json]: Angular Cli's config file
 * [protractor.conf.js][protractor.conf.js]: Protractor's config file
 
 
 Into a newly created `./e2e` folder in your project's root:
 
-* [tsconfig.json][tsconfig.json]: Angular Cli's compiler config
+* [tsconfig.e2e.json][tsconfig.e2e.json]: Angular Cli's compiler config
 
 For the lazy:
 
@@ -43,7 +51,7 @@ done
 mkdir e2e
 cd e2e
 
-for file in tsconfig.json
+for file in tsconfig.e2e.json
 do
   wget https://raw.githubusercontent.com/lathonez/clicker/master/e2e/${file}
 done</code>
@@ -179,7 +187,7 @@ If you have a general question about e2e testing concepts (e.g. how can I write 
 
 <div align="center"><iframe src="https://ghbtns.com/github-btn.html?user=lathonez&repo=clicker&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe></div>
 
-[angular-cli.json]:     https://github.com/lathonez/clicker/blob/master/angular-cli.json
+[.angular-cli.json]:    https://github.com/lathonez/clicker/blob/master/angular-cli.json
 [blog-issue-new]:       https://github.com/lathonez/lathonez.github.io/issues/new
 [blog-repo]:            https://github.com/lathonez/lathonez.github.io
 [blog-unit-testing]:    http://lathonez.github.io/2016/ionic-2-unit-testing/
@@ -194,4 +202,4 @@ If you have a general question about e2e testing concepts (e.g. how can I write 
 [protractor-home]:      https://angular.github.io/protractor
 [protractor.conf.js]:   https://github.com/lathonez/clicker/blob/master/protractor.conf.js
 [so-ask]:               http://stackoverflow.com/questions/ask
-[tsconfig.json]:        https://github.com/lathonez/clicker/blob/master/e2e/tsconfig.json
+[tsconfig.e2e.json]:    https://github.com/lathonez/clicker/blob/master/e2e/tsconfig.e2e.json
