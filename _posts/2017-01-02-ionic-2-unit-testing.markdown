@@ -28,7 +28,7 @@ Install the following npm dev dependencies, or simply merge our [package.json][p
 </pre>
 </div>
 
-Temporary step for Ionic 2.1.0: Upgrade Ionic's packaged version of Angular (if you haven't already). Hopefully they will upgrade soon. You'll get a bunch of warnings at the end of your install about unmet peer dependencies. This is because we've installed newer versions of these packages than Ionic wants.
+**Temporary step for Ionic 2.1.0**: Upgrade Ionic's packaged version of Angular (if you haven't already). Hopefully they will upgrade soon. You'll get a bunch of warnings at the end of your install about unmet peer dependencies. This is because we've installed newer versions of these packages than Ionic wants.
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
