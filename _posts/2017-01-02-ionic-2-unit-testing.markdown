@@ -24,7 +24,7 @@ Install the following npm dev dependencies, or simply merge our [package.json][p
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>npm install --save-dev @angular/cli @types/jasmine @types/node jasmine-core karma karma-chrome-launcher karma-cli karma-jasmine karma-mocha-reporter karma-remap-istanbul</code>
+<code>npm install --save-dev @angular/cli @types/jasmine @types/node jasmine-core jasmine-spec-reporter karma karma-chrome-launcher karma-cli karma-jasmine karma-jasmine-html-reporter karma-coverage-istanbul-reporter</code>
 </pre>
 </div>
 
@@ -55,7 +55,7 @@ For the lazy:
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>for file in angular-cli.json karma.conf.js
+<code>for file in .angular-cli.json karma.conf.js
 do
   wget https://raw.githubusercontent.com/lathonez/clicker/master/${file}
 done
@@ -285,5 +285,5 @@ If you have a general question about unit testing concepts (e.g. how can I write
 [so-ask]:             http://stackoverflow.com/questions/ask
 [test.ts]:            https://github.com/lathonez/clicker/blob/master/src/test.ts
 [tsconfig.json]:      https://github.com/lathonez/clicker/blob/master/tsconfig.json
-[tsconfig.test.json]: https://github.com/lathonez/clicker/blob/master/src/tsconfig.test.json
+[tsconfig.spec.json]: https://github.com/lathonez/clicker/blob/master/src/tsconfig.spec.json
 [typings.d.ts]:       https://github.com/lathonez/clicker/blob/master/src/typings.d.ts
