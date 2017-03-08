@@ -1,11 +1,11 @@
 ---
 title:  "Unit Testing an Ionic2 project"
-date:   2017-02-26 01:48:23
+date:   2017-03-08 01:48:23
 categories: [dev]
 tags: [ionic2, angular2, testing]
 ---
 
-**Updated for Ionic 2 Final and Angular 2 Final!**
+**Updated for Ionic 2.1 and Angular 2.4**
 
 **TL;DR** - I have an Ionic 2 project on github set up with unit testing, [dive in][clicker-repo], or read on.
 
