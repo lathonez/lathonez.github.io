@@ -240,6 +240,19 @@ This set up outputs [lcov][lcov-home] coverage to `./coverage` in the root folde
 
 You can also use external tools, I highly recommend [codecov][clicker-codecov].
 
+<a name="debugging-setup">Debugging Setup</a>
+---------------
+
+There are a few fiddly steps to get Angular CLI integrated into your Ionic project. If something isn't working for you, you have missed a step above. This setup works cross platform and is running on a closed source project with 400+ unit tests.
+
+Before raising an issue, please follow these basic steps to debug the setup:
+
+* check you are on node LTS
+* remove and reinstall node_modules
+* clone a copy of clicker and compare the relevant files with your own using a diff tool (meld)
+
+If you have performed these steps and still have no luck, please raise an issue (see below) - note that we will probably need access to your source code to help out.
+
 Debugging the Tests
 --------------------
 
@@ -257,7 +270,7 @@ This blog is [on github][blog-repo], if you can improve it, have any suggestions
 Help!
 -----
 
-If you can't get any of this working in your own project, [raise an issue][clicker-issue-new] and I'll do my best to help out.
+If you can't get any of this working in your own project - follow the Debugging Setup, [raise an issue][clicker-issue-new] and I'll do my best to help out.
 
 If you have a general question about unit testing concepts (e.g. how can I write a unit test for `some-module`), see our [General Testing Help thread][clicker-issue-191].
 
