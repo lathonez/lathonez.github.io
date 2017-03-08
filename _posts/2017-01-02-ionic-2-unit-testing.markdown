@@ -240,7 +240,7 @@ This set up outputs [lcov][lcov-home] coverage to `./coverage` in the root folde
 
 You can also use external tools, I highly recommend [codecov][clicker-codecov].
 
-<a name="debugging-setup">Debugging Setup</a>
+Debugging Setup
 ---------------
 
 There are a few fiddly steps to get Angular CLI integrated into your Ionic project. If something isn't working for you, you have missed a step above. This setup works cross platform and is running on a closed source project with 400+ unit tests.
