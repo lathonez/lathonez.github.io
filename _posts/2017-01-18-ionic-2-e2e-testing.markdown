@@ -192,7 +192,7 @@ If you have a general question about e2e testing concepts (e.g. how can I write 
 [.angular-cli.json]:    https://github.com/lathonez/clicker/blob/master/angular-cli.json
 [blog-issue-new]:       https://github.com/lathonez/lathonez.github.io/issues/new
 [blog-repo]:            https://github.com/lathonez/lathonez.github.io
-[blog-unit-testing]:    http://lathonez.github.io/2016/ionic-2-unit-testing/
+[blog-unit-testing]:    http://lathonez.github.io/2017/ionic-2-unit-testing/
 [clicker-issue-114]:    https://github.com/lathonez/clicker/issues/114
 [clicker-issue-38]:     https://github.com/lathonez/clicker/issues/38
 [clicker-issue-191]:    https://github.com/lathonez/clicker/issues/191
