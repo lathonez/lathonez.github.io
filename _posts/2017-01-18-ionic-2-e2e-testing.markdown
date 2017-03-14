@@ -68,7 +68,7 @@ Exclude test.ts and our e2e folder in Ionic's [tsconfig.json][ion.tsconfig.json]
   "exclude": [
     "node_modules",
     "src/test.ts",
-    "**/*.spec.ts"
+    "e2e"
   ],
 ```
 
