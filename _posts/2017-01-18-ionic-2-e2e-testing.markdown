@@ -62,12 +62,14 @@ done</code>
 Modify existing Ionic config files:
 -----------------------------------
 
-Add jasmine typings to `compilerOptions` Ionic's [tsconfig.json][ion.tsconfig.json]:
+Exclude test.ts and our e2e folder in Ionic's [tsconfig.json][ion.tsconfig.json]:
 
 ```yaml
-  "types": [
-    "jasmine"
-  ]
+  "exclude": [
+    "node_modules",
+    "src/test.ts",
+    "**/*.spec.ts"
+  ],
 ```
 
 Add the following to your [gitignore][gitignore] file:
