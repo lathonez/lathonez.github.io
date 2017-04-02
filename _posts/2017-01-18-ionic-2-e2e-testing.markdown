@@ -1,9 +1,11 @@
 ---
 title:  "End to End testing an Ionic2 project"
-date:   2017-02-26 02:48:23
+date:   2017-04-01 02:48:23
 categories: [dev]
 tags: [ionic2, angular2, testing]
 ---
+
+**Deprecation Notice** - I am looking to deprecate this post and associated project in favour of [Ionic's recent example repo][ionic-unit-testing-example]. Please see the [deprecation issue][clicker-issue-239] for the latest status / recommendation. You can still follow this blog and use the clicker project (@2.9.0) as a reference.
 
 **TL;DR** - I have an Ionic 2 project on github set up for E2E testing with [protractor][protractor-home], [dive in][clicker-repo], or read on.
 
@@ -189,19 +191,21 @@ If you have a general question about e2e testing concepts (e.g. how can I write 
 
 <div align="center"><iframe src="https://ghbtns.com/github-btn.html?user=lathonez&repo=clicker&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe></div>
 
-[.angular-cli.json]:    https://github.com/lathonez/clicker/blob/master/angular-cli.json
+[.angular-cli.json]:    https://github.com/lathonez/clicker/blob/4b2a6fa40500c998b96c1b8e6bc281b80eae80c9/angular-cli.json
 [blog-issue-new]:       https://github.com/lathonez/lathonez.github.io/issues/new
 [blog-repo]:            https://github.com/lathonez/lathonez.github.io
 [blog-unit-testing]:    http://lathonez.github.io/2017/ionic-2-unit-testing/
 [clicker-issue-114]:    https://github.com/lathonez/clicker/issues/114
 [clicker-issue-38]:     https://github.com/lathonez/clicker/issues/38
 [clicker-issue-191]:    https://github.com/lathonez/clicker/issues/191
+[clicker-issue-239]:    https://github.com/lathonez/clicker/issues/239
 [clicker-issue-new]:    https://github.com/lathonez/clicker/issues/new
 [clicker-repo]:         http://github.com/lathonez/clicker
-[gitignore]:            https://github.com/lathonez/clicker/blob/master/.gitignore
-[ion.tsconfig.json]:    https://github.com/lathonez/clicker/blob/master/tsconfig.json
-[package.json]:         https://github.com/lathonez/clicker/blob/master/package.json
+[gitignore]:            https://github.com/lathonez/clicker/blob/4b2a6fa40500c998b96c1b8e6bc281b80eae80c9/.gitignore
+[ion.tsconfig.json]:    https://github.com/lathonez/clicker/blob/4b2a6fa40500c998b96c1b8e6bc281b80eae80c9/tsconfig.json
+[ionic-unit-testing-example]: https://github.com/driftyco/ionic-unit-testing-example
+[package.json]:         https://github.com/lathonez/clicker/blob/4b2a6fa40500c998b96c1b8e6bc281b80eae80c9/package.json
 [protractor-home]:      https://angular.github.io/protractor
-[protractor.conf.js]:   https://github.com/lathonez/clicker/blob/master/protractor.conf.js
+[protractor.conf.js]:   https://github.com/lathonez/clicker/blob/4b2a6fa40500c998b96c1b8e6bc281b80eae80c9/protractor.conf.js
 [so-ask]:               http://stackoverflow.com/questions/ask
-[tsconfig.e2e.json]:    https://github.com/lathonez/clicker/blob/master/e2e/tsconfig.e2e.json
+[tsconfig.e2e.json]:    https://github.com/lathonez/clicker/blob/4b2a6fa40500c998b96c1b8e6bc281b80eae80c9/e2e/tsconfig.e2e.json

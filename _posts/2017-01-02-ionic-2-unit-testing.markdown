@@ -1,9 +1,11 @@
 ---
 title:  "Unit Testing an Ionic2 project"
-date:   2017-03-08 01:48:23
+date:   2017-04-02 01:48:23
 categories: [dev]
 tags: [ionic2, angular2, testing]
 ---
+
+**Deprecation Notice** - I am looking to deprecate this post and associated project in favour of [Ionic's recent example repo][ionic-unit-testing-example]. Please see the [deprecation issue][clicker-issue-239] for the latest status / recommendation. You can still follow this blog and use the clicker project (@2.9.0) as a reference.
 
 **Updated for Ionic 2.1 and Angular 2.4**
 
@@ -278,27 +280,29 @@ If you have a general question about unit testing concepts (e.g. how can I write
 
 <div align="center"><iframe src="https://ghbtns.com/github-btn.html?user=lathonez&repo=clicker&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe></div>
 
-[.angular-cli.json]:   https://github.com/lathonez/clicker/blob/master/.angular-cli.json
+[.angular-cli.json]:   https://github.com/lathonez/clicker/blob/4b2a6fa40500c998b96c1b8e6bc281b80eae80c9/.angular-cli.json
 [blog-issue-new]:     https://github.com/lathonez/lathonez.github.io/issues/new
 [blog-repo]:          https://github.com/lathonez/lathonez.github.io
 [clicker-codecov]:    https://codecov.io/github/lathonez/clicker?branch=master
 [clicker-issue-38]:   https://github.com/lathonez/clicker/issues/38
 [clicker-issue-191]:  https://github.com/lathonez/clicker/issues/191
+[clicker-issue-239]:  https://github.com/lathonez/clicker/issues/239
 [clicker-issue-new]:  https://github.com/lathonez/clicker/issues/new
 [clicker-repo]:       http://github.com/lathonez/clicker
-[ion.tsconfig.json]:  https://github.com/lathonez/clicker/blob/master/tsconfig.json
+[ion.tsconfig.json]:  https://github.com/lathonez/clicker/blob/4b2a6fa40500c998b96c1b8e6bc281b80eae80c9/tsconfig.json
+[ionic-unit-testing-example]: https://github.com/driftyco/ionic-unit-testing-example
 [karma-console-ss]:   /images/ionic2_unit_testing/karma-console-screenshot.png
 [karma-debug-ss]:     /images/ionic2_unit_testing/karma-debug-screenshot.png
-[karma.conf.js]:      https://github.com/lathonez/clicker/blob/master/karma.conf.js
+[karma.conf.js]:      https://github.com/lathonez/clicker/blob/4b2a6fa40500c998b96c1b8e6bc281b80eae80c9/karma.conf.js
 [lcov-app-ss]:        /images/ionic2_unit_testing/lcov-app-screenshot.png
 [lcov-home]:          http://ltp.sourceforge.net/coverage/lcov.php
 [lcov-index-ss]:      /images/ionic2_unit_testing/lcov-index-screenshot.png
-[mocks.ts]:           https://github.com/lathonez/clicker/blob/master/src/mocks.ts
+[mocks.ts]:           https://github.com/lathonez/clicker/blob/4b2a6fa40500c998b96c1b8e6bc281b80eae80c9/src/mocks.ts
 [ng-cli-sourcemaps]:  https://github.com/angular/angular-cli/pull/1799
-[package.json]:       https://github.com/lathonez/clicker/blob/master/package.json
-[polyfills.ts]:       https://github.com/lathonez/clicker/blob/master/src/polyfills.ts
+[package.json]:       https://github.com/lathonez/clicker/blob/4b2a6fa40500c998b96c1b8e6bc281b80eae80c9/package.json
+[polyfills.ts]:       https://github.com/lathonez/clicker/blob/4b2a6fa40500c998b96c1b8e6bc281b80eae80c9/src/polyfills.ts
 [so-ask]:             http://stackoverflow.com/questions/ask
-[test.ts]:            https://github.com/lathonez/clicker/blob/master/src/test.ts
-[tsconfig.json]:      https://github.com/lathonez/clicker/blob/master/tsconfig.json
-[tsconfig.spec.json]: https://github.com/lathonez/clicker/blob/master/src/tsconfig.spec.json
-[typings.d.ts]:       https://github.com/lathonez/clicker/blob/master/src/typings.d.ts
+[test.ts]:            https://github.com/lathonez/clicker/blob/4b2a6fa40500c998b96c1b8e6bc281b80eae80c9/src/test.ts
+[tsconfig.json]:      https://github.com/lathonez/clicker/blob/4b2a6fa40500c998b96c1b8e6bc281b80eae80c9/tsconfig.json
+[tsconfig.spec.json]: https://github.com/lathonez/clicker/blob/4b2a6fa40500c998b96c1b8e6bc281b80eae80c9/src/tsconfig.spec.json
+[typings.d.ts]:       https://github.com/lathonez/clicker/blob/4b2a6fa40500c998b96c1b8e6bc281b80eae80c9/src/typings.d.ts
