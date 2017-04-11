@@ -1,23 +1,22 @@
 ---
 title:  "Unit Testing an Ionic2 project"
-date:   2017-04-02 01:48:23
+date:   2017-04-11 01:48:23
 categories: [dev]
 tags: [ionic2, angular2, testing]
 ---
 
-**Deprecation Notice** - I am looking to deprecate this post and associated project in favour of [Ionic's recent example repo][ionic-unit-testing-example]. Please see the [deprecation issue][clicker-issue-239] for the latest status / recommendation. You can still follow this blog and use the clicker project (@2.9.0) as a reference.
+**Updated for Ionic 3.0.1 and Angular 4.0.0**
 
-**Updated for Ionic 2.1 and Angular 2.4**
+This blog and [associated project][clicker-repo] have been around for over a year, since the early days of Ionic 2. Recently, Ionic have brought out an [official example repository][ionic-unit-testing-example] for unit testing.
 
-**TL;DR** - I have an Ionic 2 project on github set up with unit testing, [dive in][clicker-repo], or read on.
+So why is this blog still relevant? We spent [a lot of time and effort][clicker-issue-239] migrating the project over to the example setup. We found that:
 
-This blog and associated project have been around since the early days of Ionic 2, however there still isn't concrete guidance out there on how to unit test, or even a recommendend setup.
+* The repo is not mature and has a number of outstanding issues that make it unsuitable for production
+* It is meant to be a very lightweight example and will have minimal support from Ionic
+* It does not use angular/cli for testing, so lacks community support and resources
+* Ionic are ultimately looking to bake testing support directly into ionic-app-scripts anyway, so it the example repo is a stop-gap.
 
-In `rc0`, Ionic ditched their current build process `gulp` and sidestepped onto `rollup`. This was frustrating for many in the community, who were hoping for a move toward `ng-cli` and `webpack`.
-
-Rather than re-write this setup for `rollup`, I decided to get to get as close to `ng-cli` as possible, mainly so we could have a stable reference point for our Ionic 2 testing framework.
-
-This post explains the setup and how you can incorporate it into your own project without too much pain.
+For ~large apps, or anything that needs production support, I recommend this setup. For small / side projects Ionic's example will probably suffice.
 
 Install dev dependencies
 ------------------------
@@ -26,15 +25,7 @@ Install the following npm dev dependencies, or simply merge our [package.json][p
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>npm install --save-dev @angular/cli @types/jasmine @types/node jasmine-core jasmine-spec-reporter karma karma-chrome-launcher karma-cli karma-jasmine karma-jasmine-html-reporter karma-coverage-istanbul-reporter</code>
-</pre>
-</div>
-
-**Temporary step for Ionic 2.1.0**: Upgrade Ionic's packaged version of Angular (if you haven't already). Hopefully they will upgrade soon. You'll get a bunch of warnings at the end of your install about unmet peer dependencies. This is because we've installed newer versions of these packages than Ionic wants.
-
-<div class="highlighter-rouge">
-<pre class="lowlight">
-<code>npm install --save @angular/common@2.4.0 @angular/compiler@2.4.0 @angular/compiler-cli@2.4.0 @angular/core@2.4.0 @angular/forms@2.4.0 @angular/http@2.4.0 @angular/platform-browser@2.4.0 @angular/platform-browser-dynamic@2.4.0 @angular/platform-server@2.4.0 @angular/router@3.4.0 rxjs@5.1.0 zone.js@0.7.6</code>
+<code>npm install --save-dev @angular/cli @angular/router @types/jasmine @types/node jasmine-core jasmine-spec-reporter karma karma-chrome-launcher karma-cli karma-jasmine karma-jasmine-html-reporter karma-coverage-istanbul-reporter</code>
 </pre>
 </div>
 
@@ -45,6 +36,7 @@ Into your project's root:
 
 * [.angular-cli.json][.angular-cli.json]: Angular Cli's config file
 * [karma.conf.js][karma.conf.js]: Karma's config file
+* [tsconfig.ng-cli.json][tsconfig.ng-cli..json]: Angular Cli's base compiler config
 
 Into your project's `./src` folder
 
@@ -57,7 +49,7 @@ For the lazy:
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>for file in .angular-cli.json karma.conf.js
+<code>for file in .angular-cli.json karma.conf.js tconfig.ng-cli.json
 do
   wget https://raw.githubusercontent.com/lathonez/clicker/master/${file}
 done
@@ -280,7 +272,7 @@ If you have a general question about unit testing concepts (e.g. how can I write
 
 <div align="center"><iframe src="https://ghbtns.com/github-btn.html?user=lathonez&repo=clicker&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe></div>
 
-[.angular-cli.json]:   https://github.com/lathonez/clicker/blob/4b2a6fa40500c998b96c1b8e6bc281b80eae80c9/.angular-cli.json
+[.angular-cli.json]:   https://github.com/lathonez/clicker/blob/master/.angular-cli.json
 [blog-issue-new]:     https://github.com/lathonez/lathonez.github.io/issues/new
 [blog-repo]:          https://github.com/lathonez/lathonez.github.io
 [clicker-codecov]:    https://codecov.io/github/lathonez/clicker?branch=master
@@ -289,20 +281,21 @@ If you have a general question about unit testing concepts (e.g. how can I write
 [clicker-issue-239]:  https://github.com/lathonez/clicker/issues/239
 [clicker-issue-new]:  https://github.com/lathonez/clicker/issues/new
 [clicker-repo]:       http://github.com/lathonez/clicker
-[ion.tsconfig.json]:  https://github.com/lathonez/clicker/blob/4b2a6fa40500c998b96c1b8e6bc281b80eae80c9/tsconfig.json
+[ion.tsconfig.json]:  https://github.com/lathonez/clicker/blob/master/tsconfig.json
 [ionic-unit-testing-example]: https://github.com/driftyco/ionic-unit-testing-example
 [karma-console-ss]:   /images/ionic2_unit_testing/karma-console-screenshot.png
 [karma-debug-ss]:     /images/ionic2_unit_testing/karma-debug-screenshot.png
-[karma.conf.js]:      https://github.com/lathonez/clicker/blob/4b2a6fa40500c998b96c1b8e6bc281b80eae80c9/karma.conf.js
+[karma.conf.js]:      https://github.com/lathonez/clicker/blob/master/karma.conf.js
 [lcov-app-ss]:        /images/ionic2_unit_testing/lcov-app-screenshot.png
 [lcov-home]:          http://ltp.sourceforge.net/coverage/lcov.php
 [lcov-index-ss]:      /images/ionic2_unit_testing/lcov-index-screenshot.png
-[mocks.ts]:           https://github.com/lathonez/clicker/blob/4b2a6fa40500c998b96c1b8e6bc281b80eae80c9/src/mocks.ts
+[mocks.ts]:           https://github.com/lathonez/clicker/blob/master/src/mocks.ts
 [ng-cli-sourcemaps]:  https://github.com/angular/angular-cli/pull/1799
-[package.json]:       https://github.com/lathonez/clicker/blob/4b2a6fa40500c998b96c1b8e6bc281b80eae80c9/package.json
-[polyfills.ts]:       https://github.com/lathonez/clicker/blob/4b2a6fa40500c998b96c1b8e6bc281b80eae80c9/src/polyfills.ts
+[package.json]:       https://github.com/lathonez/clicker/blob/master/package.json
+[polyfills.ts]:       https://github.com/lathonez/clicker/blob/master/src/polyfills.ts
 [so-ask]:             http://stackoverflow.com/questions/ask
-[test.ts]:            https://github.com/lathonez/clicker/blob/4b2a6fa40500c998b96c1b8e6bc281b80eae80c9/src/test.ts
-[tsconfig.json]:      https://github.com/lathonez/clicker/blob/4b2a6fa40500c998b96c1b8e6bc281b80eae80c9/tsconfig.json
-[tsconfig.spec.json]: https://github.com/lathonez/clicker/blob/4b2a6fa40500c998b96c1b8e6bc281b80eae80c9/src/tsconfig.spec.json
-[typings.d.ts]:       https://github.com/lathonez/clicker/blob/4b2a6fa40500c998b96c1b8e6bc281b80eae80c9/src/typings.d.ts
+[test.ts]:            https://github.com/lathonez/clicker/blob/master/src/test.ts
+[tsconfig.json]:      https://github.com/lathonez/clicker/blob/master/tsconfig.json
+[tsconfig.ng-cli.json]: https://github.com/lathonez/clicker/blob/master/tsconfig.ng-cli.json
+[tsconfig.spec.json]: https://github.com/lathonez/clicker/blob/master/src/tsconfig.spec.json
+[typings.d.ts]:       https://github.com/lathonez/clicker/blob/master/src/typings.d.ts
