@@ -14,7 +14,7 @@ So why is this blog still relevant? We spent [a lot of time and effort][clicker-
 * The repo is not mature and has a number of outstanding issues that make it unsuitable for production
 * It is meant to be a very lightweight example and will have minimal support from Ionic
 * It does not use angular/cli for testing, so lacks community support and resources
-* Ionic are ultimately looking to bake testing support directly into ionic-app-scripts anyway, so it the example repo is a stop-gap.
+* Ionic are ultimately looking to bake testing support directly into ionic-app-scripts anyway, so the example repo is a stop-gap.
 
 For ~large apps, or anything that needs production support, I recommend this setup. For small / side projects Ionic's example will probably suffice.
 
@@ -36,7 +36,7 @@ Into your project's root:
 
 * [.angular-cli.json][.angular-cli.json]: Angular Cli's config file
 * [karma.conf.js][karma.conf.js]: Karma's config file
-* [tsconfig.ng-cli.json][tsconfig.ng-cli..json]: Angular Cli's base compiler config
+* [tsconfig.ng-cli.json][tsconfig.ng-cli.json]: Angular Cli's base compiler config
 
 Into your project's `./src` folder
 

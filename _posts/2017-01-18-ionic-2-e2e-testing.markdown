@@ -26,7 +26,7 @@ Into your project's root:
 
 * [.angular-cli.json][.angular-cli.json]: Angular Cli's config file
 * [protractor.conf.js][protractor.conf.js]: Protractor's config file
-* [tsconfig.ng-cli.json][tsconfig.ng-cli..json]: Angular Cli's base compiler config
+* [tsconfig.ng-cli.json][tsconfig.ng-cli.json]: Angular Cli's base compiler config
 
 Into a newly created `./e2e` folder in your project's root:
 
