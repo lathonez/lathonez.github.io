@@ -49,7 +49,7 @@ For the lazy:
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>for file in .angular-cli.json karma.conf.js tconfig.ng-cli.json
+<code>for file in .angular-cli.json karma.conf.js tsconfig.ng-cli.json
 do
   wget https://raw.githubusercontent.com/lathonez/clicker/master/${file}
 done
