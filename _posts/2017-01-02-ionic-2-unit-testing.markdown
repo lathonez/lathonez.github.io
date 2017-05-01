@@ -270,8 +270,12 @@ If you can't get any of this working in your own project - follow the Debugging 
 
 If you have a general question about unit testing concepts (e.g. how can I write a unit test for `some-module`), see our [General Testing Help thread][clicker-issue-191].
 
-<div align="center"><iframe src="https://ghbtns.com/github-btn.html?user=lathonez&repo=clicker&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe></div>
+Say "Thanks"
+------------
 
+If the clicker project helped you out, show it some love by giving it a star on github <3:
+
+<div align="center"><iframe src="https://ghbtns.com/github-btn.html?user=lathonez&repo=clicker&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe></div>
 [.angular-cli.json]:   https://github.com/lathonez/clicker/blob/master/.angular-cli.json
 [blog-issue-new]:     https://github.com/lathonez/lathonez.github.io/issues/new
 [blog-repo]:          https://github.com/lathonez/lathonez.github.io
