@@ -1,11 +1,11 @@
 ---
 title:  "End to End testing an Ionic2 project"
-date:   2017-05-31 09:48:23
+date:   2017-06-26 09:48:23
 categories: [dev]
 tags: [ionic2, angular2, testing]
 ---
 
-**Updated for Ionic 3.3.0 and Angular 4.1.2**
+**Updated for Ionic 3.4.2 and Angular 4.1.3**
 
 **TL;DR** - I have an Ionic 2 project on github set up for E2E testing with [protractor][protractor-home], [dive in][clicker-repo], or read on.
 
@@ -16,7 +16,7 @@ Install dev dependencies
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>npm install --save-dev angular-cli @angular/router jasmine-spec-reporter protractor ts-node</code>
+<code>npm install --save-dev angular-cli @angular/router connect jasmine-spec-reporter protractor serve-static ts-node</code>
 </pre>
 </div>
 

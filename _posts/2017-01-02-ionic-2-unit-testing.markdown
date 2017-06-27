@@ -1,11 +1,11 @@
 ---
 title:  "Unit Testing an Ionic2 project"
-date:   2017-05-30 01:48:23
+date:   2017-06-26 01:48:23
 categories: [dev]
 tags: [ionic2, angular2, testing]
 ---
 
-**Updated for Ionic 3.3.0 and Angular 4.1.2**
+**Updated for Ionic 3.4.2 and Angular 4.1.3**
 
 This blog and [associated project][clicker-repo] have been around for over a year, since the early days of Ionic 2. Recently, Ionic have brought out an [official example repository][ionic-unit-testing-example] for unit testing.
 
