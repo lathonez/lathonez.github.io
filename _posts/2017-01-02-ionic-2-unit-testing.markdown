@@ -1,6 +1,6 @@
 ---
 title:  "Unit Testing an Ionic2 project"
-date:   2017-06-26 01:48:23
+date:   2017-07-12 01:48:23
 categories: [dev]
 tags: [ionic2, angular2, testing]
 ---
@@ -40,7 +40,6 @@ Into your project's root:
 
 Into your project's `./src` folder
 
-* [mocks.ts][mocks.ts]: Mocks for Ionic classes we'll need to stub out when testing
 * [polyfills.ts][polyfills.ts]: Pollyfills used by Angular Cli
 * [test.ts][test.ts]: Main entry point for our unit tests. **Remove references to ClickerServices as they won't be applicable to you**
 * [tsconfig.spec.json][tsconfig.spec.json]: Angular Cli's compiler config for spec files
@@ -56,7 +55,7 @@ done
 
 cd src
 
-for file in mocks.ts polyfills.ts test.ts tsconfig.spec.json
+for file in polyfills.ts test.ts tsconfig.spec.json
 do
   wget https://raw.githubusercontent.com/lathonez/clicker/master/src/${file}
 done</code>
@@ -91,19 +90,15 @@ test.ts
 The following function `configureIonicTestingModule` takes one or more of your components and sets up an Ionic test bed for them:
 
 ```javascript
-  public static configureIonicTestingModule(components: Array<any>): void {
-    TestBed.configureTestingModule({
+  public static configureIonicTestingModule(components: Array<any>): typeof TestBed {
+    return TestBed.configureTestingModule({
       declarations: [
         ...components,
       ],
       providers: [
-        {provide: App, useClass: ConfigMock},
-        {provide: Config, useClass: ConfigMock},
-        Form,
-        {provide: Keyboard, useClass: ConfigMock},
-        {provide: MenuController, useClass: ConfigMock},
-        {provide: NavController, useClass: NavMock},
-        {provide: Platform, useClass: PlatformMock},
+        App, Form, Keyboard, DomController, MenuController, NavController,
+        {provide: Platform, useFactory: () => PlatformMock.instance()},
+        {provide: Config, useFactory: () => ConfigMock.instance()},
         {provide: ClickersService, useClass: ClickersServiceMock},
       ],
       imports: [
@@ -151,7 +146,7 @@ Alternatively, you can write all this inline in your spec files (as opposed to u
       declarations: [MyComponent],
       providers: [
         App, Platform, Form, Keyboard, MenuController, NavController,
-        {provide: Config, useClass: ConfigMock},
+        {provide: Config, useFactory: () => ConfigMock.instance()},
       ],
       imports: [
         FormsModule,
@@ -293,7 +288,6 @@ If the clicker project helped you out, show it some love by giving it a star on 
 [lcov-app-ss]:        /images/ionic2_unit_testing/lcov-app-screenshot.png
 [lcov-home]:          http://ltp.sourceforge.net/coverage/lcov.php
 [lcov-index-ss]:      /images/ionic2_unit_testing/lcov-index-screenshot.png
-[mocks.ts]:           https://github.com/lathonez/clicker/blob/master/src/mocks.ts
 [ng-cli-sourcemaps]:  https://github.com/angular/angular-cli/pull/1799
 [package.json]:       https://github.com/lathonez/clicker/blob/master/package.json
 [polyfills.ts]:       https://github.com/lathonez/clicker/blob/master/src/polyfills.ts
