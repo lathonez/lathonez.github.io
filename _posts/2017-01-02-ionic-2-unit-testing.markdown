@@ -1,6 +1,6 @@
 ---
 title:  "Unit Testing an Ionic2 project"
-date:   2017-07-12 01:48:23
+date:   2017-07-25 01:48:23
 categories: [dev]
 tags: [ionic2, angular2, testing]
 ---
@@ -25,7 +25,7 @@ Install the following npm dev dependencies, or simply merge our [package.json][p
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>npm install --save-dev @angular/cli @angular/router @types/jasmine @types/node jasmine-core jasmine-spec-reporter karma karma-chrome-launcher karma-cli karma-jasmine karma-jasmine-html-reporter karma-coverage-istanbul-reporter</code>
+<code>npm install --save-dev @angular/cli @angular/router @types/jasmine @types/node ionic-mocks jasmine-core jasmine-spec-reporter karma karma-chrome-launcher karma-cli karma-jasmine karma-jasmine-html-reporter karma-coverage-istanbul-reporter</code>
 </pre>
 </div>
 
