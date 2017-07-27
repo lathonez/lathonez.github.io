@@ -7,7 +7,7 @@ tags: [ionic2, angular2, testing]
 
 **Updated for Ionic 3.4.2 and Angular 4.1.3**
 
-This blog and [associated project][clicker-repo] have been around for over a year, since the early days of Ionic 2. Recently, Ionic have brought out an [official example repository][ionic-unit-testing-example] for unit testing.
+This blog and [associated project][clicker-repo] have been around for over a year, since the early days of Ionic 2. Recently, Ionic have brought out an [official example repository][ionic-unit-testing-example] for unit testing. 
 
 So why is this blog still relevant? We spent [a lot of time and effort][clicker-issue-239] migrating the project over to the example setup. We found that:
 
