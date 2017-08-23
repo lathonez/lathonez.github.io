@@ -25,7 +25,8 @@ Install the following npm dev dependencies, or simply merge our [package.json][p
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>npm install --save-dev @angular/cli @angular/router @types/jasmine @types/node ionic-mocks jasmine-core jasmine-spec-reporter karma karma-chrome-launcher karma-cli karma-jasmine karma-jasmine-html-reporter karma-coverage-istanbul-reporter</code>
+<code>npm install --save-dev @angular/cli @angular/router @types/jasmine @types/node ionic-mocks jasmine-core jasmine-spec-reporter karma karma-chrome-launcher karma-cli karma-jasmine karma-jasmine-html-reporter karma-coverage-istanbul-reporter karma-junit-reporter
+</code>
 </pre>
 </div>
 
