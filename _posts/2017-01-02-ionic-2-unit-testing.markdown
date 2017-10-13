@@ -1,6 +1,6 @@
 ---
 title:  "Unit Testing an Ionic2 project"
-date:   2017-07-25 01:48:23
+date:   2017-10-13 01:48:23
 categories: [dev]
 tags: [ionic2, angular2, testing]
 ---
@@ -66,14 +66,15 @@ done</code>
 Modify existing Ionic config files:
 -----------------------------------
 
-Exclude test.ts and all our spec files in Ionic's [tsconfig.json][ion.tsconfig.json]:
+Add jasmine types in Ionic's [tsconfig.json][ion.tsconfig.json] (only necessary on Windows):
 
 ```yaml
-  "exclude": [
-    "node_modules",
-    "src/test.ts",
-    "**/*.spec.ts"
-  ],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "types": [
+     "jasmine"
+    ]
 ```
 
 Add the following line to the `scripts` object in your [package.json][package.json] (generating code coverage [breaks sourcemaps][ng-cli-sourcemaps], so we add an explicit option for it):

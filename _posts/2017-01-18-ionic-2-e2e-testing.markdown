@@ -1,6 +1,6 @@
 ---
 title:  "End to End testing an Ionic2 project"
-date:   2017-06-26 09:48:23
+date:   2017-10-13 09:48:23
 categories: [dev]
 tags: [ionic2, angular2, testing]
 ---
@@ -57,14 +57,15 @@ done</code>
 Modify existing Ionic config files:
 -----------------------------------
 
-Exclude test.ts and our e2e folder in Ionic's [tsconfig.json][ion.tsconfig.json]:
+Add jasmine types in Ionic's [tsconfig.json][ion.tsconfig.json] (only necessary on Windows):
 
 ```yaml
-  "exclude": [
-    "node_modules",
-    "src/test.ts",
-    "e2e"
-  ],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "types": [
+     "jasmine"
+    ]
 ```
 
 Add the following to your [gitignore][gitignore] file:
