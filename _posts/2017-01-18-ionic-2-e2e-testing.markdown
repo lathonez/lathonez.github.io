@@ -1,11 +1,11 @@
 ---
 title:  "End to End testing an Ionic2 project"
-date:   2017-10-13 09:48:23
+date:   2018-11-25 01:48:23
 categories: [dev]
 tags: [ionic2, angular2, testing]
 ---
 
-**Updated for Ionic 3.4.2 and Angular 4.1.3**
+**Updated for Ionic 3.9.2 and Angular 5.0.1**
 
 **TL;DR** - I have an Ionic 2 project on github set up for E2E testing with [protractor][protractor-home], [dive in][clicker-repo], or read on.
 
