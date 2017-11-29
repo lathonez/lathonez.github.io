@@ -58,9 +58,6 @@ Past Life
 
 <p align="center">
   <a href="http://lathonez.com/images/bridgey/old-1.jpeg"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/old-1.jpeg"></a>
-</p>
-
-<p align="center">
   <a href="http://lathonez.com/images/bridgey/old-2.jpeg"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/old-2.jpeg"></a>
 </p>
 
@@ -89,25 +86,17 @@ Before we could get cracking with the conversion, there was a bunch of stuff tha
 * No central locking
 * Original insulation on the floor was starting to melt / degrade
 
-We took the dash off, sorted out all the electrical issues, installed remote central locking and some reversing sensors for good measure:
+We took the dash off, sorted out all the electrical issues, installed remote central locking and some reversing sensors for good measure.
+
+Next we started scraping the tar smelling insulation off the back floor, a few days of scraping (and much inhaled acetone) later we were done.
 
 <p align="center">
-  <a href="http://lathonez.com/images/bridgey/dash-off.jpg"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/dash-off.jpg"></a>
+  <a href="http://lathonez.com/images/bridgey/dash-off.jpg"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/dash-off.jpg"></a>
+  <a href="http://lathonez.com/images/bridgey/masks.png"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/masks.png"></a>
+  <a href="http://lathonez.com/images/bridgey/floor-clean.jpg"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/floor-clean.jpg"></a>
 </p>
 
 lock-vid.mp4
-
-and then started scraping the tar smelling insulation off the back floor.
-
-<p align="center">
-  <a href="http://lathonez.com/images/bridgey/masks.png"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/masks.png"></a>
-</p>
-
-a few days of scraping (and much inhaled acetone) later we were done.
-
-<p align="center">
-  <a href="http://lathonez.com/images/bridgey/floor-clean.jpg"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/floor-clean.jpg"></a>
-</p>
 
 Conversion
 ----------
@@ -172,15 +161,9 @@ Sofabed
 -------
 
 <p align="center">
-  <a href="http://lathonez.com/images/bridgey/bed-1.jpg"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/bed-1.jpg"></a>
-</p>
-
-<p align="center">
-  <a href="http://lathonez.com/images/bridgey/bed-2.jpg"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/bed-2.jpg"></a>
-</p>
-
-<p align="center">
-  <a href="http://lathonez.com/images/bridgey/foam.jpg"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/bed-foam.jpg"></a>
+  <a href="http://lathonez.com/images/bridgey/bed-1.jpg"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/bed-1.jpg"></a>
+  <a href="http://lathonez.com/images/bridgey/bed-2.jpg"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/bed-2.jpg"></a>
+  <a href="http://lathonez.com/images/bridgey/foam.jpg"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/bed-foam.jpg"></a>
 </p>
 
 When working on the conversion we had one thing in mind - we wanted the van to be really comfortable and an environment you'd be happy spending some time in. Most of the vans we see on the road are very basic. The ones that are done well often have the bed permanently in "bed" mode, and really close to the roof. This is great for storage but doesn't make for a nice space to chill out.
@@ -203,19 +186,11 @@ Roof / Door Panels
 ------------------
 
 <p align="center">
-  <a href="http://lathonez.com/images/bridgey/door-card-upholst.jpg"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/door-card-upholst.jpg"></a>
+  <a href="http://lathonez.com/images/bridgey/door-card-upholst.jpg"><img style="max-width:25vh" src="http://lathonez.com/images/bridgey/door-card-upholst.jpg"></a>
+  <a href="http://lathonez.com/images/bridgey/door-card-pre.jpg"><img style="max-width:25vh" src="http://lathonez.com/images/bridgey/door-card-pre.jpg"></a>
+  <a href="http://lathonez.com/images/bridgey/door-card-on.jpg"><img style="max-width:25vh" src="http://lathonez.com/images/bridgey/door-card-on.jpg"></a>
+  <a href="http://lathonez.com/images/bridgey/roof-panel.jpg"><img style="max-width:25vh" src="http://lathonez.com/images/bridgey/roof-panel.jpg"></a>
 </p>
-
-<p align="center">
-  <a href="http://lathonez.com/images/bridgey/door-card-pre.jpg"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/door-card-pre.jpg"></a>
-</p>
-<p align="center">
-  <a href="http://lathonez.com/images/bridgey/door-card-on.jpg"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/door-card-on.jpg"></a>
-</p>
-<p align="center">
-  <a href="http://lathonez.com/images/bridgey/roof-panel.jpg"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/roof-panel.jpg"></a>
-</p>
-  
 
 These are mostly an aesthetic item, though the roof panels are also insulated with [shed roof insulation][shed-roof-insulation].
 
@@ -248,13 +223,9 @@ Due to the above constraints we were limited in the fixtures available to us:
 * Stove: We sacrificed an inbuilt stove, for kitchen storage. Additionally we didn't want to be cooking right in the back of the van anyway (cooking smells mean stinky van). We just use a portable butane stove (small cans).  
 
 <p align="center">
-  <a href="http://lathonez.com/images/bridgey/kitchen-1.jpg"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/kitchen-1.jpg"></a>
-</p>
-<p align="center">
-  <a href="http://lathonez.com/images/bridgey/kitchen-2.jpg"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/kitchen-2.jpg"></a>
-</p>
-<p align="center">
-  <a href="http://lathonez.com/images/bridgey/kitchen-3.jpg"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/kitchen-3.jpg"></a>
+  <a href="http://lathonez.com/images/bridgey/kitchen-1.jpg"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/kitchen-1.jpg"></a>
+  <a href="http://lathonez.com/images/bridgey/kitchen-2.jpg"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/kitchen-2.jpg"></a>
+  <a href="http://lathonez.com/images/bridgey/kitchen-3.jpg"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/kitchen-3.jpg"></a>
 </p>
 
 Cupboards
@@ -273,13 +244,9 @@ Lighting
 --------
 
 <p align="center">
-  <a href="http://lathonez.com/images/bridgey/lights-one.jpg"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/lights-one.jpg"></a>
-</p>
-<p align="center">
-<a href="http://lathonez.com/images/bridgey/lights-two.jpg"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/lights-two.jpg"></a>
-</p>
-<p align="center">
-  <a href="http://lathonez.com/images/bridgey/switches.jpg"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/switches.jpg"></a>
+  <a href="http://lathonez.com/images/bridgey/lights-one.jpg"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/lights-one.jpg"></a>
+  <a href="http://lathonez.com/images/bridgey/lights-two.jpg"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/lights-two.jpg"></a>
+  <a href="http://lathonez.com/images/bridgey/switches.jpg"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/switches.jpg"></a>
 </p>
 
 There are four different lights in the living area:
