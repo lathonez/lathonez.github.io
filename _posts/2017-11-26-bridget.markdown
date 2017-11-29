@@ -12,10 +12,12 @@ Bridget the Van
   <a href="http://lathonez.com/images/bridgey/fav.jpeg"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/fav.jpeg"></a>
 </p>
 
-  <a href="http://lathonez.com/images/bridgey/done-1.jpeg"><img style="max-width:25vh" src="http://lathonez.com/images/bridgey/done-1.jpeg"></a>
+<p align="center">
   <a href="http://lathonez.com/images/bridgey/done-2.jpeg"><img style="max-width:25vh" src="http://lathonez.com/images/bridgey/done-2.jpeg"></a>
   <a href="http://lathonez.com/images/bridgey/done-3.jpeg"><img style="max-width:25vh" src="http://lathonez.com/images/bridgey/done-3.jpeg"></a>
   <a href="http://lathonez.com/images/bridgey/done-4.jpeg"><img style="max-width:25vh" src="http://lathonez.com/images/bridgey/done-4.jpeg"></a>
+  <a href="http://lathonez.com/images/bridgey/done-1.jpeg"><img style="max-width:25vh" src="http://lathonez.com/images/bridgey/done-1.jpeg"></a>
+</p>
 
 In January 2017 Orla and I were living in Sydney. We needed a car. We were torn between a "sensible" car we could sleep in, like a Forester, or a van project.
 
