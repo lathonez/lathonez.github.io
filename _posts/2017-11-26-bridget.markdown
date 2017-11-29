@@ -93,10 +93,11 @@ Next we started scraping the tar smelling insulation off the back floor, a few d
 <p align="center">
   <a href="http://lathonez.com/images/bridgey/dash-off.jpg"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/dash-off.jpg"></a>
   <a href="http://lathonez.com/images/bridgey/masks.png"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/masks.png"></a>
-  <a href="http://lathonez.com/images/bridgey/floor-clean.jpg"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/floor-clean.jpg"></a>
 </p>
 
-lock-vid.mp4
+<p align="center">
+  <a href="http://lathonez.com/images/bridgey/floor-clean.jpg"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/floor-clean.jpg"></a>
+</p>
 
 Conversion
 ----------
@@ -109,7 +110,8 @@ Insulation
 ----------
 
 <p align="center">
-  <a href="http://lathonez.com/images/bridgey/lay-insulate.jpg"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/lay-insulate.jpg"></a>
+  <a href="http://lathonez.com/images/bridgey/lay-insulate.jpg"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/lay-insulate.jpg"></a>
+  <a href="http://lathonez.com/images/bridgey/playwood.jpg"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/playwood.jpg"></a>
 </p>
 
 To keep the van cool in the summer and warm in the winter, it's heavily insulated.
@@ -118,9 +120,6 @@ To keep the van cool in the summer and warm in the winter, it's heavily insulate
 * Walls:  7mm ply packed with [fibre wall insulation][fibre-wall-insulation]
 * Roof:   3mm ply under [shed roof insulation][shed-roof-insulation]
 
-<p align="center">
-  <a href="http://lathonez.com/images/bridgey/playwood.jpg"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/playwood.jpg"></a>
-</p>
 
 Floor / Wall Covering
 ---------------------
@@ -163,6 +162,9 @@ Sofabed
 <p align="center">
   <a href="http://lathonez.com/images/bridgey/bed-1.jpg"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/bed-1.jpg"></a>
   <a href="http://lathonez.com/images/bridgey/bed-2.jpg"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/bed-2.jpg"></a>
+</p>
+
+<p align="center">
   <a href="http://lathonez.com/images/bridgey/foam.jpg"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/bed-foam.jpg"></a>
 </p>
 
@@ -246,6 +248,9 @@ Lighting
 <p align="center">
   <a href="http://lathonez.com/images/bridgey/lights-one.jpg"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/lights-one.jpg"></a>
   <a href="http://lathonez.com/images/bridgey/lights-two.jpg"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/lights-two.jpg"></a>
+</p>
+
+<p align="center">
   <a href="http://lathonez.com/images/bridgey/switches.jpg"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/switches.jpg"></a>
 </p>
 
