@@ -99,13 +99,6 @@ Next we started scraping the tar smelling insulation off the back floor, a few d
   <a href="http://lathonez.com/images/bridgey/floor-clean.png" target="_blank"><img style="max-width:40vh" src="http://lathonez.com/images/bridgey/floor-clean.png"></a>
 </p>
 
-Conversion
-----------
-
-With all that done we were ready to get started on the conversion.
-
-The following sections briefly outline the work we did, roughly in order.
-
 Insulation
 ----------
 
@@ -232,14 +225,13 @@ Due to the above constraints we were limited in the fixtures available to us:
 Cupboards
 ---------
 
-<p align="center">
-  <a href="http://lathonez.com/images/bridgey/cupboard.jpg" target="_blank"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/cupboard.jpg"></a>
-</p>
-
-
 To make the van feel less "van" like inside - e.g. cover up the bare white metal and square things off, we built three internal cupboards, two on either side of the kitchen and one above.
 
-We installed cornicing which we use to hide the light strips and cut a couple of pieces of cladding to cover remaining van metal. 
+We installed cornicing which we use to hide the light strips and cut a couple of pieces of cladding to cover remaining van metal.
+
+<p align="center">
+  <a href="http://lathonez.com/images/bridgey/cupboard.jpg" target="_blank"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/cupboard.jpg"></a>
+</p> 
 
 Lighting
 --------
