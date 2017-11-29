@@ -8,9 +8,7 @@ tags: [vanlife, camper, conversion, combi, L300, delicia]
 Bridget the Van
 ---------------
 
-<p align="center">
-  <a href="http://lathonez.com/images/bridget/fav.jpeg"><img style="max-width:50vh" src="http://lathonez.com/images/bridgey/fav.jpeg"></a>
-</p>
+<a href="http://lathonez.com/images/bridgey/fav.jpeg"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/fav.jpeg"></a>
 
 In January 2017 Orla and I were living in Sydney. We needed a car. We were torn between a "sensible" car we could sleep in, like a Forester, or a van project.
 
