@@ -66,6 +66,12 @@ pre.lowlight code,
 
 .center-image
 {
-    margin: 0 auto;
-    display: block;
+  margin: 0 auto;
+  display: block;
+}
+
+.bridgey-single-image
+{
+  align: center;
+  max-width: 50vh;
 }
