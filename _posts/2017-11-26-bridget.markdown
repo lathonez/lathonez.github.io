@@ -8,6 +8,10 @@ tags: [vanlife, camper, conversion, combi, L300, delicia]
 Bridget the Van
 ---------------
 
+In January 2017 Orla and I were living in Sydney. We needed a car. We were torn between a "sensible" car we could sleep in, like a Forester, or a van project.
+
+We chose bridget and the rest is history. Her name comes from the NSW rego - BR27JG.
+
 <p align="center">
   <a href="http://lathonez.com/images/bridgey/fav.jpeg" target="_blank"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/fav.jpeg"></a>
 </p>
@@ -19,16 +23,8 @@ Bridget the Van
   <a href="http://lathonez.com/images/bridgey/done-1.jpeg" target="_blank"><img style="max-width:25vh" src="http://lathonez.com/images/bridgey/done-1.jpeg"></a>
 </p>
 
-In January 2017 Orla and I were living in Sydney. We needed a car. We were torn between a "sensible" car we could sleep in, like a Forester, or a van project.
-
-We chose bridget and the rest is history. Her name comes from the NSW rego - BR27JG.
-
 Why an L300?
 ------------
-
-<p align="center">
-  <a href="http://lathonez.com/images/bridgey/off-road.jpg" target="_blank"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/off-road.jpg"></a>
-</p>
 
 We had the following requirements for a camper:
 
@@ -53,13 +49,12 @@ Reasons we picked bridget:
 
 Retrospectively the conversion would have been easier on a T4 (as it's a T4 and there are so many examples), but we're glad we went with Bridget.
 
+<p align="center">
+  <a href="http://lathonez.com/images/bridgey/off-road.jpg" target="_blank"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/off-road.jpg"></a>
+</p>
+
 Past Life
 ---------
-
-<p align="center">
-  <a href="http://lathonez.com/images/bridgey/old-1.jpeg" target="_blank"><img style="max-width:40vh" src="http://lathonez.com/images/bridgey/old-1.jpeg"></a>
-  <a href="http://lathonez.com/images/bridgey/old-2.jpeg" target="_blank"><img style="max-width:40vh" src="http://lathonez.com/images/bridgey/old-2.jpeg"></a>
-</p>
 
 We bought Bridget off a mechanic in Hornsby. He'd built her out of two 4x4 L300s he salvaged. Originally he wanted to put a turbo diesel in her, but that didn't fly for some reason, so we were left with the 2.4 petrol EFI.
 
@@ -71,7 +66,12 @@ Aside from the engine recon and sticking 30k on the clock, he did the following:
 * Roof Bars
 * Lift Kit / Suspension (TODO)
 * Shoes
-* Rust Proofing 
+* Rust Proofing
+
+<p align="center">
+  <a href="http://lathonez.com/images/bridgey/old-1.jpeg" target="_blank"><img style="max-width:40vh" src="http://lathonez.com/images/bridgey/old-1.jpeg"></a>
+  <a href="http://lathonez.com/images/bridgey/old-2.jpeg" target="_blank"><img style="max-width:40vh" src="http://lathonez.com/images/bridgey/old-2.jpeg"></a>
+</p> 
 
 Remedial Work
 -------------
@@ -109,46 +109,40 @@ The following sections briefly outline the work we did, roughly in order.
 Insulation
 ----------
 
-<p align="center">
-  <a href="http://lathonez.com/images/bridgey/lay-insulate.jpg" target="_blank"><img style="max-width:40vh" src="http://lathonez.com/images/bridgey/lay-insulate.jpg"></a>
-  <a href="http://lathonez.com/images/bridgey/playwood.jpg" target="_blank"><img style="max-width:40vh" src="http://lathonez.com/images/bridgey/playwood.jpg"></a>
-</p>
-
 To keep the van cool in the summer and warm in the winter, it's heavily insulated.
 
 * Floor:  9mm ply atop [shed roof insulation][shed-roof-insulation]
 * Walls:  7mm ply packed with [fibre wall insulation][fibre-wall-insulation]
 * Roof:   3mm ply under [shed roof insulation][shed-roof-insulation]
 
+<p align="center">
+  <a href="http://lathonez.com/images/bridgey/lay-insulate.jpg" target="_blank"><img style="max-width:40vh" src="http://lathonez.com/images/bridgey/lay-insulate.jpg"></a>
+  <a href="http://lathonez.com/images/bridgey/playwood.jpg" target="_blank"><img style="max-width:40vh" src="http://lathonez.com/images/bridgey/playwood.jpg"></a>
+</p>
 
 Floor / Wall Covering
 ---------------------
+
+* Floor: Wood-look lino. We did lino instead of laminate for $$, water resistance and less height
+* Walls: Grey marine carpet. Hard waring, inoffensive, something we could get to stick to the plywood
 
 <p align="center">
   <a href="http://lathonez.com/images/bridgey/floor-wall-cover.jpg" target="_blank"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/floor-wall-cover.jpg"></a>
 </p>
 
-* Floor: Wood-look lino. We did lino instead of laminate for $$, water resistance and less height
-* Walls: Grey marine carpet. Hard waring, inoffensive, something we could get to stick to the plywood
-
 Wheel Arches
 ------------
-
-<p align="center">
-  <a href="http://lathonez.com/images/bridgey/wheel-arch.jpg" target="_blank"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/wheel-arch.jpg"></a>
-</p>
 
 We boxed the wheel arches in 7mm ply, which we covered in the same marine carpet as the walls. We put hinged lids on top so we could use what limited storage they offered, in 12mm pine DAR stained and varnished.
 
 We've used the same wood finish all over the van.
 
-Engine Box
-----------
-
 <p align="center">
-  <a href="http://lathonez.com/images/bridgey/engine-box.jpg" target="_blank"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/engine-box.jpg"></a>
+  <a href="http://lathonez.com/images/bridgey/wheel-arch.jpg" target="_blank"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/wheel-arch.jpg"></a>
 </p>
 
+Engine Box
+----------
 
 The engine in the van is under the front seats, so you get a bulge where the firewall of the engine comes into the back of the van.
 
@@ -156,17 +150,12 @@ We to boxed this off to get everything as square as possible. This also added a 
 
 Boxing method ditto wheel arches.
 
+<p align="center">
+  <a href="http://lathonez.com/images/bridgey/engine-box.jpg" target="_blank"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/engine-box.jpg"></a>
+</p>
+
 Sofabed
 -------
-
-<p align="center">
-  <a href="http://lathonez.com/images/bridgey/bed-1.jpg" target="_blank"><img style="max-width:40vh" src="http://lathonez.com/images/bridgey/bed-1.jpg"></a>
-  <a href="http://lathonez.com/images/bridgey/bed-2.jpg" target="_blank"><img style="max-width:40vh" src="http://lathonez.com/images/bridgey/bed-2.jpg"></a>
-</p>
-
-<p align="center">
-  <a href="http://lathonez.com/images/bridgey/foam.jpg" target="_blank"><img style="max-width:40vh" src="http://lathonez.com/images/bridgey/bed-foam.jpg"></a>
-</p>
 
 When working on the conversion we had one thing in mind - we wanted the van to be really comfortable and an environment you'd be happy spending some time in. Most of the vans we see on the road are very basic. The ones that are done well often have the bed permanently in "bed" mode, and really close to the roof. This is great for storage but doesn't make for a nice space to chill out.
 
@@ -184,15 +173,17 @@ For the mattress we took advice from [the foam shop we went to][foam-shop] who a
 
 The bed has the same dimensions as a double, but is much longer with the engine box and kitchen top taken into consideration.
 
-Roof / Door Panels
-------------------
+<p align="center">
+  <a href="http://lathonez.com/images/bridgey/bed-1.jpg" target="_blank"><img style="max-width:40vh" src="http://lathonez.com/images/bridgey/bed-1.jpg"></a>
+  <a href="http://lathonez.com/images/bridgey/bed-2.jpg" target="_blank"><img style="max-width:40vh" src="http://lathonez.com/images/bridgey/bed-2.jpg"></a>
+</p>
 
 <p align="center">
-  <a href="http://lathonez.com/images/bridgey/door-card-upholst.jpg" target="_blank"><img style="max-width:25vh" src="http://lathonez.com/images/bridgey/door-card-upholst.jpg"></a>
-  <a href="http://lathonez.com/images/bridgey/door-card-pre.jpg" target="_blank"><img style="max-width:25vh" src="http://lathonez.com/images/bridgey/door-card-pre.jpg"></a>
-  <a href="http://lathonez.com/images/bridgey/door-card-on.jpg" target="_blank"><img style="max-width:25vh" src="http://lathonez.com/images/bridgey/door-card-on.jpg"></a>
-  <a href="http://lathonez.com/images/bridgey/roof-panel.jpg" target="_blank"><img style="max-width:25vh" src="http://lathonez.com/images/bridgey/roof-panel.jpg"></a>
+  <a href="http://lathonez.com/images/bridgey/foam.jpg" target="_blank"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/bed-foam.jpg"></a>
 </p>
+
+Roof / Door Panels
+------------------
 
 These are mostly an aesthetic item, though the roof panels are also insulated with [shed roof insulation][shed-roof-insulation].
 
@@ -202,12 +193,15 @@ The door panels are covered in hard wearing outdoor furniture material, the roof
 
 We also replaced the original grey roof slats with the stained pine.
 
+<p align="center">
+  <a href="http://lathonez.com/images/bridgey/door-card-upholst.jpg" target="_blank"><img style="max-width:25vh" src="http://lathonez.com/images/bridgey/door-card-upholst.jpg"></a>
+  <a href="http://lathonez.com/images/bridgey/door-card-pre.jpg" target="_blank"><img style="max-width:25vh" src="http://lathonez.com/images/bridgey/door-card-pre.jpg"></a>
+  <a href="http://lathonez.com/images/bridgey/door-card-on.jpg" target="_blank"><img style="max-width:25vh" src="http://lathonez.com/images/bridgey/door-card-on.jpg"></a>
+  <a href="http://lathonez.com/images/bridgey/roof-panel.jpg" target="_blank"><img style="max-width:25vh" src="http://lathonez.com/images/bridgey/roof-panel.jpg"></a>
+</p>
+
 Kitchen
 -------
-
-<p align="center">
-  <a href="http://lathonez.com/images/bridgey/kitchen-done.jpg" target="_blank"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/kitchen-done.jpg"></a>
-</p>
 
 The kitchen was the most fiddly / technically challenging part of the conversion.
 
@@ -223,6 +217,11 @@ Due to the above constraints we were limited in the fixtures available to us:
 * Grey water: We sacrificed a waste water tank for more drinking water storage. The waste water drain is behind the rear left wheel, we just use a bucket. On reflection we're glad we did this than have less drinking water capacity. We fill the tank every 3 days as it is.
 * Cupboards / Drawers: There are two cupboards and two drawers in the kitchen. We found the storage to be sufficient (we have no other kitchen storage on the roof or otherwise).
 * Stove: We sacrificed an inbuilt stove, for kitchen storage. Additionally we didn't want to be cooking right in the back of the van anyway (cooking smells mean stinky van). We just use a portable butane stove (small cans).  
+
+
+<p align="center">
+  <a href="http://lathonez.com/images/bridgey/kitchen-done.jpg" target="_blank"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/kitchen-done.jpg"></a>
+</p>
 
 <p align="center">
   <a href="http://lathonez.com/images/bridgey/kitchen-1.jpg" target="_blank"><img style="max-width:40vh" src="http://lathonez.com/images/bridgey/kitchen-1.jpg"></a>
@@ -245,6 +244,12 @@ We installed cornicing which we use to hide the light strips and cut a couple of
 Lighting
 --------
 
+There are four different lights in the living area:
+
+* Original main cargo light with a super bright LED instead of the original bulb, wired to the house battery. Can be switched to come on via opening the door or flicking the light switch. We only really use this when we're cleaning.
+* Two "Warm" LED light strips (one on each side, separately switched). These give a lovely background light for relaxing in the evening. Use these all the time.
+* Two "White" LED spot lights above the worktop (switched together). We use these only when cooking.
+
 <p align="center">
   <a href="http://lathonez.com/images/bridgey/lights-one.jpg" target="_blank"><img style="max-width:40vh" src="http://lathonez.com/images/bridgey/lights-one.jpg"></a>
   <a href="http://lathonez.com/images/bridgey/lights-two.jpg" target="_blank"><img style="max-width:40vh" src="http://lathonez.com/images/bridgey/lights-two.jpg"></a>
@@ -254,18 +259,8 @@ Lighting
   <a href="http://lathonez.com/images/bridgey/switches.jpg" target="_blank"><img style="max-width:40vh" src="http://lathonez.com/images/bridgey/switches.jpg"></a>
 </p>
 
-There are four different lights in the living area:
-
-* Original main cargo light with a super bright LED instead of the original bulb, wired to the house battery. Can be switched to come on via opening the door or flicking the light switch. We only really use this when we're cleaning.
-* Two "Warm" LED light strips (one on each side, separately switched). These give a lovely background light for relaxing in the evening. Use these all the time.
-* Two "White" LED spot lights above the worktop (switched together). We use these only when cooking.
-
 House Electrics
 ---------------
-
-<p align="center">
-  <a href="http://lathonez.com/images/bridgey/leccy.jpg" target="_blank"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/leccy.jpg"></a>
-</p>
 
 As leccy is required for lots of various jobs along the way (kitchen / lighting), this went in over time.
 
@@ -278,12 +273,12 @@ The setup has been working well for us with a couple hours driving a day to char
 * 2 * 2.5 amp USB outlets
 * Bluetooth battery monitor. Provides real time house battery voltage + low voltage alarm 
 
+<p align="center">
+  <a href="http://lathonez.com/images/bridgey/leccy.jpg" target="_blank"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/leccy.jpg"></a>
+</p>
+
 Roof Storage
 ------------
-
-<p align="center">
-  <a href="http://lathonez.com/images/bridgey/roof.jpg" target="_blank"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/roof.jpg"></a>
-</p>
 
 The van came with a beast of a steel roof rack. We extended it to build a cage which can house various waterproof items:
 
@@ -297,7 +292,8 @@ The van came with a beast of a steel roof rack. We extended it to build a cage w
 Additionally we use 2 galvanised steel toolboxes (100L each - TODO confirm) to store stuff we don't use every day but don't want to get wet (bags, shoes, tools, etc).
 
 <p align="center">
-  <a href="http://lathonez.com/images/bridgey/awning.jpg" target="_blank"><img style="max-width:60vh" src="http://lathonez.com/images/bridgey/awning.jpg"></a>
+  <a href="http://lathonez.com/images/bridgey/roof.jpg" target="_blank"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/roof.jpg"></a>
+  <a href="http://lathonez.com/images/bridgey/awning.jpg" target="_blank"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/awning.jpg"></a>
 </p>
 
 We also fitted a 2.5 x 3m awning which is great for those sunny (or rainy) days. 
