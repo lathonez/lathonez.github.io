@@ -64,8 +64,8 @@ Aside from the engine recon and sticking 30k on the clock, he did the following:
 * Navara Spot Lights
 * Tints
 * Roof Bars
-* Lift Kit / Suspension (TODO)
-* Shoes
+* [Tough dog shocks][tough-dog]
+* [BF Goodrich Rugged Terrain 29"s][shoes]
 * Rust Proofing
 
 <p align="center">
@@ -104,9 +104,9 @@ Insulation
 
 To keep the van cool in the summer and warm in the winter, it's heavily insulated.
 
-* Floor:  9mm ply atop [shed roof insulation][shed-roof-insulation]
-* Walls:  7mm ply packed with [fibre wall insulation][fibre-wall-insulation]
-* Roof:   3mm ply under [shed roof insulation][shed-roof-insulation]
+* Floor:  9mm ply atop [thermalbrane][thermalbrane-link]
+* Walls:  7mm ply packed with [earthwooll][earthwool-link]
+* Roof:   3mm ply under [thermalbrane][thermalbrane-link]
 
 <p align="center">
   <a href="http://lathonez.com/images/bridgey/lay-insulate.jpg" target="_blank"><img style="max-width:40vh" src="http://lathonez.com/images/bridgey/lay-insulate.jpg"></a>
@@ -179,7 +179,7 @@ The bed has the same dimensions as a double, but is much longer with the engine 
 Roof / Door Panels
 ------------------
 
-These are mostly an aesthetic item, though the roof panels are also insulated with [shed roof insulation][shed-roof-insulation].
+These are mostly an aesthetic item, though the roof panels are also insulated with [thermalbrane][thermalbrane-link].
 
 We removed the existing van panels and cut duplicates out of 3mm mdf, replacing the push-tacs with new ones.
 
@@ -205,9 +205,9 @@ We also wanted to be able to have a "lid" on top of the kitchen, so when not usi
 
 Due to the above constraints we were limited in the fixtures available to us:
 
-* Fridge: The fridge is 20 litres - TODO confirm - and cools to about 20 degrees below the ambient temperature. The fridge is hidden in the worktop via a push-catch and is controlled by a digital control panel on the front of the kitchen.
-* Sink: The sink is 10 litres - TODO confirm - which is plenty big enough to do washing up. The faucet swings up and down to fit under the closed kitchen lid.  
-* Water: The water tank is 30L - TODO confirm -installed where the spare wheel usually lives (spare is now on the roof). A self-priming pump drives the water flow to the sink. 
+* Fridge: The fridge is 20 litres and cools to about 20 degrees below the ambient temperature. The fridge is hidden in the worktop via a push-catch and is controlled by a digital control panel on the front of the kitchen.
+* Sink: The sink is about 15 litres, plenty big enough to do washing up. The faucet swings up and down to fit under the closed kitchen lid.  
+* Water: The water tank is 30L, installed where the spare wheel usually lives (spare is now on the roof). A self-priming pump drives the water flow to the sink. 
 * Grey water: We sacrificed a waste water tank for more drinking water storage. The waste water drain is behind the rear left wheel, we just use a bucket. On reflection we're glad we did this than have less drinking water capacity. We fill the tank every 3 days as it is.
 * Cupboards / Drawers: There are two cupboards and two drawers in the kitchen. We found the storage to be sufficient (we have no other kitchen storage on the roof or otherwise).
 * Stove: We sacrificed an inbuilt stove, for kitchen storage. Additionally we didn't want to be cooking right in the back of the van anyway (cooking smells mean stinky van). We just use a portable butane stove (small cans).  
@@ -259,10 +259,10 @@ As leccy is required for lots of various jobs along the way (kitchen / lighting)
 
 The setup has been working well for us with a couple hours driving a day to charge the house battery.
 
-* 120 amp/hour AGM house battery (TODO confirm)
+* 120 amp/hour AGM house battery
 * [Ctek Dual DC-DC charger][ctek-dual]. These things are legit.
-* 120w solar panel permanently mounted on the roof (TODO confirm)
-* 2000w (max) / 1000w stable sine wave 240v AC inverter (TODO confirm), with 2 standard power outlets 
+* 100w solar panel permanently mounted on the roof
+* 2400w (max) / 1200w stable sine wave AC inverter, with 2x 240v power outlets 
 * 2 * 2.5 amp USB outlets
 * Bluetooth battery monitor. Provides real time house battery voltage + low voltage alarm 
 
@@ -282,7 +282,7 @@ The van came with a beast of a steel roof rack. We extended it to build a cage w
 * 10 litre backup water
 * Waste water bucket
 
-Additionally we use 2 galvanised steel toolboxes (100L each - TODO confirm) to store stuff we don't use every day but don't want to get wet (bags, shoes, tools, etc).
+Additionally we use 2 galvanised steel toolboxes (about 64L each) to store stuff we don't use every day but don't want to get wet (bags, shoes, tools, etc).
 
 <p align="center">
   <a href="http://lathonez.com/images/bridgey/roof.jpg" target="_blank"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/roof.jpg"></a>
@@ -294,7 +294,9 @@ We also fitted a 2.5 x 3m awning which is great for those sunny (or rainy) days.
 Curtains
 --------
 
-[pic of curtains] - dont have
+<p align="center">
+  <a href="http://lathonez.com/images/bridgey/curtains.png" target="_blank"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/curtains.png"></a>
+</p>
 
 I found a [guy on ebay][curtain-rails] making ultra low profile curtain rails to measure out of steel / nylon. These are excellent. We got some block-out curtains from Spotlight that keep the van nice and dark.
 
@@ -303,7 +305,9 @@ We also put a roll-up mozzie-screen between the kitchen cupboards so we can sit 
 Misc van stuff
 --------------
 
-[pic of steering wheel etc] - dont have
+<p align="center">
+  <a href="http://lathonez.com/images/bridgey/cockpit.jpeg" target="_blank"><img style="max-width:30vh" src="http://lathonez.com/images/bridgey/cockpit.jpeg"></a>
+</p>
 
 We've made the following improvements to the "van" / driving area, in addition to the camper conversion. 
 
@@ -311,11 +315,13 @@ We've made the following improvements to the "van" / driving area, in addition t
 * Tacho (so weird driving stick without a tacho!)
 * Dash carpet
 * Marine voltage meter / USB / 12V socket
-* Added extra engine insulation
+* Added extra engine insulation (earthwool)
 
-[curtain-rails]: TODO 
-[ctek-dual]: TODO
+[curtain-rails]: https://www.ebay.co.uk/itm/142211717441 
+[ctek-dual]: http://www.batteriesdirect.com.au/shop/product/23370/ctek-d250s-dual.html
 [off-road-vids]: https://www.youtube.com/watch?v=KikxgRkbV-c
-[shed-roof-insulation]: TODO
-[fibre-wall-insulation]: TODO
-[foam-shop]: TODO
+[thermalbrane-link]: http://www.ametalin.com/insulation-products/thermal-brane-4-insulation
+[tough-dog]: http://www.toughdogdealer.com.au/shock-absorbers.htm
+[earthwool-link]: http://www.knaufinsulation.com.au/content/earthwool-external-wall-batts
+[foam-shop]: http://homeupholsterer.com.au/Foam-Cut-to-Size
+[shoes]: https://tiresize.com/tires/BFGoodrich/Rugged-Terrain-TA-235-75R15.htm
