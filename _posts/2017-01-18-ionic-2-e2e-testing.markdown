@@ -16,7 +16,7 @@ Install dev dependencies
 
 <div class="highlighter-rouge">
 <pre class="lowlight">
-<code>npm install --save-dev angular-cli @angular/router connect jasmine-spec-reporter protractor serve-static ts-node</code>
+<code>npm install --save-dev angular-cli @angular/router connect jasmine-reporters jasmine-spec-reporter protractor serve-static ts-node</code>
 </pre>
 </div>
 
