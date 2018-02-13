@@ -42,7 +42,7 @@ Into your project's root:
 Into your project's `./src` folder
 
 * [polyfills.ts][polyfills.ts]: Pollyfills used by Angular Cli
-* [test.ts][test.ts]: Main entry point for our unit tests. **Remove references to ClickerServices as they won't be applicable to you**
+* [test.ts][test.ts]: Main entry point for our unit tests. **Remove references to ClickerServices and Translate!**
 * [tsconfig.spec.json][tsconfig.spec.json]: Angular Cli's compiler config for spec files
 
 For the lazy:
