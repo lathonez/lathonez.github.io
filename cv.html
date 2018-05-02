@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>Stephen Hazleton | Senior Software Engineer</title>
+<style type="text/css">
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section,
+summary {
+  display: block;
+}
+audio,
+canvas,
+video {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+audio:not([controls]) {
+  display: none;
+}
+[hidden] {
+  display: none;
+}
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+html,
+button,
+input,
+select,
+textarea {
+  font-family: sans-serif;
+}
+body {
+  margin: 0;
+}
+a:focus {
+  outline: thin dotted;
+}
+a:hover,
+a:active {
+  outline: 0;
+}
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+h2 {
+  font-size: 1.5em;
+  margin: 0.83em 0;
+}
+h3 {
+  font-size: 1.17em;
+  margin: 1em 0;
+}
+h4 {
+  font-size: 1em;
+  margin: 1.33em 0;
+}
+h5 {
+  font-size: 0.83em;
+  margin: 1.67em 0;
+}
+h6 {
+  font-size: 0.75em;
+  margin: 2.33em 0;
+}
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+b,
+strong {
+  font-weight: bold;
+}
+blockquote {
+  margin: 1em 40px;
+}
+dfn {
+  font-style: italic;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+p,
+pre {
+  margin: 1em 0;
+}
+pre,
+code,
+kbd,
+samp {
+  font-family: monospace, serif;
+  _font-family: 'courier new', monospace;
+  font-size: 1em;
+}
+pre {
+  white-space: pre;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+q {
+  quotes: none;
+}
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+small {
+  font-size: 75%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+dl,
+menu,
+ol,
+ul {
+  margin: 1em 0;
+}
+dd {
+  margin: 0 0 0 40px;
+}
+menu,
+ol,
+ul {
+  padding: 0 0 0 40px;
+}
+nav ul,
+nav ol {
+  list-style: none;
+  list-style-image: none;
+}
+img {
+  border: 0;
+  -ms-interpolation-mode: bicubic;
+}
+svg:not(:root) {
+  overflow: hidden;
+}
+figure {
+  margin: 0;
+}
+form {
+  margin: 0;
+}
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+legend {
+  border: 0;
+  padding: 0;
+  white-space: normal;
+  *margin-left: -7px;
+}
+button,
+input,
+select,
+textarea {
+  font-size: 100%;
+  margin: 0;
+  vertical-align: baseline;
+  *vertical-align: middle;
+}
+button,
+input {
+  line-height: normal;
+}
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  cursor: pointer;
+  -webkit-appearance: button;
+  *overflow: visible;
+}
+button[disabled],
+input[disabled] {
+  cursor: default;
+}
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box;
+  padding: 0;
+  *height: 13px;
+  *width: 13px;
+}
+input[type="search"] {
+  -webkit-appearance: textfield;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+textarea {
+  overflow: auto;
+  vertical-align: top;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+body.pdf {
+  color: black;
+}
+body.pdf a {
+  text-decoration: none;
+  color: black;
+}
+body.pdf .container {
+  width: 1000px;
+  margin: 0 auto;
+  padding: 0;
+  background: none;
+  border: none;
+  border-width: 8px 0 2px 0;
+  text-align: left;
+}
+body.pdf .resume {
+  position: relative;
+  padding: 40px 80px;
+}
+body.pdf a[href$='.pdf'] {
+  display: none;
+}
+body.pdf h1 {
+  letter-spacing: 0;
+  margin-top: 0;
+  font-size: 48px;
+  text-transform: none;
+}
+body.pdf h2 {
+  letter-spacing: 0;
+  text-transform: uppercase;
+  font-weight: normal;
+}
+body.pdf h3 {
+  float: left;
+  width: 20%;
+  font-style: normal;
+}
+body.pdf h3+p {
+  float: left;
+  width: 80%;
+}
+body.pdf blockquote {
+  top: 40px;
+  right: 50px;
+  position: absolute;
+}
+body.pdf ul li {
+  width: 33.33%;
+  float: left;
+}
+body.pdf ul dl {
+  margin: 0;
+  padding: 0.3em 0 0;
+}
+body.pdf ul dl dt {
+  font-size: 122%;
+  font-weight: normal;
+  margin: 0 0 .75em;
+}
+body.pdf ul dl dd {
+  padding: 0 4em 0 0;
+}
+body.pdf ol {
+  float: left;
+  width: 80%;
+  margin: .7em 0 0;
+}
+body.pdf ol li {
+  width: 33%;
+  margin: 0;
+}
+body.pdf ol li:nth-child(3n) {
+  width: 34%;
+}
+body.pdf ol li:nth-child(1),
+body.pdf ol li:nth-child(2),
+body.pdf ol li:nth-child(3) {
+  border-top: none;
+}
+body.pdf dl {
+  margin: .7em 0 0;
+  page-break-inside: avoid !important;
+  display: block;
+}
+body.pdf dl strong {
+  float: right;
+  margin-top: -2em;
+}
+body.pdf dl em {
+  font-size: 130%;
+  font-style: normal;
+}
+
+.clearfix {
+  zoom: 1;
+}
+.clearfix:after {
+  display: block;
+  visibility: hidden;
+  height: 0;
+  clear: both;
+  content: ".";
+}
+body {
+  font-family: 'Helvetica Neue', 'Helvetica', Arial, serif;
+  color: #444;
+}
+h1,
+h2,
+h3,
+h4,
+ul dl dt {
+  font-family: 'Helvetica Neue Light', 'Helvetica', Arial, serif;
+}
+h1:before {
+  content: "+";
+  font-weight: bold;
+  color: orange;
+  margin: -1em 0 0 -0.5em;
+  position: relative;
+  top: -0.4em;
+}
+.container {
+  margin: 0 auto;
+  padding: 0;
+  background: whiteSmoke;
+  border: solid #666;
+  border-width: 8px 0 2px 0;
+  text-align: left;
+}
+.resume {
+  position: relative;
+  padding: 10px 20px;
+}
+a {
+  color: #990003;
+}
+a[href$='.pdf'] {
+  display: inline-block;
+  background: #666;
+  color: white;
+  padding: 6px 12px;
+  margin-bottom: 6px;
+  text-decoration: none;
+}
+blockquote {
+  margin: 0;
+  padding: 0;
+  line-height: 1.4em;
+}
+hr {
+  display: block;
+  position: relative;
+  padding: 0;
+  margin: 18px auto;
+  width: 100%;
+  clear: both;
+  border: none;
+  border-top: 1px solid #CCC;
+  font-size: 1px;
+  line-height: 0;
+  overflow: visible;
+  page-break-after: avoid;
+}
+h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 36px;
+  letter-spacing: -1px;
+  font-weight: bold;
+}
+h2 {
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+  letter-spacing: -1px;
+  font-weight: bold;
+}
+h3 {
+  margin: 0;
+  padding: 0 0 .5em;
+  font-size: 150%;
+  font-weight: bold;
+}
+h3+p {
+  margin: 0 0 16px;
+  padding: 0;
+  display: block;
+  font-size: 104%;
+  line-height: 24px;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: table;
+}
+ul li {
+  margin: 0;
+  padding: 0;
+}
+ul dl {
+  margin: .3em 0 0;
+  padding: 0;
+  width: 100%;
+}
+ul dl dt {
+  font-size: 100%;
+}
+ul dl dd {
+  margin: 0 0 1em;
+  padding: 0 2em 0 0;
+  font-size: .8em;
+  line-height: 1.5em;
+}
+ol {
+  margin: 0;
+  padding: 0 0 .75em;
+  width: 80%;
+  display: inline-block;
+}
+ol li {
+  margin: 0 0 0 1em;
+  padding: 0;
+  border-top: 1px solid #CCCCCC;
+  width: 100%;
+  float: left;
+  list-style: none;
+  line-height: 24px;
+  font-size: 14px;
+}
+ol li:nth-child(1) {
+  border-top: none;
+}
+dl {
+  float: left;
+  display: block;
+  width: 75%;
+  margin: 0;
+  padding: 0;
+}
+dl dt {
+  margin: 0;
+  padding: 0;
+  font-size: 140%;
+}
+dl dd {
+  margin: 0 0 1.5em;
+  padding: 0;
+  font-size: 80%;
+  line-height: 1.4em;
+}
+dl strong {
+  display: block;
+}
+dl em {
+  display: block;
+  font-size: 110%;
+  margin: .15em 0 .5em;
+  font-style: bold;
+}
+dl dd li {
+  width: 100%;
+  margin: 0 1em 1em;
+  list-style-type: square;
+}
+dl dt {
+  display: block;
+  clear: both;
+}
+dl dt {
+  border-top: 1px solid #ccc;
+  padding-top: 1em;
+}
+h3 + dl dt:first-child {
+  border: 0;
+  padding-top: 0;
+}
+dl dd p:first-child {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 1.2em;
+}
+ul li dt {
+  border: 0;
+  padding-top: 0;
+}
+#footer {
+  display: none;
+}
+#footer + p {
+  width: 100%;
+  font-size: 11px;
+  text-align: center;
+}
+
+@media screen and (min-width: 37.5em) {
+  body {
+    padding: 2em 0;
+  }
+  blockquote {
+    top: 10px;
+    right: 50px;
+    position: absolute;
+  }
+  h1 {
+    margin-top: .5em;
+  }
+  ol {
+    margin: 0 0 0 1em;
+  }
+  ol li {
+    width: 50%;
+    margin: 0;
+  }
+  ol li:nth-child(1),
+  ol li:nth-child(2) {
+    border-top: none;
+  }
+}
+@media screen and (min-width: 57em) {
+  .container {
+    width: 912px;
+  }
+  .resume {
+    position: relative;
+    padding: 40px 50px;
+  }
+  blockquote {
+    top: 40px;
+    right: 50px;
+    position: absolute;
+  }
+  h1 {
+    margin-top: 0;
+    font-size: 48px;
+    letter-spacing: -1px;
+  }
+  h2 {
+    text-transform: uppercase;
+    letter-spacing: 3px;
+  }
+  h3 {
+    float: left;
+    width: 20%;
+  }
+  h3+p {
+    float: left;
+    width: 80%;
+  }
+  ul li {
+    width: 33.33%;
+    float: left;
+  }
+  ul dl dt {
+    font-size: 122%;
+    font-weight: normal;
+    margin-bottom: .75em;
+  }
+  ul dl dd {
+    padding: 0 4em 0 0;
+  }
+  ol {
+    float: left;
+    width: 80%;
+    margin: .6em 0 0;
+  }
+  ol li {
+    width: 33%;
+    margin: 0;
+  }
+  ol li:nth-child(3n) {
+    width: 34%;
+  }
+  ol li:nth-child(1),
+  ol li:nth-child(2),
+  ol li:nth-child(3) {
+    border-top: none;
+  }
+  dl strong {
+    float: right;
+    margin-top: -2em;
+  }
+  dl em {
+    font-size: 130%;
+    font-style: normal;
+  }
+}
+
+</style>
+</head>
+
+<body class="">
+
+<div class="container">
+    <div class="resume">
+        <h1>Stephen Hazleton</h1>
+
+<h2>Senior Software Engineer</h2>
+
+<p>&nbsp;</p>
+
+<blockquote>
+  <p><a href="resume.pdf">Download PDF</a><br>
+  <a href="mailto:shazleto@gmail.com">shazleto@gmail.com</a><br>
+  <a href="tel:+447429337552">+447429337552</a></p>
+</blockquote>
+
+<hr />
+
+<h3 id="profile">Profile</h3>
+
+<p>Senior Software Engineer with eight years&#8217; in the industry. As Wherewolf&#8217;s first technical hire I have spent the last two of them designing, building and delivering a successful SAAS product to market. Prior experience in a much larger organisation gives me excellent grounding as a technical manager and mentor, who has vast experience fixing urgent production issues.</p>
+
+<hr />
+
+<h3 id="experience">Experience</h3>
+
+<dl>
+<dt>Full Stack Developer (remote)</dt>
+<dd><em>Wherewolf Ltd</em>
+<strong>2015 - Present</strong>
+Wherewolf is a small startup based out of Queenstown, New Zealand, disrupting the adventure tourism industry. I am effectively their first technical hire, reporting directly to the CTO and CEO.<br><br>
+Over the last two years I have designed and built Wherewolf&#8217;s flagship SAAS product, which has been a huge success and allowed the company to scale and grow beyond what any of us thought possible.<br><br>
+The Wherewolf stack is Angular 4 / Typescript, Node.js and Postgres, running on Amazon EC2 / Amazon ECS (Docker).<br><br>
+~ Design and build <a href="https://itunes.apple.com/GB/app/id1229524816?mt=8">Wherewolf Arrivals iPad App</a><br>
+~ Introduce docker for continuous deployment<br>
+~ Liaise with C level staff on product direction and priority<br>
+~ Develop API features<br>
+~ Carry out database performance analysis<br>
+~ Create dev tooling<br>
+~ Modernise business processes and SDLC<br>
+~ Troubleshoot legacy web apps<br>
+~ Maintain production environments<br>
+~ Perform code reviews<br>
+~ Mentor developers</dd>
+
+<dt>Programming Teacher</dt>
+<dd><em>Sydney Programming School (code4fun)</em>
+<strong>Sep 2016 - Mar 2017</strong>
+Code4Fun are a commercial programming school in Sydney, Australia. I taught with them most afternoons and on occasional holiday camps.<br><br>
+Teaching classes and preparing courses provided a different take on patience and communication that I have since found useful professionally. Moreover, teaching to a student who has no grounding in a subject truly enforces your own knowledge of the fundamentals.<br><br>
+~ Teach programming to students aged 6-16 in groups of up to 22<br>
+~ Create and teach syllabi for Angular 2 (<a href="https://github.com/lathonez/powwow">WhatsApp clone</a>) and Python (<a href="https://github.com/lathonez/wangka">Aboriginal Translation Portal</a>)<br>
+~ Meet with parents to discuss student progress<br></dd>
+
+<dt>Technical Lead (Payments and Gaming)</dt>
+<dd><em>OpenBet</em>
+<strong>Dec 2013 - Jan 2015</strong>
+OpenBet are a London based trading platform providing software for most highstreet bookmakers in the UK, employing around 400 staff in 2015.<br><br>
+TLs at OpenBet handle the full management spectrum, from HR issues to performance appraisals. On the William Hill account, I was also responsible for managing the client&#8217;s expectations on payments integrations and fixed odds gaming.<br><br>
+In 2015, the OpenBet stack was vanilla JS / HTML, a TCL application server, running on IBM Informix.<br><br>
+~ Manage a team of eight including two remote staff based in Athens<br>
+~ Make high level system architecture decisions<br>
+~ Run technical workshops with clients<br>
+~ Introduce docker for development and test environments<br>
+~ Monitor system-wide performance<br>
+~ Perform code reviews<br>
+~ Take interviews<br>
+~ Always available for escalation 24/7</dd>
+
+<dt>Senior Problem Analyst (Tier III Support)</dt>
+<dd><em>OpenBet</em>
+<strong>Jun 2013 - Dec 2013</strong>
+The time I spent with the support team serves me daily. I learned why best practices should be adhered to, why concise yet thorough processes are crucial, how to write effective documentation, how to find bugs quickly - and not cause them in the first place.<br><br>
+Most of all I gained the skills required to perform complex tasks quickly and under intense pressure.<br><br>
+~ Field urgent technical support escalations<br>
+~ Perform diligent triage of incoming issues<br>
+~ Analyse full stack performance<br>
+~ Increase the knowledge base documentation<br>
+~ Work shifts out of hours / overnight<br>
+~ Review fixes with the development teams<br>
+~ Be aware of SLAs and prioritise work accordingly<br>
+~ Liaise with clients often under difficult circumstances</dd>
+
+<dt>Senior Developer</dt>
+<dd><em>OpenBet</em>
+<strong>Jan 2012 - Jun 2013</strong></dd>
+
+<dt>Developer</dt>
+<dd><em>OpenBet</em>
+<strong>Jun 2010 - Jan 2012</strong></dd>
+</dl>
+
+<hr />
+
+<h3 id="education">Education</h3>
+
+<dl>
+<dt>Lancaster University</dt>
+<dd><em>Computer Science BSc, First Class Honours</em>
+<strong>2007 - 2010</strong>
+Head of department prize for best third year performance</dd>
+</dl>
+
+<hr />
+
+<h3 id="tech">Tech</h3>
+
+<ol>
+<li>Angular 4+</li>
+<li>Typescript</li>
+<li>Node.js</li>
+<li>Docker</li>
+<li>AWS Ecosystem (EC2 / ECS)</li>
+<li>SQL, Postgres and Informix</li>
+<li>Python</li>
+<li>TCL</li>
+<li>Bash</li>
+<li>Unix</li>
+<li>XCode</li>
+<li>Cordova</li>
+</ol>
+
+<hr />
+
+<h3 id="certificates">Certificates</h3>
+
+<dl>
+<dt>Informix Database</dt>
+<dd><em>IBM</em>
+<strong>2012</strong>
+Informix training course lead by IBM focusing on performance analysis and optimisation</dd>
+
+<dt>Employee of the month</dt>
+<dd><em>Office Angels</em>
+<strong>2008</strong>
+Whilst temping during the university summer (Office Angel of the Month!)</dd>
+</dl>
+
+<hr />
+
+<h3 id="opensource">Open Source</h3>
+
+<ul>
+<li><dl>
+<dt><a href="https://github.com/lathonez/clicker">clicker</a></dt>
+<dd>An Ionic 3 / Angular 5 Seed Project
+<br></dd>
+</dl></li>
+<li><dl>
+<dt><a href="https://github.com/lathonez/clone-row">clone-row</a></dt>
+<dd>A Python utility to copy data between databases.</dd>
+</dl></li>
+<li><dl>
+<dt><a href="https://www.npmjs.com/package/angular2-signaturepad">angular2-signaturepad</a></dt>
+<dd>An Angular 4 signature pad component
+<br></dd>
+</dl></li>
+</ul>
+
+<hr />
+
+<h3 id="footer">footer</h3>
+
+<p>www: <a href="http://lathonez.com">http://lathonez.com</a> | github: <a href="https://github.com/lathonez">lathonez</a> | twitter: <a href="https://twitter.com/lathonez">lathonez</a> | stackoverflow: <a href="https://stackoverflow.com/users/5083721/lathonez">lathonez</a></p>
+
+<hr />
+
+    </div>
+</div>
+
+</body>
+</html>
